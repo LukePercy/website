@@ -1,5 +1,5 @@
 const userData = {
-  domain:"https://ljpercy.kiwi",
+  domain:"https://lpercy.vercel.app/",
   githubUsername: "LukePercy",
   name: "L.J Percy",
   creator:"manuarora700",
