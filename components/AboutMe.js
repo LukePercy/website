@@ -51,7 +51,7 @@ export default function AboutMe() {
                 Job Opportunities
               </h1>
               <p className="text-lg text-gray-600 mt-4 dark:text-gray-300">
-                I am currently working for 
+                I am currently employed  
                 <a 
                 href='https://catalyst.net.nz'
                 className="flex flex-row space-x-4 group"
