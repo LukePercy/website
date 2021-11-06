@@ -6,7 +6,7 @@ export default function FavouriteProjects() {
     <div className="bg-[#F1F1F1] -mt-20 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
         <header className="flex flex-col md:flex-row justify-between items-center pt-0 mx-0 md:my-0 lg:my-10">
-          <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-10 md:text-white dark:text-gray-600 text-left">
+          <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-300 my-20 md:my-10 md:text-white dark:text-gray-300 text-left">
             Create.
           </h1>
         </header>

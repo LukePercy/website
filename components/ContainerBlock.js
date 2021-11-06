@@ -11,7 +11,6 @@ export default function ContainerBlock({ children, ...customMeta }) {
   const meta = {
     title: "Luke Percy - Creative, Writer and agilist",
     description: `This is my site about me, my career and my projects`,
-    image: "/avatar.png",
     type: "website",
     ...customMeta,
   };

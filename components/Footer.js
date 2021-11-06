@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <p>&copy; {userData.name}. All Rights Reserved.</p>
           </div>
-          <div className="space-x-4 flex flex-row items-center dark:text-gray-700">
+          <div className="space-x-4 flex flex-row items-center dark:text-gray-400">
             <p>
               Theme by
               <div className="inline-block transform hover:scale-110 hover:-rotate-3 transition duration-300">
