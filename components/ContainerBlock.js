@@ -12,6 +12,7 @@ export default function ContainerBlock({ children, ...customMeta }) {
     title: "Luke Percy - Creative, writer and agilist",
     description: `This is my site about me, my career and my projects`,
     type: "website",
+    image: userData.avatarUrl,
     ...customMeta,
   };
   return (
