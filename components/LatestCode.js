@@ -58,11 +58,18 @@ export default function LatestCode({ repositories }) {
 }
 
 const GithubRepoCard = ({ latestRepo }) => {
+  let repoTitle;
+  if (!latestRepo.private){
+    repoTitle = <h1 className="font-semibold text-xl dark:text-gray-200 text-gray-700">
+      {latestRepo.name}
+    </h1>
+  } else {
+    repoTitle = <h1 className="font-semibold text-xl dark:text-gray-200 text-gray-700">
+    {latestRepo.name}<span className="mx-1.5 bg-yellow-500 text-yellow-900 py-2 px-3 rounded-full text-xs font-bold">Private</span></h1>
+  }
   return (
     <div className="github-repo">
-      <h1 className="font-semibold text-xl dark:text-gray-200 text-gray-700">
-        {latestRepo.name}
-      </h1>
+        {repoTitle}
       <p className="text-base font-normal my-4 text-gray-600 dark:text-gray-300">
         {latestRepo.description}
       </p>
