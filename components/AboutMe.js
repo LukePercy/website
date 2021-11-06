@@ -1,26 +1,11 @@
 import React from "react";
 import userData from "../constants/data";
+import Link from "next/link";
 
 export default function AboutMe() {
   return (
     <section className="bg-white dark:bg-gray-800">
       <div className="max-w-6xl mx-auto h-48 bg-white dark:bg-gray-800 dark:text-white">
-        <div>
-        <a href="/">
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          className="h-6 w-6" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor">
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth={2} 
-            d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-        </svg><p>Back</p>
-        </a>
-        </div>
         <h1 className=" text-5xl md:text-9xl font-bold py-6 text-center md:text-left dark:text-white">
           About Me.
         </h1>
@@ -32,12 +17,13 @@ export default function AboutMe() {
             style={{ lineHeight: "3rem" }}
           >
             {userData.about.title}<br/> I am currently working on {" "}
+            <Link href={userData.about.currentProjectUrl}>
             <a
               className="bg-purple-500 rounded-md px-2 py-1 text-white"
-              href={userData.about.currentProjectUrl}
             >
               {userData.about.currentProject}
             </a>
+            </Link>
           </p>
         </div>
       </div>
@@ -49,7 +35,7 @@ export default function AboutMe() {
               <h1 className="text-xl font-semibold text-gray-700 dark:text-gray-200">
                 Contact
               </h1>
-              <p className="text-lg text-gray-500 mt-4 dark:text-gray-300">
+              <p className="text-lg text-gray-600 mt-4 dark:text-gray-300">
                 You can send me an{" "}
                 <a
                   href={`mailto:${userData.email}`}
@@ -64,13 +50,13 @@ export default function AboutMe() {
               <h1 className="text-xl font-semibold text-gray-700 dark:text-gray-200">
                 Job Opportunities
               </h1>
-              <p className="text-lg text-gray-500 mt-4 dark:text-gray-300">
+              <p className="text-lg text-gray-600 mt-4 dark:text-gray-300">
                 I am currently working for 
                 <a 
                 href='https://catalyst.net.nz'
                 className="flex flex-row space-x-4 group"
                 >
-                  <p className="text-lg text-red-500 relative overflow-hidden dark:text-red-400">
+                  <p className="text-lg text-red-700 relative overflow-hidden dark:text-red-400">
                     <div className="absolute h-0.5 w-full bg-red-500 bottom-0 transform -translate-x-32 group-hover:translate-x-0 transition duration-300"></div>
                     catalyst.net.nz
                   </p>
@@ -96,7 +82,7 @@ export default function AboutMe() {
                   className="flex flex-row items-center space-x-4 group"
                 >
                   <div className="my-4">&rarr;</div>
-                  <p className="text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300">
+                  <p className="text-lg text-gray-600 font-mono relative overflow-hidden dark:text-gray-300">
                     <div className="absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300"></div>
                     Twitter
                   </p>
@@ -108,7 +94,7 @@ export default function AboutMe() {
                   className="flex flex-row items-center space-x-4 group"
                 >
                   <div className="my-4">&rarr;</div>
-                  <p className="text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300">
+                  <p className="text-lg text-gray-600 font-mono relative overflow-hidden dark:text-gray-300">
                     <div className="absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300"></div>
                     GitHub
                   </p>
@@ -120,7 +106,7 @@ export default function AboutMe() {
                   className="flex flex-row items-center space-x-4 group"
                 >
                   <div className="my-4">&rarr;</div>
-                  <p className="text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300">
+                  <p className="text-lg text-gray-600 font-mono relative overflow-hidden dark:text-gray-300">
                     <div className="absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300"></div>
                     LinkedIn
                   </p>
@@ -146,42 +132,52 @@ export default function AboutMe() {
               <img
                 src='/javascript.png'
                 className="h-20 w-20 mx-4 my-4"
+                alt="javascript"
               />
               <img
                 src="/typescript.png"
                 className="h-20 w-20 mx-4 my-4"
+                alt="Typescript"
               />
               <img
                 src="/html.png"
                 className="h-20 w-20 mx-4 my-4"
+                alt="HTML"
               />
               <img
                 src="/css.png"
                 className="h-20 w-20 mx-4 my-4"
+                alt="CSS"
               />
                <img
                 src="/GitHub-Mark-64px.png"
                 className="h-20 w-20 mx-4 my-4"
+                alt="Git and GitHub"
               />
               <img
                 src="/react.png"
                 className="h-20 w-20 mx-4 my-4"
+                alt="ReactJS"
               />
               <img
                 src="/mongodb.png"
                 className="h-20 w-20 mx-4 my-4"
+                alt="MongoDB and NoSQL Databases"
               />
               <img
                 src="/umbraco_logo_blue1.png"
                 className="h-20 w-20 mx-4 my-4"
+                alt="Umbraco CMS"
               />
               <img
                 src="/ss-opensource.png"
                 className="h-10 w-15 mx-4 my-8"
+                alt="Silverstripe CMS and framework"
               />
               <img
                 src="/drupal-wordmark.png"
                 className="h-10 w-15 mx-4 my-8"
+                alt="Drupal CMS"
               />
             </div>
           </div>

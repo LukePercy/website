@@ -6,7 +6,7 @@ export default function FavouriteProjects() {
     <div className="bg-[#F1F1F1] -mt-20 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
         <header className="flex flex-col md:flex-row justify-between items-center pt-0 mx-0 md:my-0 lg:my-10">
-          <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-300 my-20 md:my-10 md:text-white dark:text-gray-300 text-left">
+          <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-10 md:text-gray-500 dark:text-gray-300 text-left">
             Create.
           </h1>
         </header>
@@ -28,9 +28,6 @@ export default function FavouriteProjects() {
               <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-red-500 rounded-md px-2">
                 Getting Dicey Trading Cards
               </h1>
-              <h1 className="absolute bottom-10 left-10 text-gray-50 font-bold text-xl">
-                01
-              </h1>
             </div>
           </a>
           {/* Single card */}
@@ -48,9 +45,6 @@ export default function FavouriteProjects() {
               />
               <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-red-500 rounded-md px-2">
                 The Dark that Dwells Beneath Te Aro
-              </h1>
-              <h1 className="absolute bottom-10 left-10 text-gray-50 font-bold text-xl">
-                02
               </h1>
             </div>
           </a>

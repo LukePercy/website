@@ -1,5 +1,5 @@
 import React from "react";
-import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
+import { RoughNotationGroup } from "react-rough-notation";
 import { RainbowHighlight } from "./RainbowHighlight";
 import userData from "../constants/data";
 
@@ -11,12 +11,12 @@ export default function Hero() {
 
       <div className="w-full md:w-2/3 text-center md:text-left lg:p-20">
         <RoughNotationGroup show={true}>
-        <RainbowHighlight color={colors[0]}>
+        <RainbowHighlight color={colors[1]}>
             <h1 className="text-4xl md:text-8xl font-bold text-gray-700 dark:text-gray-200 my-2">
               Agilist.
             </h1>
           </RainbowHighlight>
-          <RainbowHighlight color={colors[1]}>
+          <RainbowHighlight color={colors[3]}>
             <h1 className="text-4xl md:text-8xl font-bold text-gray-700 dark:text-gray-200 my-2">
               Writer.
             </h1>
