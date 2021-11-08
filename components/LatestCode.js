@@ -63,7 +63,7 @@ const GithubRepoCard = ({ latestRepo }) => {
     </h1>
   } else {
     repoTitle = <h1 className="font-semibold text-xl dark:text-gray-200 text-gray-700">
-    {latestRepo.name}<span className="mx-1.5 bg-yellow-500 text-yellow-900 py-2 px-3 rounded-full text-xs font-bold">Private</span></h1>
+    {latestRepo.name}<span className="m-2 bg-yellow-500 text-yellow-900 p-2 px-3 rounded-full text-sm font-bold">Private</span></h1>
   }
   return (
     <div className="github-repo">
