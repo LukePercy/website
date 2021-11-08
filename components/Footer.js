@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="dark:text-white">
             <p>&copy; {userData.name}. All Rights Reserved.</p>
           </div>
-          <div className="space-x-4 flex flex-row items-center dark:text-gray-700">
+          <div className="space-x-4 flex flex-row items-center text-gray-300 dark:text-gray-700">
             <p>
               credit to
               <div className="inline-block transform hover:scale-110 hover:-rotate-3 transition duration-300">
