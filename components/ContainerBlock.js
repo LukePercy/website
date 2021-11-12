@@ -20,7 +20,7 @@ export default function ContainerBlock({ children, ...customMeta }) {
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
-        <meta content={meta.description} name="description" />
+        <meta name="description" content={meta.description} />
         <meta
           property="og:url"
           content={`${userData.domain}${router.asPath}`}
