@@ -14,7 +14,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="max-w-7xl  mx-auto px-4 py-10 md:py-20">
+    <div className="max-w-7xl mx-auto px-4 py-10 md:py-20">
       <div className="flex md:flex-row justify-between items-center">
         <div className="flex flex-col">
           <Link href="/">
@@ -22,7 +22,7 @@ export default function Navbar() {
               <h1 className="font-semibold text-xl dark:text-gray-100">
                 {userData.name}
               </h1>
-              <p className="text-base font-light text-gray-500 dark:text-gray-300">
+              <p className="text-base font-light text-gray-500 dark:text-gray-300 xsm:text-sm">
                 {userData.designation}
               </p>
             </a>
@@ -121,7 +121,7 @@ export default function Navbar() {
           </button>
         </div>
       </div>
-      <div className="space-x-8 block md:hidden mt-4">
+      {/* <div className="space-x-8 block md:hidden mt-4">
         <Link href="/about">
           <a className="text-base font-normal text-gray-600 dark:text-gray-300" aria-label="More about me">
             About
@@ -132,7 +132,7 @@ export default function Navbar() {
             Wip
           </a>
         </Link>
-        {/* <Link href="/projects">
+        <Link href="/projects">
           <a className="text-base font-normal text-gray-600 dark:text-gray-300">
             Projects
           </a>
@@ -146,8 +146,8 @@ export default function Navbar() {
           <a className="text-base font-normal text-gray-600 dark:text-gray-300">
             Contact
           </a>
-        </Link> */}
-      </div>
+        </Link>
+      </div> */}
     </div>
   );
 }

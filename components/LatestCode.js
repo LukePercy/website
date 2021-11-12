@@ -12,9 +12,9 @@ export default function LatestCode({ repositories }) {
   return (
     <section className="bg-[#F1F1F1] -mt-40 dark:bg-gray-900 pb-40">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center pt-20 mx-10 md:my-10 lg:my-10">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-20 xsm:pt-1 mx-10 md:my-10 lg:my-10">
         <header className="flex flex-col md:flex-row justify-between -pt-10 -mx-10 md:-my-10 lg:-my-10">
-          <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-10 md:text-gray-500 dark:text-gray-300 text-left">
+          <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-20 md:text-gray-500 dark:text-gray-300 text-left">
             Code.
           </h1>
         </header>

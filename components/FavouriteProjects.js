@@ -5,19 +5,19 @@ export default function FavouriteProjects() {
   return (
     <div className="bg-[#F1F1F1] -mt-20 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
-        <header className="flex flex-col md:flex-row justify-between items-center pt-0 mx-0 md:my-0 lg:my-10">
+        <header className="flex flex-col md:flex-row justify-between items-center xsm:pt-5 md:my-10 lg:my-10">
           <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-10 md:text-gray-500 dark:text-gray-300 text-left">
             Create.
           </h1>
         </header>
 
         {/* Grid starts here */}
-        <div className="grid md:grid-cols-4 gap-8 lg:-mt-8 pb-40">
+        <div className="grid md:grid-cols-4 gap-8 lg:-mt-8 pb-40 md:pb-20 sm:pb-5">
           {/* Single card */}
           <a
             href="https://www.twitch.tv/gettingdicey"
             target="_blank"
-            className="w-full block col-span-2 shadow-2xl"
+            className="w-full block col-span-3 sm:col-span-2 shadow-2xl"
           >
             <div className="relative overflow-hidden">
               <img
@@ -37,7 +37,6 @@ export default function FavouriteProjects() {
             target="_blank"
           >
             <div className="relative overflow-hidden">
-              {/* <div className="overlay absolute inset-0 bg-black bg-opacity-70 z-10"></div> */}
               <img
                 src="/TheDarkThatDwells.jpg"
                 alt="The Dark That Dwells Beneath Te Aro rated 4 stars on Amazon books"
