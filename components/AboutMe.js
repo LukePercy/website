@@ -11,9 +11,9 @@ export default function AboutMe() {
         </h1>
       </div>
       <div className="bg-[#F1F1F1] -mt-10 dark:bg-gray-900 dark:text-white">
-        <div className="text-container max-w-6xl mx-auto pt-20">
+        <div className="text-container max-w-6xl mx-auto pt-20 xsm:pt-10">
           <p
-            className="leading-loose text-2xl md:text-4xl font-semibold mx-4"
+            className="leading-relaxed text-2xl md:text-4xl sm:text-2xl xsm:text-base font-semibold mx-4"
             style={{ lineHeight: "3rem" }}
           >
             {userData.about.title}<br/> I am currently working on {" "}
