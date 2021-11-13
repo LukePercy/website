@@ -9,7 +9,9 @@
       "@lib/*": ["lib/*"],
       "@styles/*": ["styles/*"],
       "@hooks/*": ["hooks/*"],
-      "@constants/*": ["constants/*"]
+      "@constants/*": ["constants/*"],
+      "@fonts/*": ["fonts/*"],
+      "@public/*": ["public/*"]
     }
   }
 }

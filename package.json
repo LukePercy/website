@@ -9,13 +9,14 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "next": "10.x",
+    "next": "^12.x",
     "next-themes": "0.0.15",
-    "react": "17.x",
-    "react-dom": "17.x",
+    "react": "^17.x",
+    "react-dom": "^17.x",
     "react-rough-notation": "^1.0.1"
   },
   "devDependencies": {
+    "@babel/core": "7.16.0",
     "@types/react": "^17.0.34",
     "autoprefixer": "^10.3.1",
     "postcss": "^8.3.6",
