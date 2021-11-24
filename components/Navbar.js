@@ -51,7 +51,7 @@ export default function Navbar() {
                   : "text-gray-600 dark:text-gray-300 font-normal "
               }`}
             >
-              WIP{" "}
+              Work in Progress{" "}
               {router.asPath === "/wip"}
             </a>
           </Link>

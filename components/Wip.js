@@ -1,4 +1,7 @@
 import React from "react";
+import Link from 'next/link';
+import { format, parseISO } from 'date-fns';
+import { getAllPosts } from '../lib/data';
 
 export default function Wip() {
   return (
@@ -8,16 +11,41 @@ export default function Wip() {
           The Decks of the Hunter. <span className="block text-lg md:text-2xl md:text-left dark:text-white">(working title)</span>
         </h1>
       </div>
-      <div className="bg-[#F1F1F1] -mt-10 dark:bg-gray-900 dark:text-white">
-        <div className="text-container max-w-6xl mx-auto pt-20 xsm:pt-10">
-          <p 
-            className="leading-relaxed text-2xl md:text-4xl sm:text-2xl xsm:text-base font-semibold mx-4"
-            style={{ lineHeight: "3rem" }}
-            >Since the events of <a className="hover:text-purple-500 underline" href="https://www.amazon.com/Dark-that-Dwells-Beneath-Aro-ebook/dp/B092S7YPT6">The Dark that Dwells Beneath Te Aro</a>, 
-            investigative journalist Benton Bright tries to recover from his encounter with the Wellington Philosophical Society and the discovery of the book of Abzu.  
-          </p>
-        </div>
+      <div className="space-y-4">
+        {posts.map((item) => (
+          <BlogListItem key={item.slug} {...item} />
+        ))}
       </div>
     </section>
+  );
+}
+
+export async function getStaticProps() {
+  const allPosts = getAllPosts();
+  return {
+    props: {
+      posts: allPosts.map(({ data, content, slug }) => ({
+        ...data,
+        date: data.date.toISOString(),
+        content,
+        slug,
+      })),
+    },
+  };
+}
+
+function BlogListItem({ slug, title, date, content }) {
+  return (
+    <div className="border border-gray-100 shadow hover:shadow-md hover:border-gray-200 rounded-md p-4 transition duration-200 ease-in">
+      <div>
+        <Link href={`/wip/${slug}`}>
+          <a className="font-bold">{title}</a>
+        </Link>
+      </div>
+      <div className="text-gray-600 text-xs">
+        {format(parseISO(date), 'MMMM do, uuu')}
+      </div>
+      <div>{content.substr(0, 300)}</div>
+    </div>
   );
 }
