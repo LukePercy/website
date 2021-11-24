@@ -1,7 +1,7 @@
 import React from "react";
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
-import { getAllPosts } from '../lib/data';
+import { getAllPosts } from '../lib/blog/data';
 
 export default function Wip() {
   return (
