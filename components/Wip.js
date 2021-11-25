@@ -1,9 +1,9 @@
 import React from "react";
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
-import { getAllPosts } from '../lib/blog/data';
+import { getAllPosts } from '../lib/data';
 
-export default function Wip() {
+export default function Wip({posts}) {
   return (
     <section className="bg-white dark:bg-gray-800">
       <div className="max-w-6xl mx-auto h-48 bg-white dark:bg-gray-800 dark:text-white">

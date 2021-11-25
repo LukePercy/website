@@ -9,20 +9,24 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.4.0",
+    "axios": "^0.21.1",
     "date-fns": "^2.17.0",
     "gray-matter": "^4.0.2",
-    "axios": "^0.21.1",
     "next": "^12.x",
-    "next-themes": "0.0.15",
     "next-mdx-remote": "^2.1.3",
+    "next-themes": "0.0.15",
     "react": "^17.x",
     "react-dom": "^17.x",
     "react-rough-notation": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
+    "@tailwindcss/typography": "^0.4.0",
     "@types/react": "^17.0.34",
+    "fs": "^0.0.1-security",
     "autoprefixer": "^10.3.1",
+    "date-fns": "^2.17.0",
+    "gray-matter": "^4.0.2",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.7",
     "typescript": "^4.4.4"
