@@ -2,7 +2,7 @@ import ContainerBlock from '../../components/ContainerBlock';
 import { format, parseISO } from 'date-fns';
 import renderToString from 'next-mdx-remote/render-to-string';
 import hydrate from 'next-mdx-remote/hydrate';
-import { getAllPosts } from '../../lib/blog/data';
+import { getAllPosts } from '../../lib/data';
 
 export default function BlogPage({ title, date, content }) {
   const hydratedContent = hydrate(content);
