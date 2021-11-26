@@ -10,7 +10,7 @@ export default function Wip({posts}) {
           Work <span className="block text-lg md:text-2xl md:text-left dark:text-white">in Progress</span>
         </h1>
       </div>
-      <div className="space-y-4">
+      <div className="grid grid-cols-3 lg:-mt-8 pb-40 md:pb-20 sm:pb-5">
         {posts.map((item) => (
           <BlogListItem key={item.slug} {...item} />
         ))}
@@ -18,7 +18,6 @@ export default function Wip({posts}) {
     </section>
   );
 }
-
 function BlogListItem({ slug, title, date, content }) {
   return (
     <div className="border border-gray-100 shadow hover:shadow-md hover:border-gray-200 rounded-md p-4 transition duration-200 ease-in">
