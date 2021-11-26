@@ -6,9 +6,9 @@ import { getAllPosts } from '../../lib/data';
 
 export default function BlogPage({ title, date, content }) {
   const hydratedContent = hydrate(content);
-
   return (
       <ContainerBlock>
+        <>
         <title>{title}</title>
         <main>
         <div className="border-b-2 border-gray-200 mb-4">
@@ -19,6 +19,7 @@ export default function BlogPage({ title, date, content }) {
         </div>
         <div className="prose">{hydratedContent}</div>
       </main>
+      </>
       </ContainerBlock>
   );
 }
