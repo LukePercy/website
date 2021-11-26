@@ -8,16 +8,15 @@ export default function BlogPage({ title, date, content }) {
   const hydratedContent = hydrate(content);
   return (
       <ContainerBlock>
-        <div>
-        <title>{title}</title>
+        <div className="m-10"> 
         <main>
         <div className="border-b-2 border-gray-200 mb-4">
-          <h2 className="text-3xl font-bold">{title}</h2>
-          <div className="text-gray-600 text-md">
+          <h2 className="className=text-5xl md:text-6xl font-bold py-6 text-center md:text-left dark:text-white">{title}</h2>
+          <div className="text-gray-600 dark:text-white text-md">
             {format(parseISO(date), 'MMMM do, uuu')}
           </div>
         </div>
-        <div className="prose">{hydratedContent}</div>
+        <div className="prose dark:prose-dark">{hydratedContent}</div>
       </main>
       </div>
       </ContainerBlock>
