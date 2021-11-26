@@ -6,7 +6,7 @@ export default function Wip({posts}) {
   return (
     <section className="bg-white dark:bg-gray-800">
       <div className="max-w-6xl mx-auto h-48 bg-white dark:bg-gray-800 dark:text-white">
-        <h1 className=" text-5xl md:text-6xl xsm:text-2xl font-bold py-6 text-left dark:text-white">
+        <h1 className="text-5xl md:text-9xl xsm:text-2xl font-bold py-6 text-left dark:text-white">
           Work <span className="block text-lg md:text-2xl md:text-left dark:text-white">in Progress</span>
         </h1>
       </div>

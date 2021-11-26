@@ -2,14 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'fonts.css';
-
+@import "fonts.css";
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Inter var', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Inter var", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 a {
   color: inherit;
@@ -18,4 +17,62 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* Blockquote CSS */
+blockquote {
+  border-left: 3px solid purple;
+  font-family: inherit;
+  font-size: 1.25em;
+  font-style: italic;
+  line-height: 1.8em;
+  margin: 1.1em -4em;
+  padding: 1em 2em;
+  position: relative;
+  transition: 0.2s border ease-in-out;
+  z-index: 0;
+}
+.dark blockquote::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -4px;
+  height: 2em;
+  background-color: #111827;
+  width: 5px;
+  margin-top: -1em;
+}
+
+blockquote::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -4px;
+  height: 2em;
+  background-color: #fff;
+  width: 5px;
+  margin-top: -1em;
+}
+
+blockquote::after {
+  content: "\275E";
+  position: absolute;
+  top: 50%;
+  left: -0.5em;
+  color: purple;
+  font-family: "Ionicons";
+  font-style: normal;
+  font-size: 3rem;
+  line-height: 1em;
+  text-align: center;
+  text-indent: -2px;
+  width: 1em;
+  margin-top: -0.3em;
+}
+
+cite {
+  display: block;
+  font-size: 0.75em;
+  line-height: 1.8em;
+  margin-top: 1em;
 }
