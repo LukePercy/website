@@ -21,13 +21,13 @@ Host and Dungeon Master (whom I'll call our Product Owner) had a desire to intro
 
 There are a few ways viewers can support Twitch streamers, either following the channel, which is free, or paid methods such as Subscribing or buying and giving the channel 'Bits', a digital currency on the platform where you can buy a bundled amount and share with any channel you are watching with the click of a button.
 
-Twitch released a few years ago another support method, Channel Points. These accumulate beneath the chat (twitch viewers can interact with Streamers via chat messaging as well), as you watch the stream, you are awarded roughly 30 points per 15 minutes. Viewers can, like Bits, select and option below the chat to spend their channel points on various rewards.
+Twitch released a few years ago another support method, Channel Points. These accumulate beneath the chat (twitch viewers can interact with Streamers via chat messaging as well), as you watch the stream, you are awarded roughly 30 points per 15 minutes. Viewers can, like Bits, select an option below the chat to spend their Channel Points on various rewards curated by the broadcaster.
 
 # Could I do it?
 
 ---
 
-The first thing I did was sit down and take a look at twitch's developer docs. After about 2 hours of looking over the documentation, it did appear to have a very extensive [Rest Api](https://dev.twitch.tv/docs/api/).
+The first thing I did was sit down and take a look at Twitch's developer docs. After about 2 hours of looking over the documentation, it did appear to have a very extensive [Rest Api](https://dev.twitch.tv/docs/api/).
 
 The Product Owner and I had a chat on the community discord, so they could brief me on the idea, I then broke it down into a simpler user story.
 
@@ -64,7 +64,7 @@ My gut estimate was this was going to take 3 weekends of schedule, roughly spend
 
 ---
 
-Now that I had a PoC. It was time to understand if and how I could store data, thats where [MongoDB](https://cloud.mongodb.com/) came in. Now it was getting tricky. You see, there are some limitations with [Twitch Extensions](https://dev.twitch.tv/docs/extensions), particularily what you can, and cannot do client side in the extension itself. Twitch hosts the client side code to iframe the application in various views, Twitch do not provide a backend. I needed to store various things, OAuth API tokens, viewers card collection data etc. This needed a backend. After, a few hours of reading, I learned alot about twitch Extension architecture, such as the EBS or "Extension Backend Service". This has to be hosted by you, the Extension developer, and Twitch provides the preferred mechanisms to connect to that EBS using JWT or [JSON Web Tokens](https://jwt.io/).
+Now that I had a PoC. It was time to understand if and how I could store data, thats where [MongoDB](https://cloud.mongodb.com/) came in. Now it was getting tricky. You see, there are some limitations with [Twitch Extensions](https://dev.twitch.tv/docs/extensions), particularily what you can, and cannot do client side in the extension itself. Twitch hosts the client side code to iframe the application in various views, Twitch do not provide a backend. I needed to store various things, OAuth API tokens, viewers card collection data etc. This needed a backend. After, a few hours of reading, I learned alot about Twitch Extension architecture, such as the EBS or "Extension Backend Service". This has to be hosted by you, the Extension developer, and Twitch provides the preferred mechanisms to connect to that EBS using JWT or [JSON Web Tokens](https://jwt.io/).
 
 [Heroku](https://www.heroku.com/) to the rescue! Wow, we live in an amazing time in the web, I haven't been this excited since Flash and ActionScript...Anywho, Heroku _is a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud._ What this means, is I am able to easily set up a Node server on Heroku (for free) under the Hobyiest tier (though we are now paying for the $7 tier now that it's live), and it only took an hour to learn and deployments are simply a git commit. A Special thanks to my work colleque Feng, as here is where I got a bit stuck...
 
