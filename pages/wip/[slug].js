@@ -20,7 +20,8 @@ export default function BlogPage({ title, date, content }) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-8 dark:bg-gray-900 md:pt-5">
         <div className="p-4 sm:col-start-1 sm:col-span-3 md:col-start-3 md:col-span-4 lg:col-start-4 lg:col-span-2 rounded-lg">
-          <div className="dark:bg-gray-900 dark:prose-dark leading-relaxed prose">{hydratedContent}</div>
+            <div className="dark:prose-dark leading-relaxed prose">{hydratedContent}</div>
+            <div className="grid md:col-start-1 md:col-span-2">Here</div>
         </div>
       </div>
       </ContainerBlock>

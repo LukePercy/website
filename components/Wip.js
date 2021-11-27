@@ -36,9 +36,9 @@ function BlogListItem({ slug, title, date, blurb }) {
         {format(parseISO(date), 'MMMM do, uuu')}
       </div>
       <div className="pt-2 pb-3">{blurb}</div>
-      <div className="transform hover:scale-110 hover:-rotate-2 transition duration-300">
+      <div>
       <Link href={`/wip/${slug}`}>
-      <button className="rounded-md bg-white shadow-lg text-xl font-semibold dark:text-gray-700 hover:bg-purple-500 rounded-md px-2 py-1 dark:hover:text-white">Click to read this article</button>
+      <button className="hover:scale-110 hover:-rotate-3 transition duration-300 rounded-md bg-white shadow-lg text-xl font-semibold dark:text-gray-700 hover:bg-purple-500 rounded-md px-2 py-1 dark:hover:text-white">Click to read this article</button>
       </Link>
       </div>
     </div>
