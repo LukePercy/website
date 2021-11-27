@@ -12,7 +12,7 @@ export default function Wip({posts}) {
       </div>
       <div className="-mt-10 dark:bg-gray-900">
       <div className="grid grid-cols-3 pb-40 md:pb-20 sm:pb-5">
-        <div className="col-start-2">
+        <div className="xsm:col-start-1 xsm:col-span-3 md:col-start-2 md:col-span-1">
         {posts.map((item) => (
           <BlogListItem key={item.slug} {...item} />
         ))}

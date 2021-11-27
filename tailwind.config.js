@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   mode: "jit",
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
@@ -21,6 +23,7 @@ module.exports = {
   
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
+        ...defaultTheme.screens,
       },
     typography: (theme) => ({
       default: {
