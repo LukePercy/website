@@ -29,9 +29,9 @@ blockquote {
   margin: 1.1em -4em;
   padding: 1em 2em;
   position: relative;
-  transition: 0.2s border ease-in-out;
   z-index: 0;
 }
+
 .dark blockquote::before {
   content: "";
   position: absolute;
@@ -52,6 +52,7 @@ blockquote::before {
   background-color: #fff;
   width: 5px;
   margin-top: -1em;
+  border: none;
 }
 
 blockquote::after {
