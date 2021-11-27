@@ -95,7 +95,7 @@ A benefit is, moving things sever side actually cleared up a bug where if viewer
 
 ---
 
-![Release version one](/walkthrough1.gif "Animated gif of first release currently live")
+![Release version one](/Walkthrough1.gif "Animated gif of first release currently live")
 
 We did it team! We went live in October and the app is running and it still has some features and improvements to come. Though I will be taking a small break to write my second book, which I have been procrastinating from since starting this project, reduce work in progress!
 
