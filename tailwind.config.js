@@ -59,7 +59,6 @@ module.exports = {
             },
           },
       },
-
       dark: {
           css: {
               color: theme('colors.gray.300'),
@@ -117,7 +116,6 @@ module.exports = {
       },
   }),
     extend: {
-    typography: ['light','dark'],
       transitionDuration: {
         0: "0ms",
         2000: "2000ms",
@@ -146,7 +144,7 @@ module.exports = {
   },
   variants: {
     extend: {
-        typography: ['light','dark'],
+        typography: ['dark'],
     },
     display: ["responsive", "group-hover", "group-focus"],
   },

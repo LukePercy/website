@@ -9,7 +9,7 @@ blurb: An opportunity to learn to code. A twitch extension for https://twitch.tv
 ---
 
 As part of my weekly routine, Monday's at 7:30pm NZT I sit down for a couple of hours of Dungeons and Dragons from a local D&D crew.
-Hosted by anb old collegue of mine, [Getting Dicey](https://twitch.tv/gettingdicey) is alot of fun. Just, a bunch of kiwis having a laugh after work.
+Hosted by an old collegue of mine, [Getting Dicey](https://twitch.tv/gettingdicey) is alot of fun. Just, a bunch of kiwis having a laugh after work.
 
 The twitch stream has been rather successful over the last 3 years, gaining over 900 followers, with plenty of regulars and subscribers tuning in every Monday from around the world (_waves_ to Kyosti).
 
