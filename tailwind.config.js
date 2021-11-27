@@ -117,6 +117,7 @@ module.exports = {
       },
   }),
     extend: {
+    typography: ['light','dark'],
       transitionDuration: {
         0: "0ms",
         2000: "2000ms",
@@ -144,7 +145,9 @@ module.exports = {
     }
   },
   variants: {
-    extend: {},
+    extend: {
+        typography: ['light','dark'],
+    },
     display: ["responsive", "group-hover", "group-focus"],
   },
   plugins: [require('@tailwindcss/typography')],

@@ -23,7 +23,7 @@ export default function Wip({posts}) {
   );
 }
 
-function BlogListItem({ slug, title, date, content }) {
+function BlogListItem({ slug, title, date, blurb }) {
   return (
     <div className="pt-5">
     <div className="border border-gray-100 shadow hover:shadow-md hover:border-gray-200 rounded-md p-4 transition duration-200 ease-in">
@@ -35,8 +35,8 @@ function BlogListItem({ slug, title, date, content }) {
       <div className="text-gray-900 text-sm dark:text-white">
         {format(parseISO(date), 'MMMM do, uuu')}
       </div>
-      <div className="pt-2 pb-3">{content.substr(0, 240)}</div>
-      <div className="transform hover:scale-105 transition duration-300">
+      <div className="pt-2 pb-3">{blurb}</div>
+      <div className="transform hover:scale-110 hover:-rotate-2 transition duration-300">
       <Link href={`/wip/${slug}`}>
       <button className="rounded-md bg-white shadow-lg text-xl font-semibold dark:text-gray-700 hover:bg-purple-500 rounded-md px-2 py-1 dark:hover:text-white">Click to read this article</button>
       </Link>

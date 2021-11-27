@@ -20,7 +20,7 @@ export default function BlogPage({ title, date, content }) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-8 dark:bg-gray-900 md:pt-5">
         <div className="p-4 md:col-start-4 col-span-2 rounded-lg">
-          <div className="dark:bg-gray-900 prose-default dark:prose-dark">{hydratedContent}
+          <div className="dark:bg-gray-900 prose dark:prose-dark leading-relaxed">{hydratedContent}
         </div>
         </div>
       </div>
