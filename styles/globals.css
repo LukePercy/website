@@ -24,13 +24,18 @@ a {
 blockquote {
   border-left: 3px solid purple;
   font-family: inherit;
-  font-size: 1.25em;
   font-style: italic;
   line-height: 1.8em;
   margin: 1.1em -4em;
   padding: 1em 2em;
   position: relative;
   z-index: 0;
+}
+
+@media only screen and (max-width: 480px) {
+  .dark .light blockquote {
+    margin: 0;
+  }
 }
 
 .dark blockquote::before {
