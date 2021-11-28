@@ -53,7 +53,7 @@ I had several locations in mind the protagonists ends up, until the big ending, 
 
 ---
 
-English is hard, I also feel like punctuation can be subjective at times. But, the best tool you have is your users, or readers in my case Sharing my work with others offered some great feedback, and the great thing about the KDP platform is that you can fix mistakes at anytime and any new book printed comes with those fixes, and your e-book updates automatically when you upload a new manuscript file.
+English is hard, I also feel like punctuation can be subjective at times. But, the best tool you have is your users, or readers in my case sharing my work with others offered some great feedback, and the great thing about the KDP platform is that you can fix mistakes at anytime and any new book printed comes with those fixes, and your e-book updates automatically when you upload a new manuscript file.
 
 For the first months of release, I first printed a proof copy, read it over a few times, fixed a few issues, then I printed a few paperback author copies and send some friends and workmates a copy of the manuscript for constructive critisim. Poeple tend to respond posititvely about the story and the book, and provided some edits here and there.
 
