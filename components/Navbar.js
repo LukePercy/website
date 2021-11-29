@@ -14,15 +14,15 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 md:py-20">
+    <div className="max-w-7xl mx-auto px-4 py-10 md:py-10 lg:py-5 xsm:pt-0 xsm:pb-0">
       <div className="flex md:flex-row justify-between items-center">
         <div className="flex flex-col">
           <Link href="/">
             <a>
-              <h1 className="font-semibold text-xl dark:text-gray-100">
+              <h1 className="font-semibold text-xl dark:text-gray-100 xsm:pt-10 ">
                 {userData.name}
               </h1>
-              <p className="text-base font-light text-gray-500 dark:text-gray-300 ">
+              <p className="text-base font-light text-gray-500 dark:text-gray-300 xsm:invisible md:visible">
                 {userData.designation}
               </p>
             </a>

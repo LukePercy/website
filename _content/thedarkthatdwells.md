@@ -4,7 +4,7 @@ date: 2021-04-14
 blurb: I was inspired to learn to publish my own book, 3 months later and it was on Amazon
 ---
 
-# Preamble
+## Preamble
 
 ---
 
@@ -14,7 +14,7 @@ I felt proud of myself, I think the teacher was also, or maybe she enjoyed the p
 
 Since then, most of my writing has been in video game magazines, software development proposals or contracts. There was definately an itch to learn to write a novel or short story at some stage.
 
-# The Idea
+## The Idea
 
 ---
 
@@ -23,7 +23,7 @@ I participated in a text adventure with our online friends during COVID lockdown
 
 It was such a great experience, I had an idea to write out that adventure from my own characters perspective.
 
-# Learning to publish a book
+## Learning to publish a book
 
 ---
 
@@ -31,7 +31,7 @@ For this project I didn't set out to write something to make money from it. I wa
 
 I didn't really have a well established or thought out process for writing a book, so I simply just started by opening a word processor on my computer and began from the start. I knew I didn't want to focus on spelling and grammar, like my "blogs" I just write what I think, and do my best to tidy it up later, I think you get a more personable reading experience. One of my friends (hi Russ) has always insisted he review my emails, documentation, and proposals, and he said I am getting better, which is what counts in my book. In any case, spelling and grammer can be fixed later in the process.
 
-# Kindle Direct Publishing
+## Kindle Direct Publishing
 
 ---
 
@@ -41,7 +41,7 @@ And interesting thing about KDP is, while you start with a Kindle or e-book rele
 
 A thing to note with KDP. If you are intending to make money, know they withhold the revenue until it reaches a threshold of $100 of your countries currency, and depending on your book it may take some time before this threshold is met.
 
-# The writing process
+## The writing process
 
 ---
 
@@ -49,7 +49,7 @@ It was 2 months in and I had a bulk of the 79 page story done. Spending 2 hours 
 
 I had several locations in mind the protagonists ends up, until the big ending, so I was simply peicing the journey together, filling in dialogue and events on the way.
 
-# Grammar and structure
+## Grammar and structure
 
 ---
 
@@ -59,7 +59,7 @@ For the first months of release, I first printed a proof copy, read it over a fe
 
 Now I have a hardcover available, it may still have one or two incorrect spellings "heals" vs "heels" (thanks Barb), so far readers have enjoyed what matters, the story.
 
-# Dont be afraid to just start
+## Dont be afraid to just start
 
 ---
 

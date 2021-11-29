@@ -4,7 +4,7 @@ date: 2021-11-14
 blurb: Technical -  An opportunity to learn to code. A Twitch Extension for https://twitch.tv/gettingdicey
 ---
 
-# Preamble
+## Preamble
 
 ---
 
@@ -13,7 +13,7 @@ Hosted by an old collegue of mine, [Getting Dicey](https://twitch.tv/gettingdice
 
 The Twitch stream has been rather successful over the last 3 years, gaining over 900 followers, with plenty of regulars and subscribers tuning in every Monday from around the world (_waves_ to Kyosti).
 
-# The Idea
+## The Idea
 
 ---
 
@@ -23,7 +23,7 @@ There are a few ways viewers can support Twitch streamers, either following the 
 
 Twitch released a few years ago another support method, Channel Points. These accumulate beneath the chat (twitch viewers can interact with Streamers via chat messaging as well), as you watch the stream, you are awarded roughly 30 points per 15 minutes. Viewers can, like Bits, select an option below the chat to spend their Channel Points on various rewards curated by the broadcaster.
 
-# Could I do it?
+## Could I do it?
 
 ---
 
@@ -50,17 +50,13 @@ I wanted to learn a few things with the proof of concept:
 
 My gut estimate was this was going to take 3 weekends of schedule, roughly spending 2 hours each day, and my lovely wife would take the kids out for a couple of Saturdays so I could spend roughly 3 to 6 hours each weekend. That was my goal, and enough to keep me motivated.
 
-# and 3 weekends later...I had a PoC.
-
----
-
----
+### and 3 weekends later...I had a PoC.
 
 ---
 
 ![Proof of Concept of trading cards](/GDCollectionPrototype.gif "Animated gif of prototype") ![Proof of Concept of trading cards card flip](/GDflipfix.gif "Animated gif of prototype")
 
-# PoC TICK!
+## PoC TICK!
 
 ---
 
@@ -77,9 +73,7 @@ I learned HEAPS here:
 
 This took a fair bit to do, lots of trial and error, but with some perseverance, and some help from what I consider a real developer, we got it all working.
 
-# Twitch APIs and ComfyJs
-
----
+## Twitch APIs and ComfyJs
 
 ---
 
@@ -87,11 +81,7 @@ This part was actually pretty simple, I had come accross a open source JavaScrip
 
 A benefit is, moving things sever side actually cleared up a bug where if viewers had the stream open in more than one browser tab they could unlock multiple cards for each screen they had open, yup, thats software dev, you never really know what will happen until users get a hold of it. We had run a few live tests with a few users during development, it was hugely helpful to see how different viewers interacted with the app.
 
-# Release v1 - 3 Months after POC
-
----
-
----
+## Release v1 - 3 Months after POC
 
 ---
 

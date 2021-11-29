@@ -33,8 +33,20 @@ blockquote {
 }
 
 @media only screen and (max-width: 480px) {
-  .dark .light blockquote {
+  blockquote {
     margin: 0;
+    padding: 0;
+    line-height: normal;
+    font-style: normal;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  blockquote {
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    font-style: normal;
   }
 }
 

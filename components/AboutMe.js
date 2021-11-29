@@ -6,15 +6,13 @@ export default function AboutMe() {
   return (
     <section className="bg-white dark:bg-gray-800">
       <div className="max-w-6xl mx-auto h-48 bg-white dark:bg-gray-800 dark:text-white">
-        <h1 className="text-5xl md:text-9xl font-bold py-6 text-center md:text-left dark:text-white">
+        <h1 className="text-5xl md:text-9xl font-bold py-6 text-center xsm:py-2 md:text-left dark:text-white">
           About<span className="text-lg">me.</span>
         </h1>
       </div>
       <div className="bg-[#F1F1F1] -mt-10 dark:bg-gray-900 dark:text-white">
-        <div className="text-container max-w-6xl mx-auto pt-20 xsm:pt-10">
-          <p
-            className="leading-relaxed text-2xl md:text-4xl sm:text-2xl xsm:text-base font-semibold mx-4"
-            style={{ lineHeight: "3rem" }}
+        <div className="text-container max-w-6xl mx-auto pt-20">
+          <p className="leading-relaxed xsm:text-base sm:text-2xl md:text-4xl font-semibold mx-4"
           >
             {userData.about.title}<br/> I am currently working on {" "}
             <Link href={userData.about.currentProjectUrl}>
@@ -129,8 +127,8 @@ export default function AboutMe() {
               </p>
             ))}
 
-            <h1 className="text-3xl rounded-md px-2 py-1 inline-block font-bold">
-              I love working with the following tech
+            <h1 className="text-3xl rounded-md px-2 py-1 inline-block font-bold dark:text-gray-300">
+              I love working with the following technologies
             </h1>
             <div className="flex flex-row flex-wrap mt-8">
               <img
