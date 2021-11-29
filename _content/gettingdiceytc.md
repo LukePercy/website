@@ -39,7 +39,7 @@ The Product Owner and I had a chat on the community discord, so they could brief
 
 From here I could break down the objectives...But before I open an editor, more research was needed. I knew [Twitch Extensions](https://dev.twitch.tv/docs/extensions) existed, I knew there was a developer community out there, and I hadn't written any code in a very long time...
 
-## Presentation PoC
+## Presentation Proof of Concept
 
 ---
 
@@ -71,7 +71,7 @@ Now that I had a PoC. It was time to understand if and how I could store data, t
 I learned HEAPS here:
 
 - Nodejs
-- Autheticated Headers
+- Authenticated Headers
 - fetch
 - CORS...so much CORS
 
@@ -83,7 +83,7 @@ This took a fair bit to do, lots of trial and error, but with some perseverance,
 
 ---
 
-This part was actually pretty simple, I had come accross a open source javaScript library from Twitch developer [instafluff](https://www.instafluff.tv/) called [Comfyjs](https://github.com/instafluff/ComfyJS). This essentially reduced a ton of effort to set up the functionality to unlock cards. But, it did introduce a problem, I originally had this in the client side application. Without thinking too much about how authentication works on Twitch Extensions, so a big learning for me here is that Twitch has no (to my knowledge) way of setting up environment variables or secrets. These need to be stored on your EBS, and thus a refactor was needed to put it all server side on Heroku.
+This part was actually pretty simple, I had come accross a open source JavaScript library from Twitch developer [instafluff](https://www.instafluff.tv/) called [Comfyjs](https://github.com/instafluff/ComfyJS). This essentially reduced a ton of effort to set up the functionality to unlock cards. But, it did introduce a problem, I originally had this in the client side application. Without thinking too much about how authentication works on Twitch Extensions, so a big learning for me here is that Twitch has no (to my knowledge) way of setting up environment variables or secrets. These need to be stored on your EBS, and thus a refactor was needed to put it all server side on Heroku.
 
 A benefit is, moving things sever side actually cleared up a bug where if viewers had the stream open in more than one browser tab they could unlock multiple cards for each screen they had open, yup, thats software dev, you never really know what will happen until users get a hold of it. We had run a few live tests with a few users during development, it was hugely helpful to see how different viewers interacted with the app.
 
