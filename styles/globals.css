@@ -21,7 +21,7 @@ a {
 
 /* Blockquote CSS */
 
-blockquote {
+.dark blockquote {
   border-left: 3px solid purple;
   font-family: inherit;
   font-style: italic;
