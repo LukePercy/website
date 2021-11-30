@@ -81,7 +81,7 @@ export default function AboutMe() {
                   target="_blank"
                   className="flex flex-row items-center space-x-4 group"
                 >
-                  <div className="my-4">&rarr;</div>
+                  <div className="my-4 dark:text-gray-300">&rarr;</div>
                   <p className="text-lg text-gray-600 font-mono relative overflow-hidden dark:text-gray-300">
                     <div className="absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300"></div>
                     Twitter
@@ -94,7 +94,7 @@ export default function AboutMe() {
                   target="_blank"
                   className="flex flex-row items-center space-x-4 group"
                 >
-                  <div className="my-4">&rarr;</div>
+                  <div className="my-4 dark:text-gray-300">&rarr;</div>
                   <p className="text-lg text-gray-600 font-mono relative overflow-hidden dark:text-gray-300">
                     <div className="absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300"></div>
                     GitHub
@@ -107,7 +107,7 @@ export default function AboutMe() {
                   target="_blank"
                   className="flex flex-row items-center space-x-4 group"
                 >
-                  <div className="my-4">&rarr;</div>
+                  <div className="my-4 dark:text-gray-300">&rarr;</div>
                   <p className="text-lg text-gray-600 font-mono relative overflow-hidden dark:text-gray-300">
                     <div className="absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300"></div>
                     LinkedIn
