@@ -25,7 +25,7 @@ export default function FavouriteProjects() {
                 alt="Getting Dicey Trading Cards Extension project"
                 className="transform hover:scale-125 transition duration-1000 ease-out"
               />
-              <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-red-500 rounded-md px-2">
+              <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                 Getting Dicey Trading Cards
               </h1>
             </div>
@@ -42,7 +42,7 @@ export default function FavouriteProjects() {
                 alt="The Dark That Dwells Beneath Te Aro rated 4 stars on Amazon books"
                 className="transform hover:scale-125 transition duration-1000 ease-out"
               />
-              <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-red-500 rounded-md px-2">
+              <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                 The Dark that Dwells Beneath Te Aro
               </h1>
             </div>

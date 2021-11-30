@@ -26,6 +26,9 @@ module.exports = {
         // => @media (min-width: 1536px) { ... }
     },
     extend: {
+        colors:{
+            'autumn-orange' : '#f5800b',  
+          },
         typography: (theme) => ({
             DEFAULT: {
                 css: {
