@@ -1,23 +1,29 @@
 import React from "react";
 import userData from "../constants/data";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function AboutMe() {
+  const router = useRouter();
+  
   return (
     <section className="bg-white dark:bg-gray-800">
-      <div className="max-w-6xl mx-auto h-48 bg-white dark:bg-gray-800 dark:text-white">
-        <h1 className="text-5xl md:text-9xl font-bold py-6 text-center xsm:py-2 md:text-left dark:text-white">
+      <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 dark:text-white">
+        <h1 className="text-5xl md:text-9xl font-bold md:py-6 text-center xsm:py-2 md:text-left dark:text-white">
           About<span className="text-lg">me.</span>
         </h1>
       </div>
-      <div className="bg-[#F1F1F1] -mt-10 dark:bg-gray-900 dark:text-white">
-        <div className="text-container max-w-6xl mx-auto pt-20">
-          <p className="leading-relaxed xsm:text-base sm:text-2xl md:text-4xl font-semibold mx-4"
+          <div className="grid grid-cols-8 dark:bg-gray-900">
+            <span className="flex md:col-start-3 md:text-2xl cursor-pointer hover:text-purple-500" onClick={() => router.back()}>&larr;<span className="pl-1">Back</span></span>
+          </div>
+      <div className="grid grid-cols-8 bg-[#F1F1F1] dark:bg-gray-900 dark:text-white">
+        <div className="xsm:col-start-1 xsm:col-span-8 md:col-start-1 md:col-span-8 lg:col-start-3 lg:col-span-4  text-container pt-5">
+          <p className="leading-relaxed xsm:text-base sm:text-xl md:text-2xl lg:text-4xl font-semibold mx-4"
           >
             {userData.about.title}<br/> I am currently working on {" "}
             <Link href={userData.about.currentProjectUrl}>
             <a
-              className="bg-purple-500 rounded-md px-2 py-1 text-white"
+              className="underline text-white hover:text-purple-500"
             >
               {userData.about.currentProject}
             </a>

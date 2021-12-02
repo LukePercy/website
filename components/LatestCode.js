@@ -5,8 +5,6 @@ export default function LatestCode({ repositories }) {
   const [repos, setRepos] = useState([]);
 
   useEffect(async () => {
-    // let latestRepos = await getLatestRepos(userData);
-    // console.log("latestRepos", latestRepos);
     setRepos(repositories);
   }, []);
   return (
@@ -62,8 +60,8 @@ const GithubRepoCard = ({ latestRepo }) => {
       {latestRepo.name}
     </h1>
   } else {
-    repoTitle = <h1 className="font-semibold text-xl dark:text-gray-200 text-gray-700">
-    {latestRepo.name}<span className="m-2 bg-yellow-500 text-yellow-900 p-2 px-3 rounded-full text-sm font-bold">Private</span></h1>
+    repoTitle = <h1 className="font-semibold text-xl dark:text-gray-200 text-gray-600">
+    {latestRepo.name}<span className="m-2 bg-autumn-orange dark:text-grey-50 p-2 px-3 rounded-full text-sm font-bold">Private</span></h1>
   }
   return (
     <div className="github-repo">

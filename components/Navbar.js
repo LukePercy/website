@@ -14,12 +14,12 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 md:py-10 lg:py-5 xsm:pt-0 xsm:pb-0">
-      <div className="flex md:flex-row justify-between items-center">
-        <div className="flex flex-col">
+    <div className="max-w-7xl mx-auto px-4 py-10 xsm:pt-0 xsm:pb-0 md:py-10 lg:py-5">
+      <div className="xsm:flex-wrap md:flex md:flex-row justify-between items-center">
+        <div className="md:flex-col">
           <Link href="/">
             <a>
-              <h1 className="font-semibold text-xl dark:text-gray-100 xsm:pt-10 ">
+              <h1 className="font-semibold text-xl dark:text-gray-100 xsm:pt-0.5">
                 {userData.name}
               </h1>
               <p className="text-base font-light text-gray-500 dark:text-gray-300 xsm:invisible md:visible">
@@ -28,8 +28,6 @@ export default function Navbar() {
             </a>
           </Link>
         </div>
-        <div className="space-x-4 hidden md:block">
-      </div>
         <div className="space-x-4 flex flex-row items-center">
         <Link href="/about">
             <a

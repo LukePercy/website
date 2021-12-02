@@ -1,18 +1,23 @@
 import React from "react";
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
+import { useRouter } from 'next/router'
 
 export default function Wip({posts}) {
+  const router = useRouter();
   return (
     <section className="bg-white dark:bg-gray-800">
-      <div className="max-w-6xl mx-auto h-48 bg-white dark:bg-gray-800 dark:text-white">
+      <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 dark:text-white">
         <h1 className="text-5xl md:text-9xl font-bold py-6 text-center md:text-left dark:text-white">
           Work<span className="text-lg">in progress.</span>
         </h1>
       </div>
-      <div className="-mt-10 dark:bg-gray-900">
-      <div className="grid grid-cols-3 pb-40 md:pb-20 sm:pb-5">
-        <div className="xsm:col-start-1 xsm:col-span-3 md:col-start-2 md:col-span-1">
+      <div className="dark:bg-gray-900">
+      <div className="grid grid-cols-3 md:pb-20 pb-40">
+          <div className="flex-intial p-5 sm:p-1 sm:col-start-1 sm:col-span-3 sm:justify-start md:col-start-1 lg:col-start-2">
+            <span className="sm:text-sm md:text-2xl cursor-pointer hover:text-purple-500" onClick={() => router.back()}>&larr; <span>Back</span></span>
+          </div>
+        <div className="xsm:col-start-1 xsm:col-span-3 md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-1">
         {posts.map((item) => (
           <BlogListItem key={item.slug} {...item} />
         ))}

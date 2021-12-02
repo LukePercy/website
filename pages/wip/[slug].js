@@ -3,9 +3,11 @@ import { format, parseISO } from 'date-fns';
 import renderToString from 'next-mdx-remote/render-to-string';
 import hydrate from 'next-mdx-remote/hydrate';
 import { getAllPosts } from '../../lib/data';
+import { useRouter } from 'next/router';
 
 export default function BlogPage({ title, date, content }) {
   const hydratedContent = hydrate(content);
+  const router = useRouter();
   return (
       <ContainerBlock>
         <div className="grid grid-cols-1 md:grid-cols-8 lg:-mt-8 pb-5 md:pb-10"> 
@@ -18,8 +20,11 @@ export default function BlogPage({ title, date, content }) {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-8 dark:bg-gray-900 md:pt-5">
-        <div className="p-4 sm:col-start-1 sm:col-span-3 md:col-start-3 md:col-span-4 lg:col-start-4 lg:col-span-2 rounded-lg">
+          <div className="grid grid-cols-8 dark:bg-gray-900">
+            <span className="flex sm:text-sm md:text-2xl md:col-start-4 cursor-pointer hover:text-purple-500" onClick={() => router.back()}>&larr;<span className="pl-1">Back</span></span>
+          </div>
+      <div className="grid grid-cols-8 dark:bg-gray-900 md:p-5 place-items-centre">
+        <div className="xsm:pt-5 xsm:col-start-1 xsm:col-span-7 xsm:pl-5 sm:col-start-4 sm:col-span-3 md:pt-1">
             <div className="dark:prose-dark leading-relaxed prose">{hydratedContent}</div>
         </div>
       </div>

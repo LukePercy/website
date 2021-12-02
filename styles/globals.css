@@ -32,21 +32,23 @@ a {
   z-index: 0;
 }
 
-@media only screen and (max-width: 480px) {
-  blockquote {
+@media only screen and (max-width: 340px) {
+  .dark blockquote {
     margin: 0;
     padding: 0;
     line-height: normal;
     font-style: normal;
+    border: none;
   }
 }
 
 @media only screen and (max-width: 768px) {
-  blockquote {
+  .dark blockquote {
     margin: 0;
     padding: 0;
     line-height: normal;
     font-style: normal;
+    border: none;
   }
 }
 
