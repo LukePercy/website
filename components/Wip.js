@@ -14,7 +14,7 @@ export default function Wip({posts}) {
       </div>
       <div className="dark:bg-gray-900">
       <div className="grid grid-cols-3 md:pb-20 pb-40">
-          <div className="flex-intial p-5 sm:p-1 sm:col-start-1 sm:col-span-3 sm:justify-start md:col-start-1 lg:col-start-2">
+          <div className="flex-intial p-5 dark:text-white sm:p-1 sm:col-start-1 sm:col-span-3 sm:justify-start md:col-start-1 lg:col-start-2">
             <span className="sm:text-sm md:text-2xl cursor-pointer hover:text-purple-500" onClick={() => router.back()}>&larr; <span>Back</span></span>
           </div>
         <div className="xsm:col-start-1 xsm:col-span-3 md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-1">

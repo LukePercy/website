@@ -13,7 +13,7 @@ export default function AboutMe() {
           About<span className="text-lg">me.</span>
         </h1>
       </div>
-          <div className="grid grid-cols-8 dark:bg-gray-900">
+          <div className="grid grid-cols-8 dark:bg-gray-900 dark:text-white">
             <span className="flex md:col-start-3 md:text-2xl cursor-pointer hover:text-purple-500" onClick={() => router.back()}>&larr;<span className="pl-1">Back</span></span>
           </div>
       <div className="grid grid-cols-8 bg-[#F1F1F1] dark:bg-gray-900 dark:text-white">
