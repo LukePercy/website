@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 export default function Wip({posts}) {
   const router = useRouter();
   return (
-    <section className="bg-white dark:bg-gray-800">
+    <section aria-label="project stories" className="bg-white dark:bg-gray-800">
       <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 dark:text-white">
         <h1 className="text-5xl md:text-9xl font-bold py-6 text-center md:text-left dark:text-white">
           Work<span className="text-lg">in progress.</span>

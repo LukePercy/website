@@ -37,7 +37,7 @@ I didn't really have a well established or thought out process for writing a boo
 
 It didn't take me long to learn about Kindle Direct Publishing or KDP. Amazons publishing platform is by far the cheapest and most accessible platform I could find. It also has guideance on how to write a manuscript, though I didn't take one source on that, I surfed the googlesphere for "Novel Manuscript example" and "Novel Manuscript templates". There is plenty of information out there.
 
-And interesting thing about KDP is, while you start with a Kindle or e-book release, there are options for printing (on demand) paper and hardback copies as well, the latter becoming available after 6 months once you have set up paperback copies. There is no need to hold any inventory.
+An interesting thing about KDP is, while you start with a Kindle or e-book release, there are options for printing (on demand) paper and hardback copies as well, the latter becoming available after 6 months once you have set up paperback copies. There is no need to hold any inventory.
 
 A thing to note with KDP. If you are intending to make money, know they withhold the revenue until it reaches a threshold of $100 of your countries currency, and depending on your book it may take some time before this threshold is met.
 

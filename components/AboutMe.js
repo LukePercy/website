@@ -7,7 +7,7 @@ export default function AboutMe() {
   const router = useRouter();
   
   return (
-    <section className="bg-white dark:bg-gray-800">
+    <section aria-label="about me" className="bg-white dark:bg-gray-800">
       <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 dark:text-white">
         <h1 className="text-5xl md:text-9xl font-bold md:py-6 text-center xsm:py-2 md:text-left dark:text-white">
           About<span className="text-lg">me.</span>
