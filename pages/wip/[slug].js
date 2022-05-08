@@ -1,13 +1,14 @@
 import ContainerBlock from '../../components/ContainerBlock';
 import { format, parseISO } from 'date-fns';
-import renderToString from 'next-mdx-remote/render-to-string';
-import hydrate from 'next-mdx-remote/hydrate';
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'next-mdx-remote'
 import { getAllPosts } from '../../lib/data';
 import { useRouter } from 'next/router';
 
 export default function BlogPage({ title, date, content }) {
-  const hydratedContent = hydrate(content);
+  const hydratedContent = MDXRemote(content);
   const router = useRouter();
+  
   return (
       <ContainerBlock>
         <div className="grid grid-cols-1 md:grid-cols-8 lg:-mt-8 pb-5 md:pb-10"> 
@@ -36,7 +37,7 @@ export async function getStaticProps(context) {
   const { params } = context;
   const allPosts = getAllPosts();
   const { data, content } = allPosts.find((item) => item.slug === params.slug);
-  const mdxSource = await renderToString(content);
+  const mdxSource = await serialize(content);
 
   return {
     props: {
