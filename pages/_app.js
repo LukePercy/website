@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 import * as ga from '../lib/ga'
 
@@ -25,7 +26,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ThemeProvider defaultTheme="dark" attribute="class">
+      <ParallaxProvider>
       <Component {...pageProps} />
+      </ParallaxProvider>
     </ThemeProvider>
   );
 }

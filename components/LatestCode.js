@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Parallax } from "react-scroll-parallax";
 import userData from "../constants/data";
 
 export default function LatestCode({ repositories }) {
