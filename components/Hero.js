@@ -11,14 +11,17 @@ export default function Hero() {
   const handleLoad = () => parallaxController.update();
   
   return (
+    <div className="">
     <div className="relative flex flex-row justify-center items-start overflow-hidden">
+      <div className="absolute xsm:invisible sm:invisible lg:visible">
       <Parallax speed={-40} onLoad={handleLoad} easing='easeInOut'>
-        <video autoPlay muted loop className="static w-screen xsm:invisible sm:visible">
+        <video autoPlay muted loop className="w-screen">
              <source src="mixkit-cup-full-of-coffee-209.mp4" type="video/mp4"/>
         </video>
       </Parallax>
+      </div>
       {/* Text container */}
-      <div className="absolute w-7/12 text-center md:text-left lg:p-20 xsm:p-5 sm:p-0">
+      <div className="w-7/12 text-center md:text-left lg:pt-20 md:pt-20 xsm:pt-10 xsm:pb-10 sm:pt-15">
       <Parallax speed={10}>
         <RoughNotationGroup show={true}>
         <RainbowHighlight color={colors[1]}>
@@ -39,7 +42,7 @@ export default function Hero() {
         </RoughNotationGroup>
         </Parallax>
       </div>
-
     </div>
+  </div>
   );
 }

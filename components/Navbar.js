@@ -14,7 +14,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 xsm:pt-0 xsm:pb-0 md:py-10 lg:py-5">
+    <div className="max-w-7xl mx-auto px-4 py-10 xsm:pt-0 xsm:pb-0 md:py-5 lg:py-5">
       <div className="xsm:flex-wrap md:flex md:flex-row justify-between items-center">
         <div className="md:flex-col">
           <Link href="/">
