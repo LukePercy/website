@@ -19,6 +19,24 @@ a {
   box-sizing: border-box;
 }
 
+p {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@layer base {
+  h2 {
+    @apply text-xl;
+    @apply font-semibold;
+  }
+  h3 {
+    @apply text-lg;
+  }
+}
+
 /* Blockquote CSS */
 
 .dark blockquote {
@@ -96,4 +114,9 @@ cite {
   font-size: 0.75em;
   line-height: 1.8em;
   margin-top: 1em;
+}
+
+.last-edited {
+  @apply text-sm;
+  color: grey;
 }
