@@ -19,12 +19,12 @@ export default function Navbar() {
         <div className="md:flex-col">
           <Link href="/">
             <a>
-              <h1 className="font-semibold text-xl dark:text-gray-100 xsm:pt-0.5">
+              <h1 className="font-semibold text-xl dark:text-gray-100 sm:pt-0.5 xsm:pt-0.5">
                 {userData.name}
               </h1>
-              <p className="text-base font-light text-gray-500 dark:text-gray-300 xsm:invisible md:visible">
+              <span className="text-base font-light text-gray-500 dark:text-gray-300 xsm:invisible md:visible">
                 {userData.designation}
-              </p>
+              </span>
             </a>
           </Link>
         </div>
