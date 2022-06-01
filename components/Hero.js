@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { RoughNotationGroup } from "react-rough-notation";
 import { RainbowHighlight } from "./RainbowHighlight";
 import { Parallax, useParallaxController } from "react-scroll-parallax";
@@ -9,15 +9,29 @@ export default function Hero() {
 
   // updates cached values after image dimensions have loaded
   const handleLoad = () => parallaxController.update();
+  const [coffee,setCoffee]=useState(true);
+  
+  let handleClick = () => {
+    setCoffee(!coffee);
+  };
   
   return (
-    <div className="">
-    <div className="relative flex flex-row justify-center items-start overflow-hidden">
+    <div>
+    <div className="relative flex flex-row justify-center items-start overflow-hidden md:pb-20">
       <div className="absolute xsm:invisible sm:invisible lg:visible">
       <Parallax speed={-40} onLoad={handleLoad} easing='easeInOut'>
-        <video autoPlay muted loop className="w-screen">
-             <source src="mixkit-cup-full-of-coffee-209.mp4" type="video/mp4"/>
-        </video>
+          {
+          coffee ? 
+          <>  <video autoPlay muted loop className="w-screen">
+                <source src="mixkit-cup-full-of-coffee-209.mp4" type="video/mp4"/>
+             </video>
+             </> : 
+             <>
+              <video autoPlay muted loop className="w-screen">
+             <source src="video.mp4" type="video/mp4"/> 
+             </video>
+             </>
+          }
       </Parallax>
       </div>
       {/* Text container */}
@@ -42,6 +56,9 @@ export default function Hero() {
         </RoughNotationGroup>
         </Parallax>
       </div>
+    </div>
+    <div className="form-check form-switch xsm:invisible sm:invisible lg:visible">
+        <input className="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="coffee" onClick={handleClick}/>
     </div>
   </div>
   );
