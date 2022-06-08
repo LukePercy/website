@@ -17,7 +17,7 @@ export default function Hero() {
   
   return (
     <div>
-    <div className="relative flex flex-row justify-center items-start overflow-hidden md:pb-20">
+    <div className="relative flex flex-row justify-center items-start overflow-hidden md:pb-20 h-screen">
       <div className="absolute xsm:invisible sm:invisible lg:visible">
       <Parallax speed={-40} onLoad={handleLoad} easing='easeInOut'>
           {
@@ -30,7 +30,7 @@ export default function Hero() {
               <video autoPlay muted loop className="w-screen">
              <source src="video.mp4" type="video/mp4"/> 
              </video>
-             </>
+            </>
           }
       </Parallax>
       </div>
@@ -54,11 +54,18 @@ export default function Hero() {
             </h1>
           </RainbowHighlight>
         </RoughNotationGroup>
+        <div><p className="text-center">Scroll<span> &#9660;</span></p></div>
         </Parallax>
       </div>
     </div>
     <div className="form-check form-switch xsm:invisible sm:invisible lg:visible">
-        <input className="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="coffee" onClick={handleClick}/>
+        <input 
+            className="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" 
+            type="checkbox" 
+            role="switch" 
+            id="coffee" 
+            onClick={handleClick}
+          />
     </div>
   </div>
   );

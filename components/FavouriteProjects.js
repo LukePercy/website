@@ -3,8 +3,9 @@ import React from "react";
 
 export default function FavouriteProjects() {
   return (
+    <section>
     <div className="bg-[#F1F1F1] -mt-20 dark:bg-gray-900">
-      <div aria-label="my latest projects" className="max-w-7xl mx-auto">
+      <div aria-label="my latest projects" className="max-w-7xl mx-auto reveal">
         <header className="flex flex-col md:flex-row justify-between items-center xsm:pt-5 md:my-10 lg:my-10">
           <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-10 md:text-gray-500 dark:text-gray-300 text-left">
             Create.
@@ -17,13 +18,13 @@ export default function FavouriteProjects() {
           <a
             href="https://www.twitch.tv/gettingdicey"
             target="_blank"
-            className="w-full block col-span-3 sm:col-span-2 shadow-2xl"
+            className="md:col-span-2 sm:col-span-2"
           >
             <div className="relative overflow-hidden">
               <img
                 src="/GDTC.png"
                 alt="Getting Dicey Trading Cards Extension project"
-                className="transform hover:scale-125 transition duration-1000 ease-out"
+                className="block transform hover:scale-125 transition duration-1000 ease-out"
               />
               <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                 Getting Dicey Trading Cards
@@ -33,14 +34,14 @@ export default function FavouriteProjects() {
           {/* Single card */}
           <a
             href="https://www.amazon.com/Dark-that-Dwells-Beneath-Aro-ebook/dp/B092S7YPT6"
-            className="w-full block col-span-3 sm:col-span-2 shadow-2xl"
+            className="md:col-span-2 sm:col-span-2"
             target="_blank"
           >
             <div className="relative overflow-hidden">
               <img
                 src="/TheDarkThatDwells.jpg"
                 alt="The Dark That Dwells Beneath Te Aro rated 4 stars on Amazon books"
-                className="transform hover:scale-125 transition duration-1000 ease-out"
+                className="block transform hover:scale-125 transition duration-1000 ease-out"
               />
               <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                 The Dark that Dwells Beneath Te Aro
@@ -50,5 +51,6 @@ export default function FavouriteProjects() {
         </div>
       </div>
     </div>
+    </section>
   );
 }

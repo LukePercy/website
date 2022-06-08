@@ -15,6 +15,27 @@ export default function ContainerBlock({ children, ...customMeta }) {
     image: userData.avatarUrl,
     ...customMeta,
   };
+  
+function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      var elementVisible = 150;
+      if (elementTop < windowHeight - elementVisible) {
+        reveals[i].classList.add("active");
+      } else {
+        reveals[i].classList.remove("active");
+      }
+    }
+  }
+  
+  if (typeof window !== 'undefined') {
+    window.addEventListener("scroll", reveal);
+    // To check the scroll position on page load
+    reveal();
+  }
+  
   return (
     <div>
       <Head>
@@ -44,8 +65,8 @@ export default function ContainerBlock({ children, ...customMeta }) {
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      <main className="dark:bg-gray-800 w-full h-screen">
-        <Navbar />
+      <main className="dark:bg-gray-900 w-full h-screen">
+        <Navbar/>
         <div>{children}</div>
         <Footer />
       </main>

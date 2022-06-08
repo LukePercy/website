@@ -33,6 +33,7 @@ html {
 */
 
 html {
+  scroll-behavior: smooth;
   line-height: 1.15;
   /* 1 */
   -webkit-text-size-adjust: 100%;
@@ -440,6 +441,18 @@ img {
 
 textarea {
   resize: vertical;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  opacity: 1;
+  color: #9ca3af;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  opacity: 1;
+  color: #9ca3af;
 }
 
 input::-moz-placeholder,
@@ -1355,6 +1368,7 @@ h3 {
     -webkit-transition: none;
     transition: none;
   }
+
   .form-control::file-selector-button {
     transition: none;
   }
@@ -2776,6 +2790,9 @@ h3 {
   transition-property: background-color, border-color, color, fill, stroke,
     opacity, box-shadow, transform, filter, backdrop-filter,
     -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter,
+    -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -2858,6 +2875,10 @@ p {
     font-style: normal;
     border: none;
   }
+}
+
+.fancyborder {
+  border-radius: 100% 0% 75% 25% / 39% 68% 32% 61%;
 }
 
 .dark blockquote::before {
@@ -3500,5 +3521,17 @@ input:checked + .slider:before {
   .lg\:text-9xl {
     font-size: 8rem;
     line-height: 1;
+  }
+
+  .reveal {
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 1s all ease;
+  }
+
+  .reveal.active {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
