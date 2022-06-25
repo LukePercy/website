@@ -32,7 +32,7 @@ export default function TheDarkThatDwells({...customMeta}){
   const router = useRouter();
   const meta = {
     title: "The Dark that Dwells Beneath Te Aro",
-    description: `First time author L.J. Percy brings a story of a dark threat lurking beneath the Te Aro Valley, a busteling Wellington suburb. Available now on Amazon.com`,
+    description: `First time author L.J. Percy brings a story of a dark threat lurking beneath the Te Aro Valley, a bustling Wellington suburb. Available now on Amazon.com`,
     type: "website",
     image: userData.avatarUrl,
     ...customMeta,
