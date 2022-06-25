@@ -80,6 +80,33 @@ hr {
   /* 2 */
 }
 
+/* Audio player */
+
+#player-container #play-pause {
+  cursor: pointer;
+  text-indent: -999999px;
+  height: 40px;
+  width: 40px;
+  padding: 12px 18px;
+  z-index: 2;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMiAyNHYtMjRsMjAgMTItMjAgMTJ6Ii8+PC9zdmc+);
+  background-repeat: no-repeat !important;
+  background-position: center;
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  background-color: gainsboro;
+}
+
+.play {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMiAyNHYtMjRsMjAgMTItMjAgMTJ6Ii8+PC9zdmc+);
+}
+
+.pause {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTAgMjRoLTZ2LTI0aDZ2MjR6bTEwLTI0aC02djI0aDZ2LTI0eiIvPjwvc3ZnPg==) !important;
+}
+
 /*
 Text-level semantics
 ====================
@@ -441,6 +468,30 @@ img {
 
 textarea {
   resize: vertical;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  opacity: 1;
+  color: #9ca3af;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  opacity: 1;
+  color: #9ca3af;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  opacity: 1;
+  color: #9ca3af;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  opacity: 1;
+  color: #9ca3af;
 }
 
 input::-moz-placeholder,
@@ -2793,6 +2844,12 @@ h3 {
   transition-property: background-color, border-color, color, fill, stroke,
     opacity, box-shadow, transform, filter, backdrop-filter,
     -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter,
+    -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter,
+    -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -2816,6 +2873,8 @@ h3 {
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
+
+/* Fonts */
 
 @import "fonts.css";
 
@@ -3534,4 +3593,99 @@ input:checked + .slider:before {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+/* The Dark that dwells content */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.btnContainer {
+  animation: 3s ease-out 0s 1 fadeIn;
+  padding: 50px 0px;
+}
+
+.amazonButton {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 29px;
+  padding: 12px 10px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 100px;
+}
+
+.amazonButton:hover {
+  background-color: #f7fafa;
+}
+
+.amazonButton:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+  outline: 0;
+}
+
+.iconAmazon {
+  height: 50px;
+  width: 50px;
+  z-index: 1;
+  padding: 12px 18px;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tISBGb250IEF3ZXNvbWUgUHJvIDYuMS4xIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlIChDb21tZXJjaWFsIExpY2Vuc2UpIENvcHlyaWdodCAyMDIyIEZvbnRpY29ucywgSW5jLiAtLT48cGF0aCBkPSJNMjU3LjIgMTYyLjdjLTQ4LjcgMS44LTE2OS41IDE1LjUtMTY5LjUgMTE3LjUgMCAxMDkuNSAxMzguMyAxMTQgMTgzLjUgNDMuMiA2LjUgMTAuMiAzNS40IDM3LjUgNDUuMyA0Ni44bDU2LjgtNTZTMzQxIDI4OC45IDM0MSAyNjEuNFYxMTQuM0MzNDEgODkgMzE2LjUgMzIgMjI4LjcgMzIgMTQwLjcgMzIgOTQgODcgOTQgMTM2LjNsNzMuNSA2LjhjMTYuMy00OS41IDU0LjItNDkuNSA1NC4yLTQ5LjUgNDAuNy0uMSAzNS41IDI5LjggMzUuNSA2OS4xem0wIDg2LjhjMCA4MC04NC4yIDY4LTg0LjIgMTcuMiAwLTQ3LjIgNTAuNS01Ni43IDg0LjItNTcuOHY0MC42em0xMzYgMTYzLjVjLTcuNyAxMC03MCA2Ny0xNzQuNSA2N1MzNC4yIDQwOC41IDkuNyAzNzljLTYuOC03LjcgMS0xMS4zIDUuNS04LjNDODguNSA0MTUuMiAyMDMgNDg4LjUgMzg3LjcgNDAxYzcuNS0zLjcgMTMuMyAyIDUuNSAxMnptMzkuOCAyLjJjLTYuNSAxNS44LTE2IDI2LjgtMjEuMiAzMS01LjUgNC41LTkuNSAyLjctNi41LTMuOHMxOS4zLTQ2LjUgMTIuNy01NWMtNi41LTguMy0zNy00LjMtNDgtMy4yLTEwLjggMS0xMyAyLTE0LS4zLTIuMy01LjcgMjEuNy0xNS41IDM3LjUtMTcuNSAxNS43LTEuOCA0MS0uOCA0NiA1LjcgMy43IDUuMSAwIDI3LjEtNi41IDQzLjF6Ii8+PC9zdmc+);
+  background-repeat: no-repeat !important;
+  background-position: center;
+  background-size: 25px;
+}
+
+#backgroundVideo {
+  position: fixed;
+}
+
+.bookPageContent {
+  position: fixed;
+  padding: 10px;
+  color: #f1f1f1;
+}
+
+.book-page-container {
+  display: grid;
+  grid-template-columns: repeat(8, 2fr);
+  grid-template-rows: repeat(2, 2fr);
+  grid-column-gap: 1px;
+  grid-row-gap: 1px;
+}
+
+.book-container {
+  animation: 3s ease-out 0s 1 fadeIn;
+  padding-top: 200px;
+  grid-area: 1 / 4 / 1 / 2;
+}
+
+.book-text-container {
+  animation: 3s ease-out 0s 1 fadeIn;
+  padding-top: 400px;
+  grid-area: 1 / 8 / 4 / 4;
+}
+
+.reviewText {
+  animation: 3s ease-out 0s 1 fadeIn;
+  font-family: Baskervville;
+  font-size: 40px;
+  letter-spacing: 0.1rem;
+  line-height: 2.5rem;
 }

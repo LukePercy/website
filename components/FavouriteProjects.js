@@ -33,7 +33,7 @@ export default function FavouriteProjects() {
           </a>
           {/* Single card */}
           <a
-            href="https://www.amazon.com/Dark-that-Dwells-Beneath-Aro-ebook/dp/B092S7YPT6"
+            href="https://www.amazon.com/dp/B09JVFJKFX"
             className="md:col-span-2 sm:col-span-2"
             target="_blank"
           >
