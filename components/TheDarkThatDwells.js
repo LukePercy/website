@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head';
 import userData from "../constants/data";
 import { useRouter } from 'next/router';
-import ReactStars from 'react-stars'
+import ReactStars from 'react-stars';
 
 if (typeof window !== 'undefined') {
   //here `window` is available, so `window.document` (or simply `document`) is available too
@@ -85,14 +85,8 @@ export default function TheDarkThatDwells({...customMeta}){
               <img src='book.png' width="600" alt="Book Cover for The Dark That Dwells Beneath Te Aro"/>
             </div>
               <div className='book-text-container'>
-                <h2 className='reviewText'>             
-                <ReactStars
-                count={5}
-                value={4.5}
-                half={true}
-                edit={false}
-                size={50}
-                color2={'#ffd700'} />&#8220; A cleverly written book that does a skilful job of building up a sense of mystery...<br/>&ndash; <span>Amazon Review</span></h2>
+                <h2 className='reviewText'>
+                <ReactStars count={5} value={4.5} edit={false} size={50} color2={'#ffd700'}/>&#8220; A cleverly written book that does a skilful job of building up a sense of mystery...<br/>&ndash; <span>Amazon Review</span></h2>
                   <div className='btnContainer'>
                     <a href='https://www.amazon.com/dp/B09JVFJKFX' target={'_blank'}>
                       <span className='amazonButton'>
