@@ -3608,7 +3608,7 @@ input:checked + .slider:before {
 
 .btnContainer {
   animation: 3s ease-out 0s 1 fadeIn;
-  padding: 50px 0px;
+  padding: 10px 0px;
 }
 
 .amazonButton {
@@ -3658,34 +3658,37 @@ input:checked + .slider:before {
 
 .bookPageContent {
   position: fixed;
-  padding: 10px;
   color: #f1f1f1;
 }
 
 .book-page-container {
   display: grid;
-  grid-template-columns: repeat(8, 2fr);
-  grid-template-rows: repeat(2, 2fr);
-  grid-column-gap: 1px;
-  grid-row-gap: 1px;
+  grid-template-columns: 0.1fr 1.1fr 1.8fr;
+  grid-template-rows: 0.2fr 0.6fr 2.2fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "PlayButton . ."
+    ". . ."
+    "Image-area Image-area Text-area"
+    ". . .";
 }
 
-.book-container {
+.Image-area {
+  grid-area: Image-area;
   animation: 3s ease-out 0s 1 fadeIn;
-  padding-top: 200px;
-  grid-area: 1 / 4 / 1 / 2;
 }
 
-.book-text-container {
+.Text-area {
+  grid-area: Text-area;
   animation: 3s ease-out 0s 1 fadeIn;
-  padding-top: 400px;
-  grid-area: 1 / 8 / 4 / 4;
+}
+
+.PlayButton {
+  grid-area: PlayButton;
 }
 
 .reviewText {
   animation: 3s ease-out 0s 1 fadeIn;
   font-family: Baskervville;
-  font-size: 40px;
-  letter-spacing: 0.1rem;
-  line-height: 2.5rem;
+  left: 0;
 }
