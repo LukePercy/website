@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { RoughNotationGroup } from "react-rough-notation";
 import { RainbowHighlight } from "./RainbowHighlight";
 import { Parallax, useParallaxController } from "react-scroll-parallax";
+import bg from '../public/mixkit-cup-full-of-coffee-209_Moment.jpg'
 
 export default function Hero() {
   const colors = ["#F59E0B", "#84CC16", "#10B981", "#3B82F6"];
@@ -24,7 +25,7 @@ export default function Hero() {
             </video>
               <div
                 style={{
-                backgroundImage: 'mixkit-cup-full-of-coffee-209_Moment.jpg'
+                backgroundImage: `url(${bg.src})`,
                 }}
                 className={`fallback ${isVideoLoaded ? "w-screen hide" : "w-screen show"}`}
               />
