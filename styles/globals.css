@@ -3692,3 +3692,23 @@ input:checked + .slider:before {
   font-family: Baskervville;
   left: 0;
 }
+
+.fallback {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1;
+}
+
+.show {
+  z-index: 1;
+}
+
+.hide {
+  z-index: -1;
+}

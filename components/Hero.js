@@ -9,30 +9,26 @@ export default function Hero() {
 
   // updates cached values after image dimensions have loaded
   const handleLoad = () => parallaxController.update();
-  const [coffee,setCoffee]=useState(true);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   
-  let handleClick = () => {
-    setCoffee(!coffee);
+  const videoLoaded = () => {
+    setIsVideoLoaded(true);
   };
   
   return (
-    <div>
     <div className="relative flex flex-row justify-center items-start overflow-hidden md:pb-20 h-screen">
       <div className="absolute xsm:invisible sm:invisible lg:visible">
-      <Parallax speed={-40} onLoad={handleLoad} easing='easeInOut'>
-          {
-          coffee ? 
-          <>  <video autoPlay muted loop className="w-screen">
-                <source src="mixkit-cup-full-of-coffee-209.mp4" type="video/mp4"/>
-             </video>
-             </> : 
-             <>
-              <video autoPlay muted loop className="w-screen">
-             <source src="video.mp4" type="video/mp4"/> 
-             </video>
-            </>
-          }
-      </Parallax>
+        <Parallax speed={-40} onLoad={handleLoad} easing='easeInOut'>
+            <video autoPlay muted loop playsInline onCanPlayThrough={videoLoaded} className={`${isVideoLoaded ? "w-screen show" : "w-screen hide"}`}>
+            <source src="BlackCoffee.mp4" type="video/mp4"/>
+            </video>
+              <div
+                style={{
+                backgroundImage: 'mixkit-cup-full-of-coffee-209_Moment.jpg'
+                }}
+                className={`fallback ${isVideoLoaded ? "w-screen hide" : "w-screen show"}`}
+              />
+        </Parallax>
       </div>
       {/* Text container */}
       <div className="w-7/12 text-center md:text-left lg:pt-20 md:pt-20 xsm:pt-10 xsm:pb-10 sm:pt-15">
@@ -58,15 +54,5 @@ export default function Hero() {
         </Parallax>
       </div>
     </div>
-    <div className="form-check form-switch xsm:invisible sm:invisible lg:visible">
-        <input 
-            className="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" 
-            type="checkbox" 
-            role="switch" 
-            id="coffee" 
-            onClick={handleClick}
-          />
-    </div>
-  </div>
   );
 }
