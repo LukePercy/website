@@ -74,7 +74,7 @@ const GithubRepoCard = ({ latestRepo }) => {
         target="_blank"
         className="font-semibold group flex flex-row space-x-2 w-full items-center dark:text-white"
       >
-        <p>View {latestRepo.name}</p>
+        <p>View {latestRepo.name} on GitHub</p>
         <div className="transform group-hover:translate-x-2 transition duration-300">
           &rarr;
         </div>
