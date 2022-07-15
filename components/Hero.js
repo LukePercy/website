@@ -17,6 +17,7 @@ export default function Hero() {
   };
   
   return (
+    <>
     <div className="relative flex flex-row justify-center items-start overflow-hidden md:pb-20 h-screen">
       <div className="absolute xsm:invisible sm:invisible lg:visible">
         <Parallax speed={-40} onLoad={handleLoad} easing='easeInOut'>
@@ -55,5 +56,6 @@ export default function Hero() {
         </Parallax>
       </div>
     </div>
+    </>
   );
 }
