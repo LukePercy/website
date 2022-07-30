@@ -24,18 +24,6 @@ export default function Footer() {
             </a>
           </Link>
           </p>
-            <p>
-              credit to
-              <span className="inline-block transform hover:scale-110 hover:-rotate-3 transition duration-300">
-                <a
-                  className="hover:bg-purple-500 rounded-md px-2 py-1 hover:text-gray-50"
-                  href="https://github.com/manuarora700"
-                  target="_blank"
-                >
-                {userData.creator}
-                </a>
-              </span>
-            </p>
           </div>
         </div>
       </div>
