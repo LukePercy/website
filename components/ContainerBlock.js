@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import userData from "../constants/data";
-
 export default function ContainerBlock({ children, ...customMeta }) {
   const router = useRouter();
 
@@ -35,6 +34,9 @@ function reveal() {
     // To check the scroll position on page load
     reveal();
   }
+  
+    // updates cached values after image dimensions have loaded
+    const handleLoad = () => parallaxController.update();
   
   return (
     <div>

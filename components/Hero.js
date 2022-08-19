@@ -17,10 +17,9 @@ export default function Hero() {
   };
   
   return (
-    <>
     <div className="relative flex flex-row justify-center items-start overflow-hidden md:pb-20 h-screen">
       <div className="absolute xsm:invisible sm:invisible lg:visible">
-        <Parallax speed={-40} onLoad={handleLoad} >
+        <Parallax speed={-40} onLoad={handleLoad} easing='easeInOut' >
             <video autoPlay muted loop playsInline onCanPlayThrough={videoLoaded} className={`${isVideoLoaded ? "w-screen show" : "w-screen hide"}`}>
             <source src="BlackCoffee.mp4" type="video/mp4"/>
             </video>
@@ -56,6 +55,5 @@ export default function Hero() {
         </Parallax>
       </div>
     </div>
-    </>
   );
 }

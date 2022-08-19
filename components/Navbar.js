@@ -3,12 +3,11 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import userData from "../constants/data";
-
 export default function Navbar() {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
+  
   useEffect(() => {
     setMounted(true);
   }, []);
