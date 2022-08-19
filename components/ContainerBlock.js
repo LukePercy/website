@@ -67,7 +67,7 @@ function reveal() {
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      <main className="dark:bg-gray-900 w-full h-screen">
+      <main className="dark:bg-gray-900 w-full">
         <Navbar/>
         <div>{children}</div>
         <Footer />

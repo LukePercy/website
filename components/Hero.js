@@ -17,22 +17,23 @@ export default function Hero() {
   };
   
   return (
-    <div className="relative flex flex-row justify-center items-start overflow-hidden md:pb-20 h-screen">
-      <div className="absolute xsm:invisible sm:invisible lg:visible">
-        <Parallax speed={-40} onLoad={handleLoad} easing='easeInOut' >
-            <video autoPlay muted loop playsInline onCanPlayThrough={videoLoaded} className={`${isVideoLoaded ? "w-screen show" : "w-screen hide"}`}>
+    <section>
+    <div className="relative flex flex-row justify-center items-start overflow-hidden xsm:h-1/6 md:pb-20 h-screen">
+      <div className="abosolute xsm:invisible sm:invisible lg:visible">
+        <Parallax speed={-40} onLoad={handleLoad} easing='easeInOut'>
+            <video autoPlay muted loop playsInline onCanPlayThrough={videoLoaded} className={`${isVideoLoaded ? "relative w-screen show" : "w-screen hide"}`}>
             <source src="BlackCoffee.mp4" type="video/mp4"/>
             </video>
               <div
                 style={{
                 backgroundImage: `url(${bg.src})`,
                 }}
-                className={`fallback ${isVideoLoaded ? "w-screen hide" : "w-screen show"}`}
+                className={`fallback ${isVideoLoaded ? "w-screen hide" : "relative w-screen show"}`}
               />
         </Parallax>
       </div>
       {/* Text container */}
-      <div className="w-7/12 text-center md:text-left lg:pt-20 md:pt-20 xsm:pt-10 xsm:pb-10 sm:pt-15">
+      <div className="absolute w-7/12 text-center xsm:pt-10 xsm:pb-0 md:text-left lg:pt-20 md:pt-20">
       <Parallax speed={10} onLoad={handleLoad} easing='easeInOut'>
         <RoughNotationGroup show={true}>
         <RainbowHighlight color={colors[1]}>
@@ -53,7 +54,8 @@ export default function Hero() {
         </RoughNotationGroup>
         <div><p className="text-center">Scroll<span> &#9660;</span></p></div>
         </Parallax>
+        </div>
       </div>
-    </div>
+      </section>
   );
 }

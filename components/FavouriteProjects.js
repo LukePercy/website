@@ -3,15 +3,14 @@ import React from "react";
 
 export default function FavouriteProjects() {
   return (
-    <section>
-    <div className="bg-[#F1F1F1] -mt-20 dark:bg-gray-900">
-      <div aria-label="my latest projects" className="max-w-7xl mx-auto reveal">
+    <section aria-label="my latest projects" className="relative -mt-20">
+    <div className="bg-[#F1F1F1]dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto reveal">
         <header className="flex flex-col md:flex-row justify-between items-center xsm:pt-5 md:my-10 lg:my-10">
           <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-10 md:text-gray-500 dark:text-gray-300 text-left">
             Create.
           </h1>
         </header>
-
         {/* Grid starts here */}
         <div className="grid md:grid-cols-4 gap-8 lg:-mt-8 pb-40 md:pb-20 sm:pb-5">
           {/* Single card */}

@@ -3595,6 +3595,11 @@ input:checked + .slider:before {
   }
 }
 
+/* Hero image transparancy */
+.hero {
+  opacity: 0.9;
+}
+
 /* The Dark that dwells content */
 
 @keyframes fadeIn {
