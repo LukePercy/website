@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import userData from "../constants/data";
+import Clock from "./Clock";
+
 export default function Navbar() {
   const router = useRouter();
   const { theme, setTheme } = useTheme();

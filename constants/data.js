@@ -1,8 +1,8 @@
 const userData = {
   domain:"https://www.ljpercy.co.nz",
   githubUsername: "LukePercy",
-  name: "L.J Percy",
-  creator:"L.J Percy",
+  name: "L.J. Percy",
+  creator:"L.J. Percy",
   designation: "Helping humans innovate and create",
   avatarUrl: `https://github.com/LukePercy.png?size=460`,
   email: "lpercyagile@gmail.com",

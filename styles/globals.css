@@ -3595,6 +3595,14 @@ input:checked + .slider:before {
   }
 }
 
+/* clock styles */
+
+.clock {
+  color: #17d4fe;
+  font-size: 20px;
+  letter-spacing: 0.2em;
+}
+
 /* Hero image transparancy */
 .hero {
   opacity: 0.9;
