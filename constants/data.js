@@ -5,7 +5,7 @@ const userData = {
   creator:"L.J. Percy",
   designation: "Helping humans innovate and create",
   avatarUrl: `https://github.com/LukePercy.png?size=460`,
-  email: "lpercyagile@gmail.com",
+  email: "lpercy@ljpercy.com",
   address: "Wellington, New Zealand",
   projects: [
     {

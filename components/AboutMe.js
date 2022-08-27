@@ -20,14 +20,14 @@ export default function AboutMe() {
         <div className="xsm:col-start-1 xsm:col-span-8 md:col-start-1 md:col-span-8 lg:col-start-3 lg:col-span-4  text-container pt-5">
           <p className="leading-relaxed xsm:text-base sm:text-xl md:text-2xl lg:text-4xl font-semibold mx-4"
           >
-            {userData.about.title}<br/> I am currently working on {" "}
-            <Link href={userData.about.currentProjectUrl}>
+            {userData.about.title}<br/>
+            {/* <Link href={userData.about.currentProjectUrl}>
             <a
               className="underline text-white hover:text-purple-500"
             >
               {userData.about.currentProject}
             </a>
-            </Link>
+            </Link> */}
           </p>
         </div>
       </div>
@@ -46,34 +46,7 @@ export default function AboutMe() {
                   className="text-gray-800 border-b-2 border-gray-800 dark:border-gray-300 font-bold dark:text-gray-300"
                 >
                   email
-                </a>{" "}
-                and I will do my best to respond.
-              </p>
-            </div>
-            <div className="mt-8">
-              <h1 className="text-xl font-semibold text-gray-700 dark:text-gray-200">
-                Job Opportunities
-              </h1>
-              <p className="text-lg text-gray-600 mt-4 dark:text-gray-300">
-                I am currently employed  
-                <a 
-                href='https://catalyst.net.nz'
-                target="_blank"
-                className="flex flex-row space-x-4 group"
-                >
-                  <p className="text-lg text-red-700 relative overflow-hidden dark:text-red-400">
-                    <div className="absolute h-0.5 w-full bg-red-500 bottom-0 transform -translate-x-32 group-hover:translate-x-0 transition duration-300"></div>
-                    catalyst.net.nz
-                  </p>
-                </a>
-                {/* <a
-                  href={userData.resumeUrl}
-                  target="__blank"
-                  className="text-gray-800 border-b-2 border-gray-800 dark:border-gray-300 font-bold dark:text-gray-300"
-                >
-                  CV
-                </a>{" "}
-                and I'd love to work for you. */}
+                </a>{" "}at <span className="underline">lpercy@ljpercy.com</span>
               </p>
             </div>
             {/* Social Links */}
@@ -149,12 +122,12 @@ export default function AboutMe() {
               />
               <img
                 src="/html.png"
-                className="h-20 w-20 mx-4 my-4"
+                className="h-20 w-20 mx-4 my-4 bg-white"
                 alt="HTML"
               />
               <img
                 src="/css.png"
-                className="h-20 w-20 mx-4 my-4"
+                className="h-20 w-20 mx-4 my-4 bg-white"
                 alt="CSS"
               />
                <img
