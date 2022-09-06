@@ -36,7 +36,7 @@ export default function Hero() {
       <div className="absolute w-7/12 text-center xsm:pt-10 xsm:pb-0 md:text-left lg:pt-20 md:pt-20">
       <Parallax speed={10} onLoad={handleLoad} easing='easeInOut'>
         <RoughNotationGroup show={true}>
-        <RainbowHighlight color={colors[1]}>
+          <RainbowHighlight color={colors[1]}>
             <h1 className="text-4xl md:text-8xl xsm:text-2xl font-bold text-gray-700 dark:text-gray-200 my-2">
               Agilist.
             </h1>
