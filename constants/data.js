@@ -16,7 +16,7 @@ const userData = {
   ],
   about: {
     title:
-      "Establishing motivated, and self-organised teams is what drives me. Using and applying collaborative principles and methodologies to empower, enable and bring people to work together better.",
+      "Establishing motivated and self-organised teams is what drives me. Using and applying collaborative principles and methodologies to empower, enable and bring people to work together better.",
     // description: [
     //   `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit semper commodo. Quisque in ornare augue, eget efficitur turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.`,
     //   `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit semper commodo. Quisque in ornare augue, eget efficitur turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. `,
