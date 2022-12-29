@@ -9,7 +9,7 @@ export default function ContainerBlock({ children, ...customMeta }) {
   const router = useRouter();
 
   const meta = {
-    title: "Luke Percy - Creative, writer and agilist",
+    title: "Luke Percy - Creative writer, hobbiest developer and Agilist",
     description: `This is my site about me, my career and my projects`,
     type: "website",
     image: userData.avatarUrl,
