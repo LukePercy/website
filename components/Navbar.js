@@ -38,7 +38,7 @@ export default function Navbar() {
                   : "text-gray-600 dark:text-gray-300 font-normal "
               }`}
             >
-              About{" "}
+              About<span className='text-sm'>me.</span>{" "}
               {router.asPath === "/about"}
             </a>
           </Link>
