@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Parallax } from "react-scroll-parallax";
 import userData from "../constants/data";
 
 export default function LatestCode({ repositories }) {
   const [repos, setRepos] = useState([]);
 
-  useEffect(async () => {
-    setRepos(repositories);
+  useEffect(() => {
+    const fetchData = async () => {
+      setRepos(repositories);
+    };
+    fetchData();
   }, []);
   return (
     <section aria-label="my software projects" className="bg-[#F1F1F1] -mt-40 dark:bg-gray-900 pb-40">

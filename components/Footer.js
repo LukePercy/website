@@ -16,15 +16,6 @@ export default function Footer() {
             <p>&copy; {userData.name}. All Rights Reserved.</p>
           </div>
           <div><Clock/></div>
-          <div className="space-x-4 flex flex-row items-center text-gray-300 dark:text-gray-700">
-            <p>
-          <Link href="/trading-cards-terms">
-            Trading Cards Terms{" "}
-            {router.asPath === "/trading-cards-terms"}
-
-          </Link>
-          </p>
-          </div>
         </div>
       </div>
     </div>
