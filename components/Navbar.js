@@ -18,40 +18,38 @@ export default function Navbar() {
       <div className="xsm:flex-wrap md:flex md:flex-row justify-between items-center">
         <div className="md:flex-col">
           <Link href="/">
-            <a>
-              <h1 className="font-semibold text-xl dark:text-gray-100 sm:pt-0.5 xsm:pt-0.5">
-                {userData.name}
-              </h1>
-              <span className="text-base font-light text-gray-500 dark:text-gray-300 xsm:invisible md:visible">
-                {userData.designation}
-              </span>
-            </a>
+
+            <h1 className="font-semibold text-xl dark:text-gray-100 sm:pt-0.5 xsm:pt-0.5">
+              {userData.name}
+            </h1>
+            <span className="text-base font-light text-gray-500 dark:text-gray-300 xsm:invisible md:visible">
+              {userData.designation}
+            </span>
+
           </Link>
         </div>
         <div className="space-x-4 flex flex-row items-center">
-        <Link href="/about">
-            <a
-              className={`text-base  ${
-                router.asPath === "/about"
-                  ? "text-gray-800 font-bold dark:text-gray-200"
-                  : "text-gray-600 dark:text-gray-300 font-normal "
-              }`}
-            >
-              About<span className='text-sm'>me.</span>{" "}
-              {router.asPath === "/about"}
-            </a>
-          </Link>
-          <Link href="/wip">
-            <a
-              className={`text-base  ${
-                router.asPath === "/wip"
-                  ? "text-gray-800 font-bold dark:text-gray-200"
-                  : "text-gray-600 dark:text-gray-300 font-normal "
-              }`}
-            >
-              Work in Progress{" "}
-              {router.asPath === "/wip"}
-            </a>
+        <Link
+          href="/about"
+          className={`text-base  ${
+            router.asPath === "/about"
+              ? "text-gray-800 font-bold dark:text-gray-200"
+              : "text-gray-600 dark:text-gray-300 font-normal "
+          }`}>
+          About<span className='text-sm'>me.</span>{" "}
+          {router.asPath === "/about"}
+
+        </Link>
+          <Link
+            href="/wip"
+            className={`text-base  ${
+              router.asPath === "/wip"
+                ? "text-gray-800 font-bold dark:text-gray-200"
+                : "text-gray-600 dark:text-gray-300 font-normal "
+            }`}>
+            Work in Progress{" "}
+            {router.asPath === "/wip"}
+
           </Link>
           <a
             href={userData.socialLinks.twitter}

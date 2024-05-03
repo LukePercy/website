@@ -19,10 +19,9 @@ export default function Footer() {
           <div className="space-x-4 flex flex-row items-center text-gray-300 dark:text-gray-700">
             <p>
           <Link href="/trading-cards-terms">
-            <a>
-              Trading Cards Terms{" "}
-              {router.asPath === "/trading-cards-terms"}
-            </a>
+            Trading Cards Terms{" "}
+            {router.asPath === "/trading-cards-terms"}
+
           </Link>
           </p>
           </div>
