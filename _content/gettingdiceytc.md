@@ -97,6 +97,4 @@ You can come check out the app and collect some trading cards over at [https://w
 
 ![Release version two](/WIP3.gif "Animated gif of second release currently live")
 
-![Displaying Art By text for artists](/ArtBy.gif.gif "Animated gif of second release currently live")
-
-
+![Displaying Art By text for artists](/ArtBy.gif "Animated gif of second release currently live")
