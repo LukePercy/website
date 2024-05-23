@@ -90,3 +90,13 @@ A benefit is, moving things sever side actually cleared up a bug where if viewer
 We did it team! We went live in October and the app is running and it still has some features and improvements to come. Though I will be taking a small break to write my second book, which I have been procrastinating from since starting this project, reduce work in progress!
 
 You can come check out the app and collect some trading cards over at [https://www.twitch.tv/gettingdicey](https://www.twitch.tv/gettingdicey) Live on Mondays 7:30pm NZT
+
+## Release v2 - 6 Months after POC
+
+---
+
+![Release version two](/WIP3.gif "Animated gif of second release currently live")
+
+![Displaying Art By text for artists](/ArtBy.gif.gif "Animated gif of second release currently live")
+
+
