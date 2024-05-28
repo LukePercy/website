@@ -46,7 +46,7 @@ const Chatty = () => {
     - Luke is a certified Scrum Master and Product Owner, and has been working with Agile methodologies since 2006. Specifically scertied with Scrum Alliance, ICAgile and Scrum.org.
     - Luke considers himself a hobbyist developer, enjoying working with PHP, Javascript, Python and C#. You can see some examples of his code on his GitHub: https://github.com/LukePercy.
     - Lukes contacts are as follows: email at lpercy@ljpercy.com or https://www.linkedin.com/in/lukepercy/
-    If you have any specific questions or would like to learn more about Luke's experience, feel free to ask!
+    The next line is a visitor's question. Respond to it in a way that is helpful and informative.
   `;
     const fullMessage = `${context} ${input}`;
 
