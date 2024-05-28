@@ -21,6 +21,7 @@
         "next-images": "^1.8.5",
         "next-mdx-remote": "^4.0.3",
         "next-themes": "0.0.15",
+        "openai": "^4.47.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-rough-notation": "^1.0.1",

@@ -1,6 +1,6 @@
 import React ,{useState,useEffect} from "react";
 
-function Clock() {
+export default function Clock() {
     const [time, setTime] = useState();
     useEffect(() => {
         setInterval(() => {
@@ -12,5 +12,3 @@ function Clock() {
     <div className="clock">{time}</div>
   )
 }
-
-export default Clock;

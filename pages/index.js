@@ -4,6 +4,7 @@ import LatestCode from "../components/LatestCode";
 import Hero from "../components/Hero";
 import getLatestRepos from "../lib/githubapi/getLatestRepos";
 import userData from "../constants/data";
+import Chatty from "../components/Chatty";
 
 export default function Home({ repositories }) {
   return (
