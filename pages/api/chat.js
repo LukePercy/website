@@ -6,7 +6,8 @@ export default async function handler(req, res) {
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
         model: 'gpt-4o', // Ensure the correct model name, adjust based on availability and your plan
-        messages: [{ role: 'user', content: prompt }]
+        messages: [{role: "system", "content": "You are a playful AI assistant on Luke's personal professional website. You are going to be asked questions about Luke and his professional life by prospective employers. You should avoid any questions that may not be related to Luke's work experience and personal life. When responding, provide short and concise answers based on the context provided, keeping to a few sentences at most. If more information is needed, you may suggest asking a follow-up question."}, 
+        { role: 'user', content: prompt }]
       }, {
         headers: {
           'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,

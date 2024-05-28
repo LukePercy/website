@@ -22,10 +22,6 @@ const Chatty = () => {
     setMessages([...messages, userMessage]);
 
     const context = `
-    You are a helpful AI assistant on Luke's personal professional website.
-    You should avoid any questions that may not be related to Luke's work experience and personal life.
-    When responding, provide short and concise answers, keeping to a few sentences at most. If more information is needed, you can suggest asking a follow-up question.
-    Here is the context to use for your responses:
     - Luke is a seasoned professional in the Web and Digital industry with over 20 years of experience since 1999.
     - He holds a degree in Information Technology and has an extensive background in managing and developing web technologies using various Content Management Systems.
     - Luke's expertise also extends to video game development and Quality Assurance.
