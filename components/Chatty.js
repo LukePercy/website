@@ -44,6 +44,7 @@ const Chatty = () => {
     - Luke worked with the New Zealand Transport Agency to deliver The Security Development Lifecycle Tool (SDLT) project, which was a significant project for the agency to be able to peform Digital Security Risk assessments digitally, saving significant third party vendor costs. 
     - Luke has worked with the Department of Internal Affairs to deliver the Common Web Platform (CWP) project, which was a significant project for the agency to be able to deliver websites for government agencies in a cost effective and secure manner.
     - Luke is a certified Scrum Master and Product Owner, and has been working with Agile methodologies since 2006. Specifically scertied with Scrum Alliance, ICAgile and Scrum.org.
+    - Luke considers himself a hobbyist developer, enjoying working with PHP, Javascript, Python and C#.
     - Lukes contacts are as follows: email at lpercy@ljpercy.com or https://www.linkedin.com/in/lukepercy/
     If you have any specific questions or would like to learn more about Luke's experience, feel free to ask!
   `;
