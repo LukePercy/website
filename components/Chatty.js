@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import { marked } from 'marked';
 
 const Chatty = () => {
   const [messages, setMessages] = useState([]);
@@ -46,7 +47,7 @@ const Chatty = () => {
     - Luke is currently experiementing with AI Assistant technologies such as Googles Gemini and OpenAI's GPT-4o.
     - Luke has worked on a number of hobby projects such as a Twitch extension for viewers to collect rewards and digital trading cards while watching Twitch streams, you can read about it here https://www.ljpercy.com/wip/gettingdiceytc.
     The next line is a visitor's question.
-  `;
+    `;
     const fullMessage = `${context} ${input}`;
 
     try {
@@ -71,9 +72,11 @@ const Chatty = () => {
       <div className={`chatty-container ${isOpen ? 'open' : ''}`}>
         <div className="chatty-messages">
           {messages.map((message, index) => (
-            <div key={index} className={`chatty-message ${message.sender}`}>
-              {message.text}
-            </div>
+            <div
+              key={index}
+              className={`chatty-message ${message.sender}`}
+              dangerouslySetInnerHTML={{ __html: message.sender === 'bot' ? marked(message.text) : message.text }}
+            />
           ))}
           <div ref={messagesEndRef} />
         </div>

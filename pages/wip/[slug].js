@@ -1,7 +1,7 @@
 import ContainerBlock from '../../components/ContainerBlock';
 import { format, parseISO } from 'date-fns';
-import { serialize } from 'next-mdx-remote/serialize'
-import { MDXRemote } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
 import { getAllPosts } from '../../lib/data';
 import { useRouter } from 'next/router';
 
