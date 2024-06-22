@@ -46,6 +46,18 @@ const Chatty = () => {
     - Lukes contacts are as follows: email at lpercy@ljpercy.com or https://www.linkedin.com/in/lukepercy/
     - Luke is currently experiementing with AI Assistant technologies such as Googles Gemini and OpenAI's GPT-4o.
     - Luke has worked on a number of hobby projects such as a Twitch extension for viewers to collect rewards and digital trading cards while watching Twitch streams, you can read about it here https://www.ljpercy.com/wip/gettingdiceytc.
+    - Luke has worked on a number of video games such as: 
+    Jonah Lomu Rugby challenge on PC, Xbox, PS3 and Playstation Vita,
+    Blood Drive (PS3, Xbox 360)Blood Drive (PS3, Xbox 360),
+    GripShift (PS3, Xbox 360)GripShift (PS3, Xbox 360),
+    Hot Wheels: Battle Force 5 (Wii)Hot Wheels: Battle Force 5 (Wii),
+    Jackass: The Game (PSP/PS2)Jackass: The Game (PSP/PS2),
+    Madagascar Kartz (PS3/Xbox 360/Wii)Madagascar Kartz (PS3/Xbox 360/Wii),
+    Rugby League 3 (Wii)Rugby League 3 (Wii),
+    Rugby League LIVE(PS3, Xbox360, PC)Rugby League LIVE(PS3, Xbox360, PC),
+    Shatter (PSN, OnLive, PC)Shatter (PSN, OnLive, PC),
+    Speed Racer: The video game (PS2, Wii)Speed Racer: The video game (PS2, Wii),
+    Star Wars: Clone Wars (PSP, Xbox 360.
     `;
     const fullMessage = `${context} ${input}`;
 
