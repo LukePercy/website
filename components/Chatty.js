@@ -46,7 +46,6 @@ const Chatty = () => {
     - Lukes contacts are as follows: email at lpercy@ljpercy.com or https://www.linkedin.com/in/lukepercy/
     - Luke is currently experiementing with AI Assistant technologies such as Googles Gemini and OpenAI's GPT-4o.
     - Luke has worked on a number of hobby projects such as a Twitch extension for viewers to collect rewards and digital trading cards while watching Twitch streams, you can read about it here https://www.ljpercy.com/wip/gettingdiceytc.
-    The next line is a visitor's question.
     `;
     const fullMessage = `${context} ${input}`;
 
