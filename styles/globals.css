@@ -40,6 +40,19 @@ html {
     /* 2 */
 }
 
+@keyframes wipe {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.page-transition {
+    animation: wipe 5s ease-in-out;
+}
+
 /*
 Sections
 ========

@@ -37,19 +37,19 @@ export default function Hero() {
       <Parallax speed={10} onLoad={handleLoad} easing='easeInOut'>
         <RoughNotationGroup show={true}>
           <RainbowHighlight color={colors[1]}>
-            <h1 className="text-4xl md:text-8xl xsm:text-2xl font-bold text-gray-700 dark:text-gray-200 my-2">
+            <h2 className="text-4xl md:text-8xl xsm:text-2xl font-bold text-gray-700 dark:text-gray-200 my-2">
               Agilist.
-            </h1>
+            </h2>
           </RainbowHighlight>
           <RainbowHighlight color={colors[3]}>
-            <h1 className="text-4xl md:text-8xl xsm:text-2xl font-bold text-gray-700 dark:text-gray-200 my-2">
+            <h2 className="text-4xl md:text-8xl xsm:text-2xl font-bold text-gray-700 dark:text-gray-200 my-2">
               Writer.
-            </h1>
+            </h2>
           </RainbowHighlight>
           <RainbowHighlight color={colors[2]}>
-            <h1 className="text-4xl md:text-8xl xsm:text-2xl font-bold text-gray-700 dark:text-gray-200 my-2">
+            <h2 className="text-4xl md:text-8xl xsm:text-2xl font-bold text-gray-700 dark:text-gray-200 my-2">
               Developer.
-            </h1>
+            </h2>
           </RainbowHighlight>
         </RoughNotationGroup>
         <div><p className="text-center">Scroll<span> &#9660;</span></p></div>

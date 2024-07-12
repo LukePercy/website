@@ -6,12 +6,6 @@ import { ParallaxProvider } from 'react-scroll-parallax';
 import * as ga from '../lib/ga/index'
 import Chatty from '../components/Chatty'
 
-
-
-
-
-
-
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
 

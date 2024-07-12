@@ -7,9 +7,9 @@ export default function FavouriteProjects() {
     <div className="bg-[#F1F1F1]dark:bg-gray-900">
       <div className="max-w-7xl mx-auto reveal">
         <header className="flex flex-col md:flex-row justify-between items-center xsm:pt-5 md:my-10 lg:my-10">
-          <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-10 md:text-gray-500 dark:text-gray-300 text-left">
+          <h2 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-10 md:text-gray-500 dark:text-gray-300 text-left">
             Create.
-          </h1>
+          </h2>
         </header>
         {/* Grid starts here */}
         <div className="grid md:grid-cols-4 gap-8 lg:-mt-8 pb-40 md:pb-20 sm:pb-5">
@@ -25,9 +25,9 @@ export default function FavouriteProjects() {
                 alt="Getting Dicey Trading Cards Extension project"
                 className="block transform hover:scale-125 transition duration-1000 ease-out"
               />
-              <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
+              <h3 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                 Getting Dicey Trading Cards
-              </h1>
+              </h3>
             </div>
           </a>
           {/* Single card */}
@@ -42,9 +42,9 @@ export default function FavouriteProjects() {
                 alt="The Dark That Dwells Beneath Te Aro rated 4 stars on Amazon books"
                 className="block transform hover:scale-125 transition duration-1000 ease-out"
               />
-              <h1 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
+              <h3 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                 The Dark that Dwells Beneath Te Aro
-              </h1>
+              </h3>
             </div>
           </a>
         </div>

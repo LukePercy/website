@@ -15,9 +15,9 @@ export default function LatestCode({ repositories }) {
       <div className="max-w-7xl mx-auto reveal">
         <div className="flex flex-col md:flex-row justify-between items-center pt-20 xsm:pt-1 mx-10 md:my-10 lg:my-10">
         <header className="flex flex-col md:flex-row justify-between -pt-10 -mx-10 md:-my-10 lg:-my-10">
-          <h1 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-20 md:text-gray-500 dark:text-gray-300 text-left">
+          <h2 className="text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-20 md:text-gray-500 dark:text-gray-300 text-left">
             Code.
-          </h1>
+          </h2>        
         </header>
           <div className="transform hover:scale-110 hover:-rotate-3 transition duration-300">
           <a
@@ -58,12 +58,12 @@ export default function LatestCode({ repositories }) {
 const GithubRepoCard = ({ latestRepo }) => {
   let repoTitle;
   if (!latestRepo.private){
-    repoTitle = <h1 className="font-semibold text-xl dark:text-gray-200 text-gray-700">
+    repoTitle = <h3 className="font-semibold text-xl dark:text-gray-200 text-gray-700">
       {latestRepo.name}
-    </h1>
+    </h3>
   } else {
-    repoTitle = <h1 className="font-semibold text-xl dark:text-gray-200 text-gray-600">
-    {latestRepo.name}<span className="m-2 bg-autumn-orange dark:text-grey-50 p-2 px-3 rounded-full text-sm font-bold">Private</span></h1>
+    repoTitle = <h3 className="font-semibold text-xl dark:text-gray-200 text-gray-600">
+    {latestRepo.name}<span className="m-2 bg-autumn-orange dark:text-grey-50 p-2 px-3 rounded-full text-sm font-bold">Private</span></h3>
   }
   return (
     <div className="github-repo">

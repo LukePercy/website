@@ -160,6 +160,11 @@ export default function AboutMe() {
                 className="h-10 w-15 mx-4 my-8"
                 alt="Drupal CMS"
               />
+              <img
+                src="/squiz-logo.png"
+                className="h-10 w-15 mx-4 my-8 bg-white"
+                alt="Squiz Digital Experience Platform"
+              />
             </div>
           </div>
         </div>
