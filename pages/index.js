@@ -7,10 +7,7 @@ import userData from "../constants/data";
 
 export default function Home({ repositories }) {
   return (
-    <ContainerBlock
-      title="Luke Percy - A hobbyist developer, creative writer and agilist"
-      description="This is my site about me, my career and my projects"
-    >
+    <ContainerBlock>
       <Hero />
       <FavouriteProjects />
       <LatestCode repositories={repositories} />
