@@ -8,8 +8,8 @@ export default function ContainerBlock({ children, ...customMeta }) {
   const router = useRouter();
 
   const meta = {
-    title: "Luke Percy - Creative writer, hobbyist developer and Agilist",
-    description: `This is my site about me, my career and my projects`,
+    title: "Luke Percy - Creative Writer, Developer, Agile Coach | Portfolio & Projects",
+    description: "Explore the portfolio of Luke Percy, a creative writer, developer, and Agile coach. Discover my projects, writing, and insights in technology and agile methodologies.",
     type: "website",
     image: userData.avatarUrl,
     ...customMeta,
@@ -44,6 +44,7 @@ function reveal() {
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta name="description" content={meta.description} />
+        <meta name="keywords" content="Luke Percy, creative writer, hobbyist developer, agile coach, portfolio, web development, agile methodologies, writing, technology projects"/>
         <meta name="color-scheme" content="dark light"/>
         <meta
           property="og:url"
