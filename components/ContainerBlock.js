@@ -35,11 +35,8 @@ function reveal() {
     reveal();
   }
   
-    // updates cached values after image dimensions have loaded
-    const handleLoad = () => parallaxController.update();
-  
   return (
-    <div>
+    <>
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -73,6 +70,6 @@ function reveal() {
         <div>{children}</div>
         <Footer />
       </main>
-    </div>
+    </>
   );
 }

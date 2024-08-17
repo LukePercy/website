@@ -21,6 +21,7 @@ const Chatty = () => {
 
     const userMessage = { sender: 'user', text: input };
     setMessages([...messages, userMessage]);
+    setInput('');
 ;
     const fullMessage = `${input}`;
 
@@ -31,8 +32,6 @@ const Chatty = () => {
     } catch (error) {
       console.error('Error sending message:', error);
     }
-
-    setInput('');
   };
 
   return (
@@ -66,6 +65,7 @@ const Chatty = () => {
               }
             }}
           />
+          <button onClick={handleSendMessage}>Send</button>
         </div>
       </div>
     </div>

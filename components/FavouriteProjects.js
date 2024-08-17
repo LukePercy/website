@@ -1,5 +1,5 @@
 import React from "react";
-// import Link from "next/link";
+import Image from "next/image";
 
 export default function FavouriteProjects() {
   return (
@@ -20,10 +20,15 @@ export default function FavouriteProjects() {
             className="md:col-span-2 sm:col-span-2"
           >
             <div className="relative overflow-hidden">
-              <img
+              <Image
                 src="/GDTC.png"
                 alt="Getting Dicey Trading Cards Extension project"
+                width={800}
+                height={800}
+                sizes="100vh"
                 className="block transform hover:scale-125 transition duration-1000 ease-out"
+                quality={75}
+                priority={true}
               />
               <h3 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                 Getting Dicey Trading Cards
@@ -37,10 +42,15 @@ export default function FavouriteProjects() {
             target="_blank"
           >
             <div className="relative overflow-hidden">
-              <img
+              <Image
                 src="/TheDarkThatDwells.jpg"
                 alt="The Dark That Dwells Beneath Te Aro rated 4 stars on Amazon books"
+                width={800}
+                height={800}
+                sizes="100vh"
                 className="block transform hover:scale-125 transition duration-1000 ease-out"
+                quality={75}
+                priority={true}
               />
               <h3 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                 The Dark that Dwells Beneath Te Aro

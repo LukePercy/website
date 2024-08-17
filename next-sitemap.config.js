@@ -4,7 +4,6 @@ module.exports = {
     priority: 0.7,
     sitemapSize: 5000,
     generateRobotsTxt: true,
-    exclude: ['/the-dark-that-dwells-beneath-te-aro/'],
     transform: async (config, path) => {
         return {
             loc: path,

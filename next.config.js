@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
+
 module.exports = {
   reactStrictMode: true,
   images: {
-    loader: 'imgix',
-    path:"",
+    loader: 'custom',
+    loaderFile: './loader.js',
   },
   i18n: {
     locales: ["en"],
