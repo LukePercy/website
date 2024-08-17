@@ -110,57 +110,57 @@ export default function AboutMe() {
             </h1>
             <div className="flex flex-row flex-wrap mt-8">
               <img
-                src='/javascript.png'
+                src='/javascript.webp'
                 className="h-20 w-20 mx-4 my-4"
                 alt="javascript"
               />
               <img
-                src="/typescript.png"
+                src="/typescript.webp"
                 className="h-20 w-20 mx-4 my-4"
                 alt="Typescript"
               />
               <img
-                src="/html.png"
+                src="/html.webp"
                 className="h-20 w-20 mx-4 my-4 bg-white"
                 alt="HTML"
               />
               <img
-                src="/css.png"
+                src="/css.webp"
                 className="h-20 w-20 mx-4 my-4 bg-white"
                 alt="CSS"
               />
                <img
-                src="/GitHub-Mark-64px.png"
+                src="/GitHub.webp"
                 className="h-20 w-20 mx-4 my-4"
                 alt="Git and GitHub"
               />
               <img
-                src="/react.png"
+                src="/react.webp"
                 className="h-20 w-20 mx-4 my-4"
                 alt="ReactJS"
               />
               <img
-                src="/mongodb.png"
+                src="/mongodb.webp"
                 className="h-20 w-20 mx-4 my-4"
                 alt="MongoDB and NoSQL Databases"
               />
               <img
-                src="/umbraco_logo_blue1.png"
+                src="/umbraco.webp"
                 className="h-20 w-20 mx-4 my-4"
                 alt="Umbraco CMS"
               />
               <img
-                src="/ss-opensource.png"
+                src="/ss-opensource.webp"
                 className="h-10 w-15 mx-4 my-8"
                 alt="Silverstripe CMS and framework"
               />
               <img
-                src="/drupal-wordmark.png"
+                src="/drupal-wordmark.webp"
                 className="h-10 w-15 mx-4 my-8"
                 alt="Drupal CMS"
               />
               <img
-                src="/squiz-logo.png"
+                src="/squiz-logo.webp"
                 className="h-10 w-15 mx-4 my-8 bg-white"
                 alt="Squiz Digital Experience Platform"
               />

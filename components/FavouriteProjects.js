@@ -21,7 +21,7 @@ export default function FavouriteProjects() {
           >
             <div className="relative overflow-hidden">
               <Image
-                src="/GDTC.png"
+                src="./GDTC.webp"
                 alt="Getting Dicey Trading Cards Extension project"
                 width={800}
                 height={800}
@@ -43,7 +43,7 @@ export default function FavouriteProjects() {
           >
             <div className="relative overflow-hidden">
               <Image
-                src="/TheDarkThatDwells.jpg"
+                src="./TheDarkThatDwells.webp"
                 alt="The Dark That Dwells Beneath Te Aro rated 4 stars on Amazon books"
                 width={800}
                 height={800}

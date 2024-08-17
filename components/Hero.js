@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { RoughNotationGroup } from "react-rough-notation";
 import { RainbowHighlight } from "./RainbowHighlight";
 import { Parallax, useParallaxController } from "react-scroll-parallax";
-import bg from '../public/mixkit-cup-full-of-coffee-209_Moment.jpg';
+import bg from '../public/coffee.webp';
 
 export default function Hero() {
   const colors = ["#F59E0B", "#84CC16", "#10B981", "#3B82F6"];
