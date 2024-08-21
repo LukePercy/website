@@ -4,7 +4,6 @@ module.exports = {
   reactStrictMode: true,
   images: {
     loader: 'custom',
-    loaderFile: './loader.js',
   },
   i18n: {
     locales: ["en"],

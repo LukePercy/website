@@ -5,7 +5,9 @@ export default class MyDocument extends Document {
     return (
       <>
       <Html>
-      <Script
+        <Head>
+        </Head>
+        <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
             strategy="afterInteractive"
           />
@@ -19,8 +21,6 @@ export default class MyDocument extends Document {
               });
             `}
           </Script>
-        <Head >
-        </Head>
         <body>
           <Main />
           <NextScript />

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import userData from "../constants/data";
+
 export default function ContainerBlock({ children, ...customMeta }) {
   const router = useRouter();
 
@@ -14,27 +15,27 @@ export default function ContainerBlock({ children, ...customMeta }) {
     image: userData.avatarUrl,
     ...customMeta,
   };
-  
-function reveal() {
-    var reveals = document.querySelectorAll(".reveal");
-    for (var i = 0; i < reveals.length; i++) {
-      var windowHeight = window.innerHeight;
-      var elementTop = reveals[i].getBoundingClientRect().top;
-      var elementVisible = 150;
-      if (elementTop < windowHeight - elementVisible) {
-        reveals[i].classList.add("active");
-      } else {
-        reveals[i].classList.remove("active");
+
+  React.useEffect(() => {
+    const reveal = () => {
+      const reveals = document.querySelectorAll(".reveal");
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        } else {
+          reveals[i].classList.remove("active");
+        }
       }
-    }
-  }
-  
-  if (typeof window !== 'undefined') {
+    };
     window.addEventListener("scroll", reveal);
-    // To check the scroll position on page load
-    reveal();
-  }
-  
+    reveal(); // Initial check
+
+    return () => window.removeEventListener("scroll", reveal);
+  }, []);
+
   return (
     <>
       <Head>
@@ -43,14 +44,8 @@ function reveal() {
         <meta name="description" content={meta.description} />
         <meta name="keywords" content="Luke Percy, creative writer, hobbyist developer, agile coach, portfolio, web development, agile methodologies, writing, technology projects"/>
         <meta name="color-scheme" content="dark light"/>
-        <meta
-          property="og:url"
-          content={`${userData.domain}${router.asPath}`}
-        />
-        <link
-          rel="canonical"
-          href={`${userData.domain}${router.asPath}`}
-        />
+        <meta property="og:url" content={`${userData.domain}${router.asPath}`} />
+        <link rel="canonical" href={`${userData.domain}${router.asPath}`} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content="Luke Percy" />
         <meta property="og:description" content={meta.description} />
@@ -61,12 +56,10 @@ function reveal() {
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
-        {meta.date && (
-          <meta property="article:published_time" content={meta.date} />
-        )}
+        {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
       <main className="dark:bg-gray-900 w-full">
-        <Navbar/>
+        <Navbar />
         <div>{children}</div>
         <Footer />
       </main>

@@ -1,8 +1,6 @@
 import React from "react";
 import userData from "../constants/data";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import Clock from "../components/Clock";
 export default function Footer() {
   const router = useRouter();
   
@@ -15,7 +13,6 @@ export default function Footer() {
           <div className="dark:text-white">
             <p>&copy; {userData.name}. All Rights Reserved.</p>
           </div>
-          <div><Clock/></div>
         </div>
       </div>
     </div>
