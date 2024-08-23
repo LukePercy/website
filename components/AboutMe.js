@@ -130,7 +130,7 @@ export default function AboutMe() {
                 alt="CSS"
               />
                <img
-                src="/GitHub.webp"
+                src="/Github.webp"
                 className="h-20 w-20 mx-4 my-4"
                 alt="Git and GitHub"
               />
