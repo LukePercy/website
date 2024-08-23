@@ -14,7 +14,7 @@ export default function FavouriteProjects() {
           </header>
           <div className="grid md:grid-cols-4 gap-8 lg:-mt-8 pb-40 md:pb-20 sm:pb-5">
             <a
-              href="https://www.twitch.tv/gettingdicey"
+              href="/wip/thedarkthatdwells"
               target="_blank"
               className="md:col-span-2 sm:col-span-2"
             >
