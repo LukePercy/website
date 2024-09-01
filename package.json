@@ -19,6 +19,7 @@
         "axios": "^1.7.4",
         "braces": "^3.0.3",
         "date-fns": "^2.17.0",
+        "framer-motion": "^11.3.31",
         "gray-matter": "^4.0.2",
         "marked": "^12.0.2",
         "next": "^14.2.5",

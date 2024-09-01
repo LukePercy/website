@@ -1,8 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 import userData from "../constants/data";
 
 export default function ContainerBlock({ children, ...customMeta }) {
@@ -59,9 +57,7 @@ export default function ContainerBlock({ children, ...customMeta }) {
         {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
       <main className="dark:bg-gray-900 w-full">
-        <Navbar />
-        <div>{children}</div>
-        <Footer />
+        <div className="pt-10 ">{children}</div>
       </main>
     </>
   );

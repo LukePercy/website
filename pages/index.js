@@ -5,6 +5,7 @@ import Hero from "../components/Hero";
 import getLatestRepos from "../lib/githubapi/getLatestRepos";
 import userData from "../constants/data";
 
+
 export default function Home({ repositories }) {
   return (
     <ContainerBlock>

@@ -4,7 +4,11 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import * as ga from '../lib/ga/index';
-import Chatty from '../components/Chatty';
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Chatty from "../components/Chatty";
+
+
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -27,7 +31,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider defaultTheme="dark" attribute="class">
       <ParallaxProvider>
+        <Navbar />
         <Component {...pageProps} />
+        <Footer />
       </ParallaxProvider>
       <Chatty />
     </ThemeProvider>

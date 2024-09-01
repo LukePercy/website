@@ -11,7 +11,7 @@ export default function BlogPage({ title, date, content }) {
   
   return (
       <ContainerBlock>
-        <div className="grid grid-cols-1 md:grid-cols-8 lg:-mt-8 pb-5 md:pb-10"> 
+        <div className="grid grid-cols-1 md:grid-cols-8 lg:mt-8 pb-5 md:pb-10"> 
         <div className="border-b-2 border-gray-200 md:col-start-4 md:col-span-2">
           <h1 className="text-2xl md:text-6xl font-bold py-6 text-center md:text-left dark:text-white">
             {title}

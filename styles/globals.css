@@ -2729,6 +2729,10 @@ h3 {
     line-height: 2.5rem;
 }
 
+.text-8xl {
+    font-size: 6rem; /* 96px */
+    line-height: 1;
+}
 .text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
