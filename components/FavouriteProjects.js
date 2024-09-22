@@ -1,8 +1,27 @@
 import React from "react";
+import Slider from "react-slick";
 import { customLoader } from "../loader";
 import Image from "next/image";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function FavouriteProjects() {
+  const sliderSettings = {
+    infinite: false,
+    slidesToShow: 2,
+    speed: 500,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <section aria-label="my latest projects" className="relative -mt-20">
       <div className="bg-[#F1F1F1] dark:bg-gray-900">
@@ -12,48 +31,62 @@ export default function FavouriteProjects() {
               Create.
             </h2>
           </header>
-          <div className="grid md:grid-cols-4 gap-8 lg:-mt-8 pb-40 md:pb-20 sm:pb-5">
-            <a
-              href="/wip/gettingdiceytc"
-              target="_blank"
-              className="md:col-span-2 sm:col-span-2"
-            >
-              <div className="relative overflow-hidden">
+          <Slider {...sliderSettings} className="pb-40 md:pb-20 sm:pb-5">
+            <div className="relative overflow-hidden">
+              <a
+                href="/wip/gettingdiceytc"
+                target="_blank"
+              >
                 <Image
                   loader={customLoader}
                   src="/GDTC.webp"
                   alt="Getting Dicey Trading Cards Extension project"
-                  width={500}
-                  height={500}
+                  width={400}
+                  height={400}
                   quality={75}
                   className="block transform hover:scale-125 transition duration-1000 ease-out"
                 />
                 <h3 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                   Getting Dicey Trading Cards
                 </h3>
-              </div>
-            </a>
-            <a
-              href="https://www.amazon.com/dp/B09JVFJKFX"
-              className="md:col-span-2 sm:col-span-2"
-              target="_blank"
-            >
-              <div className="relative overflow-hidden">
+              </a>
+            </div>
+            <div className="relative overflow-hidden">
+              <a
+                href="https://www.amazon.com/dp/B09JVFJKFX"
+                target="_blank"
+              >
                 <Image
                   loader={customLoader}
                   src="/TheDarkThatDwells.webp"
                   alt="The Dark That Dwells Beneath Te Aro rated 4 stars on Amazon books"
-                  width={500}
-                  height={500}
+                  width={400}
+                  height={300}
                   quality={75}
                   className="block transform hover:scale-125 transition duration-1000 ease-out"
                 />
                 <h3 className="absolute top-10 left-10 text-gray-50 font-bold text-xl bg-autumn-orange rounded-md px-2">
                   The Dark that Dwells Beneath Te Aro
                 </h3>
-              </div>
-            </a>
-          </div>
+              </a>
+            </div>
+            <div className="relative overflow-hidden">
+              <a
+                href="https://promocards.byspotify.com/api/share/a7bfb402-4e1d-4166-9150-ff12bad55e14"
+                target="_blank"
+              >
+                <Image
+                  loader={customLoader}
+                  src="/spotifyAudiobook.webp"
+                  alt="The Dark That Dwells Beneath Te Aro on Spotify"
+                  width={500}
+                  height={500}
+                  quality={75}
+                  className="block transform hover:scale-125 transition duration-1000 ease-out"
+                />
+              </a>
+            </div>
+          </Slider>
         </div>
       </div>
     </section>

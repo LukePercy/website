@@ -32,8 +32,10 @@
         "react-dom": "^18.3.1",
         "react-rough-notation": "^1.0.1",
         "react-scroll-parallax": "^3.2.0",
+        "react-slick": "^0.30.2",
         "react-stars": "^2.2.5",
         "sharp": "^0.33.3",
+        "slick-carousel": "^1.8.1",
         "trim": "^1.0.1",
         "tw-elements": "^2.0.0"
     },

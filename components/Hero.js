@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   const colors = ["#F59E0B", "#84CC16", "#10B981", "#3B82F6"];
-  const skills = ["Agilist", "Creative Writer", "Developer", "Delivery Manager", "Digital Producer"];
+  const skills = ["Agilist", "Creative Writer","Technology & Team Development","Developer", "Delivery Manager", "Digital Producer"];
   const parallaxController = useParallaxController();
 
   // updates cached values after image dimensions have loaded
