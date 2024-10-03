@@ -14,9 +14,10 @@ export default function wip({posts}) {
 
 export async function getStaticProps() {
   const allPosts = getAllPosts();
+  const sortedPosts = allPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
   return {
     props: {
-      posts: allPosts.map(({ data, content, slug }) => ({
+      posts: sortedPosts.map(({ data, content, slug }) => ({
         ...data,
         date: data.date.toISOString(),
         content,

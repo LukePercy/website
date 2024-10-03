@@ -50,13 +50,13 @@ I wanted to learn a few things with the proof of concept:
 
 My gut estimate was this was going to take 3 weekends of schedule, roughly spending 2 hours each day, and my lovely wife would take the kids out for a couple of Saturdays so I could spend roughly 3 to 6 hours each weekend. That was my goal, and enough to keep me motivated.
 
-### and 3 weekends later...I had a PoC.
+### and 3 weekends later...I had a PoC
 
 ---
 
 ![Proof of Concept of trading cards](/GDCollectionPrototype.gif "Animated gif of prototype") ![Proof of Concept of trading cards card flip](/GDflipfix.gif "Animated gif of prototype")
 
-## PoC TICK!
+## PoC TICK
 
 ---
 
