@@ -36,12 +36,12 @@ export default function Hero() {
       <div className="absolute">
       <Parallax speed={10} onLoad={handleLoad} easing='easeInOut'>
       <div className="relative flex flex-col items-center justify-center h-screen space-y-10">
-        {skills.map((skill, index) => (
+      {skills.map((skill, index) => (
           <motion.div
             key={index}
             className="w-full flex justify-center"
-            initial={{ opacity: 0, rotateY: 90 }}
-            animate={{ opacity: 1, rotateY: 0 }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.4, duration: 1 }}
           >
             <motion.div
