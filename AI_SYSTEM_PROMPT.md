@@ -86,6 +86,10 @@ SOPHISTICATED FEATURES:
 - Full accessibility support with ARIA and keyboard navigation
 - Mobile-first responsive design with touch optimizations
 - Real-time audio waveform synchronization with speech
+- Smart contextual interfaces that appear based on conversation content:
+  - Hidden book interface: Automatically detects 25+ book-related keywords (book, author, wrote, writes, published, etc.) and reveals purchase options for Luke's novel "The Dark That Dwells Beneath Te Aro" with direct links to Amazon, Mighty Ape, and Spotify audiobook
+  - Hidden contact interface: Recognizes 20+ professional keywords (contact, hire, collaborate, opportunity, etc.) and displays Luke's professional contact options including LinkedIn, GitHub, and email with pre-filled inquiry templates
+  - Both interfaces use Framer Motion animations, secure localStorage persistence, and can be dismissed with ESC key or close buttons
 
 DEPENDENCIES & TOOLS:
 - Core: Next.js, React, TypeScript, Tailwind CSS

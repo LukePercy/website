@@ -53,6 +53,8 @@ const FuturisticInterface = () => {
   const [lastRequestTime, setLastRequestTime] = useState(0);
   const [requestCount, setRequestCount] = useState(0);
   const [isRateLimited, setIsRateLimited] = useState(false);
+  const [lastQuestion, setLastQuestion] = useState(''); // Add question deduplication
+  const [isMobile, setIsMobile] = useState(false); // Track mobile state
   const isClient = useIsClient();
 
   // Secure localStorage wrapper to prevent XSS and validate data
@@ -206,7 +208,7 @@ const FuturisticInterface = () => {
     const bookKeywords = [
       'book', 'books', 'author', 'wrote', 'written', 'published', 'novel', 'story',
       'dark that dwells', 'te aro', 'amazon', 'kindle', 'audiobook', 'spotify',
-      'buy', 'purchase', 'read', 'literature', 'writing', 'publish'
+      'buy', 'purchase', 'read', 'literature', 'writing', 'publish', 'writes'
     ];
     
     const lowerQuery = query.toLowerCase();
@@ -1019,7 +1021,7 @@ const FuturisticInterface = () => {
     
     // Check minimum delay between requests
     if (now - lastRequestTime < minDelay) {
-      setError(new Error('Please wait a moment before asking another question.'));
+      setError(new Error('Easy there! Give me just a sec to process your last question.'));
       return;
     }
     
@@ -1032,13 +1034,21 @@ const FuturisticInterface = () => {
     // Check rate limit (reduced from 10 to 5 requests per minute)
     if (requestCount >= 5) {
       setIsRateLimited(true);
-      setError(new Error('Rate limit exceeded. Please wait a moment before asking another question.'));
+      setError(new Error('Hey there! I need a quick breather. Come back in a minute and we can chat more!'));
+      return;
+    }
+    
+    // Check for duplicate questions to prevent accidental double-clicks
+    const normalizedInput = userInput.trim().toLowerCase();
+    if (normalizedInput === lastQuestion.toLowerCase() && (now - lastRequestTime) < 10000) {
+      setError(new Error('I heard you the first time! Let me finish thinking about that one.'));
       return;
     }
     
     // Increment request count
     setRequestCount(prev => prev + 1);
     setLastRequestTime(now);
+    setLastQuestion(normalizedInput);
     
     // Enable audio on first interaction
     await enableAudio();
@@ -1064,6 +1074,11 @@ const FuturisticInterface = () => {
     
     // Check if this is a book-related query
     if (detectBookQuery(sanitizedInput)) {
+      // On mobile, hide contact interface if book interface is being shown
+      if (isMobile && showContactButtons) {
+        setShowContactButtons(false);
+        secureLocalStorage.removeItem('showContactButtons');
+      }
       setShowBookButtons(true);
       // Store in secure localStorage to persist until browser is closed
       secureLocalStorage.setItem('showBookButtons', 'true');
@@ -1071,6 +1086,11 @@ const FuturisticInterface = () => {
     
     // Check if this is a contact-related query
     if (detectContactQuery(sanitizedInput)) {
+      // On mobile, hide book interface if contact interface is being shown
+      if (isMobile && showBookButtons) {
+        setShowBookButtons(false);
+        secureLocalStorage.removeItem('showBookButtons');
+      }
       setShowContactButtons(true);
       // Store in secure localStorage to persist until browser is closed
       secureLocalStorage.setItem('showContactButtons', 'true');
@@ -1137,7 +1157,9 @@ const FuturisticInterface = () => {
             // Fallback if parsing fails
           }
           
-          throw new Error(`API rate limit exceeded. Please wait ${retryAfter} seconds and try again.`);
+          const friendlyMinutes = Math.ceil(retryAfter / 60);
+          const timeMessage = retryAfter < 60 ? 'in a moment' : `in about ${friendlyMinutes} minute${friendlyMinutes > 1 ? 's' : ''}`;
+          throw new Error(`I'm taking a quick break! Check back ${timeMessage} and I'll be ready to chat.`);
         }
         
         // Limit error message length to prevent information disclosure
@@ -1182,7 +1204,7 @@ const FuturisticInterface = () => {
       // Add a subtle indicator for fallback responses
       let displayResponse = sanitizedResponse;
       if (isRateLimitedResponse) {
-        displayResponse += `\n\n💡 *I'm experiencing high demand - this is a quick response while I catch up. Feel free to ask follow-up questions!*`;
+        displayResponse += `\n\n*Quick response mode! Come back later for my full attention.*`;
       }
       
       // Use typewriter effect for AI response with sanitized content
@@ -1208,9 +1230,11 @@ const FuturisticInterface = () => {
       let safeErrorMessage = 'Sorry, I encountered a technical issue. Please try again.';
       
       // Only show specific safe error messages
-      if (error.message === 'Rate limit exceeded. Please wait a moment before asking another question.') {
+      if (error.message === 'Hey there! I need a quick breather. Come back in a minute and we can chat more!' ||
+          error.message === 'Easy there! Give me just a sec to process your last question.' ||
+          error.message === 'I heard you the first time! Let me finish thinking about that one.') {
         safeErrorMessage = error.message;
-      } else if (error.message.includes('API rate limit exceeded')) {
+      } else if (error.message.includes('I\'m taking a quick break!')) {
         safeErrorMessage = error.message; // This is already safe - we constructed it
       } else if (error.message === 'Invalid response content' || 
                  error.message === 'Invalid response format' ||
@@ -1473,6 +1497,22 @@ const FuturisticInterface = () => {
     }
   }, [isClient, hasPlayedGreeting, settings.voiceEnabled, streamSpeak, randomGreetings, audioEnabled]);
 
+  // Check mobile state
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Check on mount
+    if (isClient) {
+      checkMobile();
+      
+      // Add listener for resize
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, [isClient]);
+
   // Check if greeting was already played in this session
   useEffect(() => {
     if (isClient) {
@@ -1500,7 +1540,7 @@ const FuturisticInterface = () => {
     >
       {/* Background Animation Layer */}
       {settings.animationsEnabled && (
-        <div className="absolute inset-0 w-full h-full">
+        <div className="absolute inset-0 w-full h-full z-0">
           <AnimatedBackground 
             isThinking={isThinking} 
             isSpeaking={isSpeaking || isAISpeaking || isStreamSpeaking}
@@ -1510,7 +1550,7 @@ const FuturisticInterface = () => {
       )}
       
       {/* UI Overlay Layer */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none">
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-10">
         {/* Audio Enable Prompt */}
         {!audioEnabled && (
           <AnimatePresence>
@@ -1535,13 +1575,20 @@ const FuturisticInterface = () => {
           {!isSettingsOpen && (
             <motion.button
               onClick={() => setIsSettingsOpen(true)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsSettingsOpen(true);
+                }
+              }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="absolute top-4 right-4 p-3 bg-black/30 backdrop-blur-xl border border-white/10 rounded-full text-gray-300 hover:text-white transition-colors pointer-events-auto z-40 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50"
+              className="absolute top-4 right-4 p-3 bg-black/30 backdrop-blur-xl border border-white/10 rounded-full text-gray-300 hover:text-white focus:text-white transition-colors pointer-events-auto z-50 focus:outline-none focus:ring-4 focus:ring-cyan-400/60 focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/25"
+              tabIndex={0}
               aria-label="Open settings panel"
               aria-expanded={isSettingsOpen}
               aria-controls="settings-panel"
@@ -1563,7 +1610,7 @@ const FuturisticInterface = () => {
             : getBestVoice && getBestVoice()}
         />
 
-        {/* Digital AI Response Text - To the Right of Sphere */}
+        {/* Digital AI Response Text - Responsive positioning that respects canvas area */}
         {(isTyping || currentAIResponse) && (
           <AnimatePresence>
             <motion.div
@@ -1573,10 +1620,14 @@ const FuturisticInterface = () => {
               transition={{ duration: 0.3 }}
               className="pointer-events-none absolute"
               style={{
-                left: '60vw',
-                top: '35vh',
-                transform: 'translate(0, -50%)',
-                maxWidth: '35vw'
+                // Desktop: To the right of sphere (original positioning)
+                // Mobile: Top area, but not overlapping with canvas center
+                left: isMobile ? '5vw' : '60vw',
+                right: isMobile ? '5vw' : 'auto',
+                top: isMobile ? '5vh' : '35vh',
+                transform: isMobile ? 'none' : 'translate(0, -50%)',
+                maxWidth: isMobile ? '90vw' : '35vw',
+                zIndex: 10
               }}
               role="region"
               aria-live="polite"
@@ -1682,15 +1733,18 @@ const FuturisticInterface = () => {
           </AnimatePresence>
         )}
 
-        {/* Simple Text Input - Centered Over Canvas */}
+        {/* Simple Text Input - Responsive positioning that respects canvas */}
         <div 
           className="pointer-events-auto"
           style={{
             position: 'absolute',
-            top: '50vh',
+            // Desktop: Keep original center positioning
+            // Mobile: Move further down to avoid canvas area
+            top: isMobile ? '80vh' : '50vh',
             left: '50vw',
             transform: 'translate(-50%, -50%)',
-            zIndex: 100
+            zIndex: 200,
+            width: isMobile ? '90vw' : 'auto'
           }}
         >
           <motion.div 
@@ -1700,8 +1754,8 @@ const FuturisticInterface = () => {
             className="pointer-events-auto"
           >
             {/* Simple Input Bar */}
-            <div className="w-96 rounded-2xl p-4 shadow-2xl" style={{ backgroundColor: 'transparent' }}>
-              <form onSubmit={handleSubmit} className="flex items-center space-x-3" role="search" aria-label="Ask AI assistant">
+            <div className={`${isMobile ? 'w-full' : 'w-96'} rounded-2xl p-3 sm:p-4 shadow-2xl`} style={{ backgroundColor: 'transparent' }}>
+              <form onSubmit={handleSubmit} className="flex items-center space-x-2 sm:space-x-3" role="search" aria-label="Ask AI assistant">
                 {/* Voice Input Button */}
                 {speechRecognitionSupported && (
                   <motion.button
@@ -1715,16 +1769,16 @@ const FuturisticInterface = () => {
                     }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`p-3 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50 ${
+                    className={`p-2 sm:p-3 rounded-full transition-all duration-200 focus:outline-none focus:ring-4 focus:shadow-lg ${
                       isListening 
-                        ? 'bg-red-500 text-white shadow-lg shadow-red-500/50' 
-                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                        ? 'bg-red-500 text-white shadow-lg shadow-red-500/50 focus:ring-red-400/60 focus:border-red-400 focus:shadow-red-400/25' 
+                        : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white focus:text-white focus:ring-cyan-400/60 focus:border-cyan-400 focus:shadow-cyan-400/25'
                     }`}
                     disabled={isThinking}
                     aria-label={isListening ? "Stop voice input" : "Start voice input"}
                     aria-pressed={isListening}
                   >
-                    {isListening ? <MicOff size={18} /> : <Mic size={18} />}
+                    {isListening ? <MicOff size={isMobile ? 16 : 18} /> : <Mic size={isMobile ? 16 : 18} />}
                   </motion.button>
                 )}
                 
@@ -1751,7 +1805,7 @@ const FuturisticInterface = () => {
                     }
                   }}
                   placeholder={isListening ? "Listening..." : "Ask me anything..."}
-                  className="flex-1 p-3 bg-transparent border-none text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50 rounded-lg drop-shadow-lg"
+                  className={`flex-1 p-2 sm:p-3 bg-transparent border border-transparent text-white placeholder-gray-300 focus:outline-none focus:ring-4 focus:ring-cyan-400/60 focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/25 rounded-lg drop-shadow-lg transition-all duration-200 ${isMobile ? 'text-sm' : ''}`}
                   style={{ textShadow: '0 0 10px rgba(255,255,255,0.5)' }}
                   disabled={isThinking || isListening}
                   aria-label="Question input"
@@ -1771,11 +1825,11 @@ const FuturisticInterface = () => {
                   }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white shadow-lg shadow-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50"
+                  className="p-2 sm:p-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white shadow-lg shadow-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-cyan-400/60 focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/25"
                   disabled={isThinking || !userInput.trim()}
                   aria-label="Send question to AI assistant"
                 >
-                  <Send size={18} />
+                  <Send size={isMobile ? 16 : 18} />
                 </motion.button>
               </form>
               
@@ -1787,7 +1841,7 @@ const FuturisticInterface = () => {
             
             {/* Status Indicators - Below Input Container */}
             <div 
-              className="flex justify-center mt-4 space-x-4 text-xs text-gray-300 drop-shadow min-h-[20px]"
+              className={`flex justify-center mt-3 sm:mt-4 space-x-2 sm:space-x-4 text-xs text-gray-300 drop-shadow min-h-[20px] ${isMobile ? 'flex-wrap gap-1' : ''}`}
               role="status" 
               aria-live="polite"
               aria-label="System status"
@@ -1820,9 +1874,9 @@ const FuturisticInterface = () => {
           </motion.div>
         </div>
 
-        {/* Book Purchase Interface - Right Side */}
+        {/* Book Purchase Interface - Desktop only */}
         <AnimatePresence>
-          {showBookButtons && !isSettingsOpen && (
+          {showBookButtons && !isSettingsOpen && !isMobile && (
             <motion.div
               initial={{ opacity: 0, x: 50, scale: 0.9 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -1830,21 +1884,22 @@ const FuturisticInterface = () => {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="absolute pointer-events-auto z-50"
               style={{ 
-                right: '5vw', 
-                top: '60vh', 
-                transform: 'translateY(-50%)' 
+                right: '5vw',
+                top: '60vh',
+                transform: 'translateY(-50%)',
+                maxWidth: '320px'
               }}
               role="complementary"
               aria-label="Book purchase options"
             >
-              <div className="bg-black/80 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-6 max-w-xs relative">
+              <div className="bg-black/80 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-4 sm:p-6 relative max-w-full">
                 {/* Close Button */}
                 <motion.button
                   onClick={() => {
                     setShowBookButtons(false);
                     secureLocalStorage.removeItem('showBookButtons');
                   }}
-                  className="absolute top-3 right-3 p-1 text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50 rounded"
+                  className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1 text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400/50 rounded"
                   aria-label="Close book purchase options"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -1856,24 +1911,24 @@ const FuturisticInterface = () => {
                 </motion.button>
                 
                 <motion.div
-                  className="flex items-center justify-center gap-2 mb-4"
+                  className="flex items-center justify-center gap-2 mb-3 sm:mb-4"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <div className='p-3'>
-                    <h3 className="text-cyan-400 text-lg font-bold">Available Now</h3>
-                    <p className="text-gray-300 text-xs">"The Dark That Dwells Beneath Te Aro"</p>
+                  <div className='p-2 sm:p-3 text-center'>
+                    <h3 className="text-cyan-400 text-base sm:text-lg font-bold">Available Now</h3>
+                    <p className="text-gray-300 text-xs sm:text-sm">"The Dark That Dwells Beneath Te Aro"</p>
                   </div>
                 </motion.div>
                 
-                <div className="space-y-3 mb-4" role="list" aria-label="Purchase options">
+                <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4" role="list" aria-label="Purchase options">
                   {/* Amazon Link */}
                   <motion.a
                     href="https://www.amazon.com/Dark-that-Dwells-Beneath-Aro/dp/B09JVFJKFX/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-3 border border-cyan-500/30 rounded-lg hover:border-cyan-400/50 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50"
+                    className="block p-2 sm:p-3 border border-cyan-500/30 rounded-lg hover:border-cyan-400/50 transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-cyan-400/60 focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/25"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
@@ -1882,12 +1937,12 @@ const FuturisticInterface = () => {
                     aria-label="Buy book on Amazon - opens in new window"
                     role="listitem"
                   >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="text-cyan-400 font-semibold text-sm group-hover:text-cyan-300">Buy on Amazon</div>
-                        <div className="text-gray-400 text-xs">Kindle & Paperback available</div>
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <div className="text-cyan-400 font-semibold text-xs sm:text-sm group-hover:text-cyan-300 truncate">Buy on Amazon</div>
+                        <div className="text-gray-400 text-xs truncate">Kindle & Paperback available</div>
                       </div>
-                      <div className="text-cyan-400/60 group-hover:text-cyan-400 transition-colors" aria-hidden="true">→</div>
+                      <div className="text-cyan-400/60 group-hover:text-cyan-400 transition-colors flex-shrink-0" aria-hidden="true">→</div>
                     </div>
                   </motion.a>
 
@@ -1896,7 +1951,7 @@ const FuturisticInterface = () => {
                     href="https://www.mightyape.co.nz/mn/buy/mighty-ape-the-dark-that-dwells-beneath-te-aro-36686686/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-3 border border-cyan-500/30 rounded-lg hover:border-cyan-400/50 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50"
+                    className="block p-2 sm:p-3 border border-cyan-500/30 rounded-lg hover:border-cyan-400/50 transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-cyan-400/60 focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/25"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
@@ -1905,12 +1960,12 @@ const FuturisticInterface = () => {
                     aria-label="Buy book from Mighty Ape New Zealand store - opens in new window"
                     role="listitem"
                   >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="text-cyan-400 font-semibold text-sm group-hover:text-cyan-300">Buy from Mighty Ape</div>
-                        <div className="text-gray-400 text-xs">New Zealand online store</div>
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <div className="text-cyan-400 font-semibold text-xs sm:text-sm group-hover:text-cyan-300 truncate">Buy from Mighty Ape</div>
+                        <div className="text-gray-400 text-xs truncate">New Zealand online store</div>
                       </div>
-                      <div className="text-cyan-400/60 group-hover:text-cyan-400 transition-colors" aria-hidden="true">→</div>
+                      <div className="text-cyan-400/60 group-hover:text-cyan-400 transition-colors flex-shrink-0" aria-hidden="true">→</div>
                     </div>
                   </motion.a>
 
@@ -1919,7 +1974,7 @@ const FuturisticInterface = () => {
                     href="https://open.spotify.com/search/the%20dark%20that%20dwells%20beneath%20te%20aro"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-3 border border-cyan-500/30 rounded-lg hover:border-cyan-400/50 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50"
+                    className="block p-2 sm:p-3 border border-cyan-500/30 rounded-lg hover:border-cyan-400/50 transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-cyan-400/60 focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/25"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
@@ -1928,12 +1983,12 @@ const FuturisticInterface = () => {
                     aria-label="Listen to audiobook on Spotify - opens in new window"
                     role="listitem"
                   >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="text-cyan-400 font-semibold text-sm group-hover:text-cyan-300">Listen on Spotify</div>
-                        <div className="text-gray-400 text-xs">Audiobook version</div>
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <div className="text-cyan-400 font-semibold text-xs sm:text-sm group-hover:text-cyan-300 truncate">Listen on Spotify</div>
+                        <div className="text-gray-400 text-xs truncate">Audiobook version</div>
                       </div>
-                      <div className="text-cyan-400/60 group-hover:text-cyan-400 transition-colors" aria-hidden="true">→</div>
+                      <div className="text-cyan-400/60 group-hover:text-cyan-400 transition-colors flex-shrink-0" aria-hidden="true">→</div>
                     </div>
                   </motion.a>
                 </div>
@@ -1952,9 +2007,9 @@ const FuturisticInterface = () => {
           )}
         </AnimatePresence>
 
-        {/* Contact Interface - Left Side */}
+        {/* Contact Interface - Desktop only */}
         <AnimatePresence>
-          {showContactButtons && !isSettingsOpen && (
+          {showContactButtons && !isSettingsOpen && !isMobile && (
             <motion.div
               initial={{ opacity: 0, x: -50, scale: 0.9 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -1962,21 +2017,22 @@ const FuturisticInterface = () => {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="absolute pointer-events-auto z-50"
               style={{ 
-                left: '5vw', 
-                top: '50vh', 
-                transform: 'translateY(-50%)' 
+                left: '5vw',
+                top: '50vh',
+                transform: 'translateY(-50%)',
+                maxWidth: '320px'
               }}
               role="complementary"
               aria-label="Contact options"
             >
-              <div className="bg-black/80 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-6 max-w-xs relative">
+              <div className="bg-black/80 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-4 sm:p-6 relative max-w-full">
                 {/* Close Button */}
                 <motion.button
                   onClick={() => {
                     setShowContactButtons(false);
                     secureLocalStorage.removeItem('showContactButtons');
                   }}
-                  className="absolute top-3 right-3 p-1 text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50 rounded"
+                  className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1 text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400/50 rounded"
                   aria-label="Close contact options"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -1988,24 +2044,24 @@ const FuturisticInterface = () => {
                 </motion.button>
                 
                 <motion.div
-                  className="flex items-center justify-center gap-2 mb-4"
+                  className="flex items-center justify-center gap-2 mb-3 sm:mb-4"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <div className='p-3'>
-                    <h3 className="text-purple-400 text-lg font-bold">Let's Connect</h3>
-                    <p className="text-gray-300 text-xs">Professional opportunities & collaboration</p>
+                  <div className='p-2 sm:p-3 text-center'>
+                    <h3 className="text-purple-400 text-base sm:text-lg font-bold">Let's Connect</h3>
+                    <p className="text-gray-300 text-xs sm:text-sm">Professional opportunities & collaboration</p>
                   </div>
                 </motion.div>
                 
-                <div className="space-y-3 mb-4" role="list" aria-label="Contact options">
+                <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4" role="list" aria-label="Contact options">
                   {/* LinkedIn Link */}
                   <motion.a
                     href="https://www.linkedin.com/in/lukepercy/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-3 border border-purple-500/30 rounded-lg hover:border-purple-400/50 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50"
+                    className="block p-2 sm:p-3 border border-purple-500/30 rounded-lg hover:border-purple-400/50 transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-purple-400/60 focus:border-purple-400 focus:shadow-lg focus:shadow-purple-400/25"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
@@ -2014,12 +2070,12 @@ const FuturisticInterface = () => {
                     aria-label="Connect on LinkedIn - opens in new window"
                     role="listitem"
                   >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="text-purple-400 font-semibold text-sm group-hover:text-purple-300">Connect on LinkedIn</div>
-                        <div className="text-gray-400 text-xs">Professional networking</div>
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <div className="text-purple-400 font-semibold text-xs sm:text-sm group-hover:text-purple-300 truncate">Connect on LinkedIn</div>
+                        <div className="text-gray-400 text-xs truncate">Professional networking</div>
                       </div>
-                      <div className="text-purple-400/60 group-hover:text-purple-400 transition-colors" aria-hidden="true">→</div>
+                      <div className="text-purple-400/60 group-hover:text-purple-400 transition-colors flex-shrink-0" aria-hidden="true">→</div>
                     </div>
                   </motion.a>
 
@@ -2028,7 +2084,7 @@ const FuturisticInterface = () => {
                     href="https://github.com/LukePercy"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-3 border border-purple-500/30 rounded-lg hover:border-purple-400/50 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50"
+                    className="block p-2 sm:p-3 border border-purple-500/30 rounded-lg hover:border-purple-400/50 transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-purple-400/60 focus:border-purple-400 focus:shadow-lg focus:shadow-purple-400/25"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
@@ -2037,19 +2093,19 @@ const FuturisticInterface = () => {
                     aria-label="View GitHub profile - opens in new window"
                     role="listitem"
                   >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="text-purple-400 font-semibold text-sm group-hover:text-purple-300">View GitHub</div>
-                        <div className="text-gray-400 text-xs">Open source projects & code</div>
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <div className="text-purple-400 font-semibold text-xs sm:text-sm group-hover:text-purple-300 truncate">View GitHub</div>
+                        <div className="text-gray-400 text-xs truncate">Open source projects & code</div>
                       </div>
-                      <div className="text-purple-400/60 group-hover:text-purple-400 transition-colors" aria-hidden="true">→</div>
+                      <div className="text-purple-400/60 group-hover:text-purple-400 transition-colors flex-shrink-0" aria-hidden="true">→</div>
                     </div>
                   </motion.a>
 
                   {/* Email Link */}
                   <motion.a
                     href="mailto:lpercy@ljpercy.com?subject=Professional Inquiry&body=Hi Luke,%0D%0A%0D%0AI found your AI-powered website and would like to discuss..."
-                    className="block p-3 border border-purple-500/30 rounded-lg hover:border-purple-400/50 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50"
+                    className="block p-2 sm:p-3 border border-purple-500/30 rounded-lg hover:border-purple-400/50 transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-purple-400/60 focus:border-purple-400 focus:shadow-lg focus:shadow-purple-400/25"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
@@ -2058,12 +2114,12 @@ const FuturisticInterface = () => {
                     aria-label="Send email to lpercy@ljpercy.com"
                     role="listitem"
                   >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <div className="text-purple-400 font-semibold text-sm group-hover:text-purple-300">Send Email</div>
-                        <div className="text-gray-400 text-xs">lpercy@ljpercy.com</div>
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="flex-1 min-w-0 pr-2">
+                        <div className="text-purple-400 font-semibold text-xs sm:text-sm group-hover:text-purple-300 truncate">Send Email</div>
+                        <div className="text-gray-400 text-xs truncate">lpercy@ljpercy.com</div>
                       </div>
-                      <div className="text-purple-400/60 group-hover:text-purple-400 transition-colors" aria-hidden="true">→</div>
+                      <div className="text-purple-400/60 group-hover:text-purple-400 transition-colors flex-shrink-0" aria-hidden="true">→</div>
                     </div>
                   </motion.a>
                 </div>

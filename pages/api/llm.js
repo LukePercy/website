@@ -72,9 +72,8 @@ async function handleOpenAI(question, conversationHistory = []) {
       model: 'gpt-4o',
       messages: messages,
       max_tokens: 1024, // Reduced from 2048 to save quota
-      temperature: 0.7,
-      timeout: 20000
-    })
+      temperature: 0.7
+    }),
   });
 
   if (!response.ok) {
@@ -151,19 +150,21 @@ export default async function handler(req, res) {
   if (process.env.NODE_ENV === 'development') {
     console.log("--- [LLM API] Request ---");
     console.log(`Provider: ${provider}`);
-    console.log(`Question: ${userQuestion}`);
+    console.log(`Question: ${userQuestion.substring(0, 100)}...`);
     console.log(`History length: ${conversationHistory.length}`);
+    console.log(`Timestamp: ${new Date().toISOString()}`);
+    console.log(`User-Agent: ${req.headers['user-agent']?.substring(0, 50)}...`);
     console.log("---------------------");
   }
 
   // Provider selection logic
   let selectedProvider = provider;
   if (provider === 'auto') {
-    // Auto-select based on availability
-    if (process.env.GEMINI_API_KEY) {
-      selectedProvider = 'gemini';
-    } else if (process.env.OPENAI_API_KEY) {
+    // Auto-select based on availability - prefer OpenAI if quota issues with Gemini
+    if (process.env.OPENAI_API_KEY) {
       selectedProvider = 'openai';
+    } else if (process.env.GEMINI_API_KEY) {
+      selectedProvider = 'gemini';
     } else {
       return res.status(500).json({ error: 'No AI providers configured' });
     }
@@ -212,7 +213,46 @@ export default async function handler(req, res) {
                        
     const isQuotaExceeded = (error.message?.includes('400') && error.message?.includes('quota')) ||
                            error.message?.includes('quota exceeded') ||
-                           error.message?.includes('billing');
+                           error.message?.includes('billing') ||
+                           error.message?.includes('current quota') ||
+                           error.message?.includes('free_tier_requests');
+
+    // Check for daily quota exhaustion specifically  
+    const isDailyQuotaExhausted = error.message?.includes('free_tier_requests') ||
+                                 error.message?.includes('quotaValue":"50"') ||
+                                 (error.status === 429 && error.message?.includes('quota'));
+
+    if (isDailyQuotaExhausted) {
+      console.log('Gemini daily quota exhausted, trying OpenAI fallback...');
+      
+      // Try OpenAI as fallback for daily quota issues
+      if (selectedProvider === 'gemini' && process.env.OPENAI_API_KEY) {
+        try {
+          const fallbackAnswer = await handleOpenAI(userQuestion, conversationHistory);
+          
+          return res.status(200).json({ 
+            answer: fallbackAnswer,
+            reply: fallbackAnswer,
+            provider: 'openai',
+            fallbackUsed: true,
+            originalProvider: 'gemini',
+            message: 'Switched to OpenAI due to Gemini daily quota limit'
+          });
+        } catch (openaiError) {
+          console.error('OpenAI fallback also failed:', openaiError);
+        }
+      }
+      
+      const fallbackAnswer = getFallbackResponse(userQuestion);
+      return res.status(200).json({ 
+        answer: fallbackAnswer,
+        reply: fallbackAnswer,
+        isRateLimitedResponse: true,
+        retryAfter: 86400, // 24 hours for daily quota reset
+        provider: 'fallback',
+        message: 'Daily quota exhausted, please try again tomorrow'
+      });
+    }
 
     if (isRateLimit) {
       const fallbackAnswer = getFallbackResponse(userQuestion);
