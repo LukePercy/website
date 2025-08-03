@@ -17,7 +17,7 @@ export const useAISpeech = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/speechGenerate', {
+      const response = await fetch('/api/speech/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

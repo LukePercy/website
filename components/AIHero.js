@@ -1074,8 +1074,8 @@ const FuturisticInterface = () => {
     setError(null);
 
     try {
-      // Choose API endpoint based on settings
-      const apiEndpoint = settings.aiProvider === 'github' ? '/api/githubAI' : '/api/askAI';
+      // Use unified LLM endpoint
+      const apiEndpoint = '/api/llm';
       
       // Generate a simple CSRF token for this session
       const csrfToken = sessionStorage.getItem('csrfToken') || 
@@ -1088,12 +1088,6 @@ const FuturisticInterface = () => {
         content: msg.text
       }));
       
-      // Add the current user message to history
-      conversationHistory.push({
-        role: 'user',
-        content: sanitizedInput
-      });
-      
       const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: { 
@@ -1105,16 +1099,16 @@ const FuturisticInterface = () => {
           'Expires': '0'
         },
         body: JSON.stringify({ 
-          question: sanitizedInput, // Use sanitized input
-          conversationHistory: conversationHistory, // Add conversation context
-          useGitHubAI: settings.aiProvider === 'github',
-          timestamp: now, // Add timestamp for replay attack prevention
-          csrfToken: csrfToken // Include CSRF token in body as well
+          question: sanitizedInput,
+          conversationHistory: conversationHistory,
+          provider: settings.aiProvider, // 'openai', 'gemini', 'github', or 'auto'
+          timestamp: now,
+          csrfToken: csrfToken
         }),
-        credentials: 'same-origin', // Prevent cross-origin credential inclusion
+        credentials: 'same-origin',
         mode: 'cors',
         cache: 'no-cache',
-        redirect: 'error' // Prevent redirect attacks
+        redirect: 'error'
       });
 
       // Security: Check response headers and content type

@@ -99,7 +99,7 @@ export const useStreamingSpeech = () => {
     try {
       // Process chunks in parallel but maintain order
       const audioPromises = chunks.map(async (chunk, index) => {
-        const response = await fetch('/api/speechGenerate', {
+        const response = await fetch('/api/speech/generate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

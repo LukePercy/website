@@ -44,13 +44,39 @@ const SettingsPanel = ({ isOpen, onClose, settings, onSettingsChange, availableV
                     <input
                       type="radio"
                       name="aiProvider"
-                      value="gemini"
-                      checked={settings.aiProvider === 'gemini'}
+                      value="auto"
+                      checked={settings.aiProvider === 'auto' || !settings.aiProvider}
                       onChange={(e) => onSettingsChange({ ...settings, aiProvider: e.target.value })}
                       className="w-5 h-5 text-cyan-400 bg-gray-700 border-gray-600 focus:ring-cyan-500 focus:ring-2"
                     />
                     <Bot size={16} className="text-cyan-400" />
-                    <span className="text-white font-medium">Gemini AI (Default)</span>
+                    <span className="text-white font-medium">Auto-Select (Recommended)</span>
+                  </label>
+
+                  <label className="flex items-center space-x-4 p-4 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 hover:border-green-500/30 transition-all cursor-pointer">
+                    <input
+                      type="radio"
+                      name="aiProvider"
+                      value="gemini"
+                      checked={settings.aiProvider === 'gemini'}
+                      onChange={(e) => onSettingsChange({ ...settings, aiProvider: e.target.value })}
+                      className="w-5 h-5 text-green-400 bg-gray-700 border-gray-600 focus:ring-green-500 focus:ring-2"
+                    />
+                    <Bot size={16} className="text-green-400" />
+                    <span className="text-white font-medium">Google Gemini</span>
+                  </label>
+
+                  <label className="flex items-center space-x-4 p-4 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 hover:border-blue-500/30 transition-all cursor-pointer">
+                    <input
+                      type="radio"
+                      name="aiProvider"
+                      value="openai"
+                      checked={settings.aiProvider === 'openai'}
+                      onChange={(e) => onSettingsChange({ ...settings, aiProvider: e.target.value })}
+                      className="w-5 h-5 text-blue-400 bg-gray-700 border-gray-600 focus:ring-blue-500 focus:ring-2"
+                    />
+                    <Sparkles size={16} className="text-blue-400" />
+                    <span className="text-white font-medium">OpenAI GPT-4</span>
                   </label>
                   
                   <label className="flex items-center space-x-4 p-4 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 hover:border-purple-500/30 transition-all cursor-pointer">
@@ -63,7 +89,7 @@ const SettingsPanel = ({ isOpen, onClose, settings, onSettingsChange, availableV
                       className="w-5 h-5 text-purple-400 bg-gray-700 border-gray-600 focus:ring-purple-500 focus:ring-2"
                     />
                     <Github size={16} className="text-purple-400" />
-                    <span className="text-white font-medium">GitHub AI (Experimental)</span>
+                    <span className="text-white font-medium">GitHub AI (Coming Soon)</span>
                   </label>
                 </div>
               </div>
