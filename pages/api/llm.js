@@ -49,10 +49,13 @@ async function handleOpenAI(question, conversationHistory = []) {
     throw new Error('OpenAI API key not configured');
   }
 
+  // Limit conversation history to prevent token overflow (max 4 exchanges = 8 messages)
+  const limitedHistory = conversationHistory.slice(-8);
+
   // Convert conversation history to OpenAI format
   const messages = [
     { role: "system", content: AI_SYSTEM_PROMPT },
-    ...conversationHistory.map(msg => ({
+    ...limitedHistory.map(msg => ({
       role: msg.role,
       content: msg.content
     })),
@@ -68,7 +71,7 @@ async function handleOpenAI(question, conversationHistory = []) {
     body: JSON.stringify({
       model: 'gpt-4o',
       messages: messages,
-      max_tokens: 2048,
+      max_tokens: 1024, // Reduced from 2048 to save quota
       temperature: 0.7,
       timeout: 20000
     })
@@ -94,8 +97,11 @@ async function handleGemini(question, conversationHistory = []) {
     systemInstruction: AI_SYSTEM_PROMPT,
   });
 
+  // Limit conversation history to prevent quota issues (max 4 exchanges = 8 messages)
+  const limitedHistory = conversationHistory.slice(-8);
+
   // Convert conversation history to Gemini format
-  const geminiHistory = conversationHistory.map(msg => ({
+  const geminiHistory = limitedHistory.map(msg => ({
     role: msg.role === 'user' ? 'user' : 'model',
     parts: [{ text: msg.content }]
   }));
@@ -103,7 +109,7 @@ async function handleGemini(question, conversationHistory = []) {
   const chat = model.startChat({
     history: geminiHistory,
     generationConfig: {
-      maxOutputTokens: 2048,
+      maxOutputTokens: 1024, // Reduced from 2048 to save quota
       temperature: 0.7,
       topP: 0.8,
       topK: 40
@@ -198,8 +204,17 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error(`${selectedProvider} API Error:`, error);
     
-    // Handle rate limit errors specifically
-    if (error.message?.includes('429') || error.message?.includes('rate limit')) {
+    // Enhanced rate limit detection
+    const isRateLimit = error.message?.includes('429') || 
+                       error.message?.includes('rate limit') ||
+                       error.message?.includes('Too Many Requests') ||
+                       error.status === 429;
+                       
+    const isQuotaExceeded = (error.message?.includes('400') && error.message?.includes('quota')) ||
+                           error.message?.includes('quota exceeded') ||
+                           error.message?.includes('billing');
+
+    if (isRateLimit) {
       const fallbackAnswer = getFallbackResponse(userQuestion);
       
       return res.status(200).json({ 
@@ -207,12 +222,12 @@ export default async function handler(req, res) {
         reply: fallbackAnswer,  // Legacy compatibility
         isRateLimitedResponse: true,
         retryAfter: 60,
-        provider: selectedProvider
+        provider: selectedProvider,
+        message: 'API rate limit reached, using contextual response'
       });
     }
     
-    // Handle quota exceeded errors
-    if (error.message?.includes('400') && error.message?.includes('quota')) {
+    if (isQuotaExceeded) {
       const fallbackAnswer = getFallbackResponse(userQuestion);
       
       return res.status(200).json({ 
@@ -220,7 +235,8 @@ export default async function handler(req, res) {
         reply: fallbackAnswer,  // Legacy compatibility
         isRateLimitedResponse: true,
         retryAfter: 300,
-        provider: selectedProvider
+        provider: selectedProvider,
+        message: 'API quota exceeded, using contextual response'
       });
     }
 

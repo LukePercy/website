@@ -1012,9 +1012,16 @@ const FuturisticInterface = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Rate limiting - prevent abuse (max 10 requests per minute)
+    // Rate limiting - prevent abuse (max 5 requests per minute with minimum 3 second delay)
     const now = Date.now();
     const oneMinute = 60 * 1000;
+    const minDelay = 3 * 1000; // 3 seconds minimum between requests
+    
+    // Check minimum delay between requests
+    if (now - lastRequestTime < minDelay) {
+      setError(new Error('Please wait a moment before asking another question.'));
+      return;
+    }
     
     // Reset count if more than a minute has passed
     if (now - lastRequestTime > oneMinute) {
@@ -1022,8 +1029,8 @@ const FuturisticInterface = () => {
       setIsRateLimited(false);
     }
     
-    // Check rate limit
-    if (requestCount >= 10) {
+    // Check rate limit (reduced from 10 to 5 requests per minute)
+    if (requestCount >= 5) {
       setIsRateLimited(true);
       setError(new Error('Rate limit exceeded. Please wait a moment before asking another question.'));
       return;
@@ -1082,8 +1089,8 @@ const FuturisticInterface = () => {
         Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
       sessionStorage.setItem('csrfToken', csrfToken);
       
-      // Prepare conversation history for context (last 10 exchanges to limit token usage)
-      const conversationHistory = messages.slice(-20).map(msg => ({
+      // Prepare conversation history for context (last 3 exchanges to limit token usage)
+      const conversationHistory = messages.slice(-6).map(msg => ({
         role: msg.sender === 'user' ? 'user' : 'assistant',
         content: msg.text
       }));
