@@ -2,11 +2,7 @@ import "../styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { ParallaxProvider } from 'react-scroll-parallax';
 import * as ga from '../lib/ga/index';
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Chatty from "../components/Chatty";
 
 
 
@@ -30,12 +26,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ThemeProvider defaultTheme="dark" attribute="class">
-      <ParallaxProvider>
-        <Navbar />
-        <Component {...pageProps} />
-        <Footer />
-      </ParallaxProvider>
-      <Chatty />
+      <Component {...pageProps} />
     </ThemeProvider>
   );
 }
