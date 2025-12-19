@@ -1,28 +1,17 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
-
 module.exports = {
-    mode: "jit",
-    purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-    darkMode: "class", // or 'media' or 'class'
+    content: [
+        './pages/**/*.{js,ts,jsx,tsx}',
+        './components/**/*.{js,ts,jsx,tsx}',
+        './content/**/*.{md,mdx}',
+    ],
     theme: {
         screens: {
-            'xsm': '340px',
-            // => @media (min-width: 340px) { ... }
-
-            'sm': '640px',
-            // => @media (min-width: 640px) { ... }
-
-            'md': '768px',
-            // => @media (min-width: 768px) { ... }
-
-            'lg': '1024px',
-            // => @media (min-width: 1024px) { ... }
-
-            'xl': '1280px',
-            // => @media (min-width: 1280px) { ... }
-
+            xsm: '340px',
+            sm: '640px',
+            md: '768px',
+            lg: '1024px',
+            xl: '1280px',
             '2xl': '1536px',
-            // => @media (min-width: 1536px) { ... }
         },
         extend: {
             colors: {
@@ -31,133 +20,64 @@ module.exports = {
             typography: (theme) => ({
                 DEFAULT: {
                     css: {
-                        color: theme('colors.gray.900'),
+                        color: theme('colors.slate.300'),
                         a: {
-                            color: theme('colors.blue.700'),
+                            color: theme('colors.slate.200'),
+                            textDecoration: 'underline',
+                            textUnderlineOffset: '3px',
+                            textDecorationColor: theme('colors.slate.500'),
                             '&:hover': {
-                                color: theme('colors.blue.700'),
+                                color: theme('colors.white'),
+                                textDecorationColor: theme('colors.slate.200'),
                             },
                         },
                         hr: {
-                            borderColor: theme('colors.green.500'),
-                        },
-                        h1: {
-                            color: theme('colors.gray.900'),
-                            fontSize: theme('fontSize.2xl'),
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        h2: {
-                            color: theme('colors.gray.900'),
-                            fontSize: theme('fontSize.xl'),
-                            fontWeight: theme('fontWeight.bold'),
-                        },
-                        h3: {
-                            color: theme('colors.gray.900'),
-                            fontSize: theme('fontSize.lg'),
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        h4: {
-                            color: theme('colors.gray.900'),
-                            fontSize: theme('fontSize.sm'),
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        h5: {
-                            color: theme('colors.gray.900'),
-                            fontSize: theme('fontSize.base'),
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        h6: {
-                            color: theme('colors.gray.900'),
-                            fontSize: theme('fontSize.base'),
-                            fontWeight: theme('fontWeight.semibold'),
+                            borderColor: theme('colors.slate.700'),
                         },
                         strong: {
-                            color: theme('colors.gray.300'),
+                            color: theme('colors.white'),
                         },
-
                         code: {
-                            color: theme('colors.gray.800'),
+                            color: theme('colors.slate.200'),
+                            backgroundColor: theme('colors.slate.800'),
+                            padding: '0.25rem 0.5rem',
+                            borderRadius: '0.25rem',
                         },
-
-                        figcaption: {
-                            color: theme('colors.gray.800'),
-                        },
-                    },
-                },
-                dark: {
-                    css: {
-                        color: theme('colors.gray.300'),
-                        a: {
-                            color: theme('colors.green.500'),
-                            '&:hover': {
-                                color: theme('colors.green.500'),
-                            },
-                        },
-                        hr: {
-                            borderColor: theme('colors.green.500'),
-                        },
-                        h1: {
-                            color: theme('colors.gray.300'),
-                            fontSize: theme('fontSize.2xl'),
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        h2: {
-                            color: theme('colors.gray.300'),
-                            fontSize: theme('fontSize.xl'),
-                            fontWeight: theme('fontWeight.bold'),
-                        },
-                        h3: {
-                            color: theme('colors.gray.300'),
-                            fontSize: theme('fontSize.lg'),
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        h4: {
-                            color: theme('colors.gray.300'),
-                            fontSize: theme('fontSize.sm'),
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        h5: {
-                            color: theme('colors.gray.300'),
-                            fontSize: theme('fontSize.base'),
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        h6: {
-                            color: theme('colors.gray.300'),
-                            fontSize: theme('fontSize.base'),
-                            fontWeight: theme('fontWeight.semibold'),
-                        },
-                        strong: {
-                            color: theme('colors.gray.300'),
-                        },
-
-                        code: {
-                            color: theme('colors.gray.300'),
-                        },
-
-                        figcaption: {
-                            color: theme('colors.gray.500'),
+                        'code::before': { content: '""' },
+                        'code::after': { content: '""' },
+                        pre: {
+                            backgroundColor: theme('colors.slate.800'),
+                            borderColor: theme('colors.slate.700'),
+                            borderWidth: '1px',
                         },
                         blockquote: {
-                            color: theme('colors.gray.200'),
+                            color: theme('colors.slate.300'),
+                            borderLeftColor: theme('colors.autumn-orange'),
+                        },
+                        'h1, h2, h3, h4, h5, h6': {
+                            color: theme('colors.white'),
+                        },
+                        figcaption: {
+                            color: theme('colors.slate.400'),
+                        },
+                        'ul > li::marker': {
+                            color: theme('colors.slate.500'),
+                        },
+                        'ol > li::marker': {
+                            color: theme('colors.slate.500'),
                         },
                     },
                 },
             }),
             transitionDuration: {
-                0: "0ms",
-                2000: "2000ms",
-                4000: "4000ms",
+                0: '0ms',
+                2000: '2000ms',
+                4000: '4000ms',
             },
-        },
-        variants: {
-            extend: {
-                typography: ['dark'],
-            },
-            display: ["responsive", "group-hover", "group-focus"],
         },
     },
-    plugins: [
-    require('@tailwindcss/typography'),
-    require('tw-elements/dist/plugin'),
-],
+    variants: {
+        extend: {},
+    },
+    plugins: [require('@tailwindcss/typography')],
 };

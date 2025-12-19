@@ -3,11 +3,9 @@ import Script from 'next/script'
 export default class MyDocument extends Document {
   render() {
     return (
-      <>
-      <Html>
+      <Html lang="en-NZ">
         <Head>
-        </Head>
-        <Script
+          <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
             strategy="afterInteractive"
           />
@@ -21,12 +19,12 @@ export default class MyDocument extends Document {
               });
             `}
           </Script>
+        </Head>
         <body>
           <Main />
           <NextScript />
         </body>
       </Html>
-      </>
     );
   }
 }

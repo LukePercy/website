@@ -1,0 +1,85 @@
+---
+title: "Getting Dicey Trading Cards"
+date: "2021-11-14"
+excerpt: "A build story: turning Twitch Channel Points into a collectible trading-card experience, from PoC through production releases."
+---
+
+## Preamble
+
+Every Monday night (NZ time) I’d settle in to watch a local Dungeons & Dragons crew on Twitch. The channel (_Getting Dicey_) had grown a real community over the years: regulars, subscribers, and people tuning in from all over.
+
+At some point, the question came up: could we add something fun that viewers could participate in without needing to spend real money?
+
+## The Idea
+
+Twitch already provides a few engagement mechanics, including **Channel Points**, which viewers earn simply by watching.
+
+The concept we shaped was straightforward:
+
+> As a viewer, I want to spend channel points to unlock a random Getting Dicey trading card, so I can collect and view them.
+
+That was enough to start turning “wouldn’t it be cool if…” into a plan.
+
+## Could I do it?
+
+The first step was reading Twitch’s developer docs and understanding the shape of the problem:
+
+-   What an Extension can and can’t do client-side
+-   How authentication should work
+-   Where data can live
+
+I also had to be honest about one constraint: I hadn’t written much code in a long time. So the goal became learning by building.
+
+## Presentation proof of concept
+
+The PoC goals were mostly about front-end experience:
+
+-   Learn React well enough to ship something
+-   Display a collection cleanly
+-   Make cards feel satisfying to browse
+
+Some early PoC visuals:
+
+![Proof of concept of the trading card collection](/GDCollectionPrototype.gif)
+![Proof of concept of the trading card collection](/GDflipfix.gif)
+
+## PoC “tick”: data and the backend
+
+Once the PoC existed, the next question was: where do we store collections, tokens, and viewer data?
+
+Because Twitch Extensions don’t give you a traditional backend, I had to build an **Extension Backend Service (EBS)** myself. That meant:
+
+-   A hosted Node service
+-   JWT-based auth between Twitch and the EBS
+-   A database for persistence (MongoDB was the choice here)
+
+Hosting-wise, Heroku made it easy to get something running quickly and iterate via Git.
+
+Along the way I re-learned (or learned properly) the classics:
+
+-   Auth headers
+-   `fetch`
+-   CORS (so much CORS)
+
+## Twitch APIs and ComfyJS
+
+For the Twitch integration piece, an open source helper library (_ComfyJS_) reduced a lot of the boilerplate. It also pushed an important architectural change: secrets and auth-sensitive logic should live server-side, not in a public extension bundle.
+
+Moving logic into the EBS also resolved an unexpected behavior where viewers could trigger multiple unlocks if they had the stream open in multiple tabs.
+
+## Release v1: a few months after PoC
+
+The first release was live and running:
+
+![Proof of concept of the trading card collection](/Walkthrough1.gif)
+
+If you want to see the channel:
+
+-   [https://www.twitch.tv/gettingdicey](https://www.twitch.tv/gettingdicey)
+
+## Release v2: continued improvements
+
+Later work focused on polish and expanding the experience:
+
+![Proof of concept of the trading card collection](/WIP3.gif)
+![Proof of concept of the trading card collection](/ArtBy.gif)
