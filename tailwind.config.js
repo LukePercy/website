@@ -2,8 +2,11 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
     mode: "jit",
-    purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+    purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./content/**/*.{md,mdx}"],
     darkMode: "class", // or 'media' or 'class'
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
     theme: {
         screens: {
             'xsm': '340px',
