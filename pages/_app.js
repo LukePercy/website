@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-import { ThemeProvider } from "next-themes";
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import * as ga from '../lib/ga/index';
@@ -25,9 +24,7 @@ function MyApp({ Component, pageProps }) {
   }, [router.events]);
 
   return (
-    <ThemeProvider defaultTheme="dark" attribute="class">
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <Component {...pageProps} />
   );
 }
 

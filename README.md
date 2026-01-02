@@ -8,7 +8,7 @@ A modern Next.js portfolio and blog website with GitHub API integration and MDX-
 - **Blog System** powered by MDX with markdown support
 - **GitHub Projects** automatically fetched from GitHub API
 - **Responsive Design** with Tailwind CSS and dark mode support
-- **SEO Optimized** with automatic sitemap generation
+- **SEO Optimised** with automatic sitemap generation
 
 ## Getting Started
 
@@ -86,7 +86,7 @@ Write your blog post content using Markdown or MDX.
 npm run build
 ```
 
-### Customizing Content
+### Customising Content
 
 - **Homepage Hero**: Edit `components/Hero.js`
 - **About Page**: Edit `pages/about.js`
@@ -101,7 +101,7 @@ Projects are automatically fetched from your GitHub account using the `GITHUB_US
 - Star and fork counts
 - Direct link to the repository
 
-To customize which repos are shown, edit `pages/api/github/repos.js`.
+To customise which repos are shown, edit `pages/api/github/repos.js`.
 
 ## Project Structure
 
@@ -151,12 +151,12 @@ website/
 
 1. **Contact Details**: Edit the footer in `components/Layout.js`
 2. **About Page**: Update `pages/about.js` with your bio, skills, and experience
-3. **Hero Message**: Customize the welcome message in `components/Hero.js`
+3. **Hero Message**: Customise the welcome message in `components/Hero.js`
 4. **Site Title**: Update the `Layout` title prop in each page
 
 ### Styling
 
-The site uses Tailwind CSS. Customize the theme in `tailwind.config.js`:
+The site uses Tailwind CSS. Customise the theme in `tailwind.config.js`:
 - Colors (including the `autumn-orange` accent color)
 - Typography
 - Breakpoints

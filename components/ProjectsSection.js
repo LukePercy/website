@@ -5,6 +5,48 @@ export default function ProjectsSection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const selectedWork = {
+    startup: {
+      name: 'Metaport',
+      url: 'https://getmetaport.com/',
+      description: 'A bootstrapped product with cofounder',
+      collaborator: {
+        name: 'Russ Michell',
+        url: 'https://www.linkedin.com/in/theruss/',
+      },
+    },
+    pastProjects: [
+      {
+        name: 'Sidekick Modular Character Creator (Synty Studios)',
+        url: 'https://syntystore.com/collections/sidekick-character-packs',
+        description: 'Producer on Sidekick Modular Character Creator.',
+      },
+    ],
+    gameCredits: {
+      associateProducer: [
+        'Rugby Challenge (PS3, Xbox 360, PS Vita, PC)',
+      ],
+      qaLead: [
+        'Blood Drive (PS3, Xbox 360)',
+        'GripShift (PS3, Xbox 360)',
+        'Hot Wheels: Battle Force 5 (Wii)',
+        'Jackass: The Game (PSP/PS2)',
+        'Madagascar Kartz (PS3/Xbox 360/Wii)',
+        'Rugby League 3 (Wii)',
+        'Rugby League LIVE (PS3, Xbox 360, PC)',
+        'Shatter (PSN, OnLive, PC)',
+        'Speed Racer: The Video Game (PS2, Wii)',
+        'Star Wars: Clone Wars (PSP, Xbox 360)',
+      ],
+      note: 'Video games shipped at Sidhe (now PikPok).',
+    },
+    linkedinProjects: {
+      name: 'LinkedIn projects',
+      url: 'https://www.linkedin.com/in/lukepercy/details/projects/',
+      description: 'A fuller summary of my web and delivery portfolio.',
+    },
+  };
+
   useEffect(() => {
     fetchProjects();
   }, []);
@@ -12,14 +54,31 @@ export default function ProjectsSection() {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/github/repos');
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch projects');
+      setError(null);
+
+      const [githubResult, gitlabResult] = await Promise.allSettled([
+        fetch('/api/github/repos').then(async (r) => {
+          if (!r.ok) throw new Error('GitHub request failed');
+          const data = await r.json();
+          return (data.repos || []).map((repo) => ({ ...repo, source: 'github' }));
+        }),
+        fetch('/api/gitlab/repos').then(async (r) => {
+          if (!r.ok) throw new Error('GitLab request failed');
+          const data = await r.json();
+          return data.repos || [];
+        }),
+      ]);
+
+      const githubRepos = githubResult.status === 'fulfilled' ? githubResult.value : [];
+      const gitlabRepos = gitlabResult.status === 'fulfilled' ? gitlabResult.value : [];
+
+      const combined = [...githubRepos, ...gitlabRepos];
+
+      if (combined.length === 0) {
+        throw new Error('No repositories found');
       }
-      
-      const data = await response.json();
-      setRepos(data.repos || []);
+
+      setRepos(combined);
     } catch (err) {
       console.error('Error fetching projects:', err);
       setError(err.message);
@@ -30,12 +89,12 @@ export default function ProjectsSection() {
 
   if (loading) {
     return (
-      <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section id="projects" className="py-20 bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white text-center mb-12">
+          <h2 className="text-4xl font-bold text-white text-center mb-12">
             Personal Projects
           </h2>
-          <div className="text-center text-gray-600 dark:text-gray-400">
+          <div className="text-center text-slate-300">
             Loading projects...
           </div>
         </div>
@@ -45,12 +104,12 @@ export default function ProjectsSection() {
 
   if (error) {
     return (
-      <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section id="projects" className="py-20 bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white text-center mb-12">
+          <h2 className="text-4xl font-bold text-white text-center mb-12">
             Personal Projects
           </h2>
-          <div className="text-center text-red-600 dark:text-red-400">
+          <div className="text-center text-red-400">
             {error}
           </div>
         </div>
@@ -59,65 +118,165 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-gray-950">
+    <section id="projects" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-12">
-          Recent Projects
+        <h2 className="text-4xl font-bold text-white mb-12">
+          My Code
         </h2>
-        
+
+        <p className="text-slate-300 mb-10 max-w-3xl">
+          These are my personal repositories and experiments on GitHub and GitLab.
+        </p>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {repos.map((repo) => (
-            <div 
-              key={repo.id} 
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
+            <div
+              key={`${repo.source || 'github'}-${repo.id}`}
+              className="bg-slate-700/50 rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden backdrop-blur-sm h-full flex flex-col"
             >
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <div className="p-6 h-full flex flex-col">
+                <h3 className="text-xl font-bold text-white mb-2">
                   {repo.name}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                <p className="text-xs text-slate-400 mb-3">
+                  {repo.source === 'gitlab' ? 'GitLab' : 'GitHub'}
+                </p>
+                <p className="text-slate-300 mb-4 line-clamp-3">
                   {repo.description || 'No description available'}
                 </p>
-                
-                <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
-                  {repo.language && (
-                    <span className="flex items-center gap-1">
-                      <span className="w-3 h-3 rounded-full bg-autumn-orange"></span>
-                      {repo.language}
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    {repo.stargazers_count}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {repo.forks_count}
-                  </span>
+
+                <div className="mt-auto">
+                  <div className="flex items-center gap-4 text-sm text-slate-400 mb-4">
+                    {repo.language && (
+                      <span className="flex items-center gap-1">
+                        <span className="w-3 h-3 rounded-full bg-autumn-orange"></span>
+                        {repo.language}
+                      </span>
+                    )}
+                  </div>
+
+                  <a
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View ${repo.name} on ${repo.source === 'gitlab' ? 'GitLab' : 'GitHub'}`}
+                    className="inline-block px-4 py-2 bg-slate-100 hover:bg-white text-slate-900 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    View on {repo.source === 'gitlab' ? 'GitLab' : 'GitHub'}
+                  </a>
                 </div>
-                
-                <a 
-                  href={repo.html_url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-block px-4 py-2 bg-autumn-orange hover:bg-orange-600 text-white rounded-lg text-sm font-medium transition-colors"
-                >
-                  View on GitHub
-                </a>
               </div>
             </div>
           ))}
         </div>
-        
+
         {repos.length === 0 && (
-          <div className="text-center text-gray-600 dark:text-gray-400">
+          <div className="text-center text-slate-300">
             No projects found
           </div>
         )}
+
+        <div className="mt-16 border-t border-slate-700/50 pt-12">
+          <h3 className="text-3xl font-bold text-white mb-6">Selected Work</h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-slate-700/50 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-slate-700/50">
+              <div className="p-6">
+                <h4 className="text-xl font-bold text-white mb-2">Metaport</h4>
+                <p className="text-slate-300 mb-3">
+                  {selectedWork.startup.description}{' '}
+                  <a
+                    href={selectedWork.startup.collaborator.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-200 underline decoration-slate-500 hover:text-white hover:decoration-slate-200 transition-colors"
+                    aria-label="Open Russ Michell LinkedIn profile"
+                  >
+                    {selectedWork.startup.collaborator.name}
+                  </a>
+                  .
+                </p>
+                <a
+                  href={selectedWork.startup.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-200 underline decoration-slate-500 hover:text-white hover:decoration-slate-200 transition-colors break-all"
+                  aria-label={`Open ${selectedWork.startup.name} website`}
+                >
+                  {selectedWork.startup.url}
+                </a>
+              </div>
+            </div>
+
+            <div className="bg-slate-700/50 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-slate-700/50">
+              <div className="p-6">
+                <h4 className="text-xl font-bold text-white mb-2">Past Projects</h4>
+                <ul className="space-y-4 text-slate-300">
+                  {selectedWork.pastProjects.map((p) => (
+                    <li key={p.url}>
+                      <div className="font-medium text-white">{p.name}</div>
+                      <div className="text-slate-300">{p.description}</div>
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-200 underline decoration-slate-500 hover:text-white hover:decoration-slate-200 transition-colors break-all"
+                        aria-label={`Open ${p.name}`}
+                      >
+                        {p.url}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="md:col-span-2 bg-slate-700/50 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-slate-700/50">
+              <div className="p-6">
+                <h4 className="text-xl font-bold text-white mb-2">Game Credits</h4>
+                <p className="text-slate-300 mb-5">{selectedWork.gameCredits.note}</p>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div>
+                    <div className="font-semibold text-white mb-2">Associate Producer</div>
+                    <ul className="space-y-1 text-slate-300 text-sm">
+                      {selectedWork.gameCredits.associateProducer.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <div className="font-semibold text-white mb-2">Quality Assurance Lead</div>
+                    <ul className="text-slate-300 text-sm columns-1 sm:columns-2 gap-6">
+                      {selectedWork.gameCredits.qaLead.map((item) => (
+                        <li key={item} className="break-inside-avoid mb-1">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-700/50 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-slate-700/50">
+              <div className="p-6">
+                <h4 className="text-xl font-bold text-white mb-2">More</h4>
+                <p className="text-slate-300 mb-3">{selectedWork.linkedinProjects.description}</p>
+                <a
+                  href={selectedWork.linkedinProjects.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-200 underline decoration-slate-500 hover:text-white hover:decoration-slate-200 transition-colors break-all"
+                  aria-label="Open LinkedIn projects"
+                >
+                  {selectedWork.linkedinProjects.url}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
