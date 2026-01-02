@@ -10,7 +10,7 @@ import TestimonialsSection from '../components/TestimonialsSection';
 export default function Home() {
   return (
     <Layout
-      title="Portfolio | Home"
+      title="L Percy - Technologist, Developer, and Project Manager"
       description="Welcome to my portfolio showcasing projects and blog posts"
     >
       <Hero />
