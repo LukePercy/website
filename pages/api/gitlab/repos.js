@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 function toUnifiedRepo(project) {
     return {
         source: 'gitlab',
@@ -23,18 +21,21 @@ export default async function handler(req, res) {
         const projectPath = process.env.GITLAB_PROJECT_PATH; // e.g. dcentrica/metaport
         const namespace = process.env.GITLAB_NAMESPACE || 'dcentrica';
 
-        const config = token
+        const headers = token
             ? {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                Authorization: `Bearer ${token}`,
             }
-            : {};
+            : undefined;
 
         if (projectPath) {
             const encoded = encodeURIComponent(projectPath);
-            const response = await axios.get(`https://gitlab.com/api/v4/projects/${encoded}`, config);
-            return res.status(200).json({ repos: [toUnifiedRepo(response.data)] });
+            const response = await fetch(`https://gitlab.com/api/v4/projects/${encoded}`, { headers });
+            if (!response.ok) {
+                const message = await response.text();
+                throw new Error(`GitLab API error (${response.status}): ${message}`);
+            }
+            const project = await response.json();
+            return res.status(200).json({ repos: [toUnifiedRepo(project)] });
         }
 
         const params = new URLSearchParams({
@@ -47,12 +48,19 @@ export default async function handler(req, res) {
         });
 
         const encodedGroup = encodeURIComponent(namespace);
-        const response = await axios.get(
+
+        const response = await fetch(
             `https://gitlab.com/api/v4/groups/${encodedGroup}/projects?${params.toString()}`,
-            config
+            { headers }
         );
 
-        const repos = Array.isArray(response.data) ? response.data.slice(0, 6).map(toUnifiedRepo) : [];
+        if (!response.ok) {
+            const message = await response.text();
+            throw new Error(`GitLab API error (${response.status}): ${message}`);
+        }
+
+        const projects = await response.json();
+        const repos = Array.isArray(projects) ? projects.slice(0, 6).map(toUnifiedRepo) : [];
         return res.status(200).json({ repos });
     } catch (error) {
         console.error('Error fetching GitLab repos:', error);
