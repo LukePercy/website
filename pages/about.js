@@ -49,6 +49,7 @@ export default function About() {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
+              'BA in Infromation Technology',
               'Agile/Scrum',
               'Kanban',
               'Umbraco',
@@ -60,7 +61,9 @@ export default function About() {
               'Team Leadership',
               'Scrum Alliance CSM',
               'ICAgile Certified',
-              'Scrum.org PSM'
+              'Scrum.org PSM',
+              'Prince2 Foundation (PMI)',
+              'PMP Foundation (PMI)'
             ].map((skill) => (
               <div
                 key={skill}
