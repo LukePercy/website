@@ -61,7 +61,7 @@ export default function About() {
             Internal Affairs Common Web Platform.
           </p>
           <p className="text-slate-300 mb-4">
-            Colleagues describe my leadership style as calm, supportive, and people-first. I prioritise coaching,
+            Colleagues describe my leadership style as supportive, and people-first. I prioritise coaching,
             clear communication, and enabling teams to deliver sustainably.
           </p>
           <p className="text-slate-300 mb-4">

@@ -25,7 +25,7 @@ export default function Hero() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Greeting */}
         <p className="text-sm uppercase tracking-wider text-slate-400 mb-4">
-          Hello, I am
+          Kia ora. Hello, I'm.
         </p>
 
         {/* Name */}
