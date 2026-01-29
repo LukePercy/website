@@ -3,16 +3,77 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-export default function Layout({ children, title = 'Luke Percy - Agile Project Manager', description = 'Experienced Agile Project Manager specialising in game development, CMS platforms, and government digital services' }) {
+export default function Layout({
+  children,
+  title = 'Luke Percy - Agile Project Manager',
+  description = 'Experienced Agile Project Manager specialising in game development, CMS platforms, and government digital services',
+  canonical,
+  ogImage,
+  ogType = 'website',
+  schema,
+}) {
   const router = useRouter();
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ljpercy.com').replace(/\/$/, '');
+  const path = (router.asPath || '/').split('?')[0];
+  const canonicalUrl = canonical || `${siteUrl}${path === '/' ? '' : path}`;
+  const siteName = 'Luke Percy';
+  const personSameAs = [
+    'https://github.com/lukepercy',
+    'https://linkedin.com/in/lukepercy',
+    'https://www.amazon.com/stores/Luke-Percy/author/B092TDRNYC',
+  ];
+
+  const baseSchemas = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: siteName,
+      alternateName: 'L Percy',
+      url: siteUrl,
+      description,
+      inLanguage: 'en-NZ',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: siteName,
+      url: siteUrl,
+      sameAs: personSameAs,
+      jobTitle: 'Agile Project Manager',
+      description:
+        'Technologist, developer, and project manager with experience across game development, CMS platforms, and government digital services.',
+    },
+  ];
+
+  const pageSchemas = Array.isArray(schema) ? schema : schema ? [schema] : [];
+  const structuredData = [...baseSchemas, ...pageSchemas];
 
   return (
     <>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta name="author" content="Luke Percy" />
+        <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href={canonicalUrl} />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content={ogType} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:site_name" content={siteName} />
+        {ogImage ? <meta property="og:image" content={ogImage} /> : null}
+        <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        {ogImage ? <meta name="twitter:image" content={ogImage} /> : null}
+        {structuredData.length > 0 ? (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
+        ) : null}
       </Head>
 
       <div className="gradient-bg flex flex-col">

@@ -15,9 +15,15 @@ export default function AboutSection() {
           </p>
 
           <p className="leading-relaxed opacity-90 mb-6">
-            I lead with empathy and clarity, creating psychological safety, aligning stakeholders, and helping teams
-            focus on outcomes. I care deeply about Agile values and principles: transparency, collaboration,
-            sustainable pace, and continuous improvement.
+            I lead with empathy and clarity, creating psychological safety, listening first, and helping teams
+            focus on outcomes that matter. My style is servant‑leadership: coaching, removing blockers, and
+            supporting people through change while keeping delivery on track.
+          </p>
+
+          <p className="leading-relaxed opacity-90 mb-6">
+            I care deeply about Agile values and principles: transparency, collaboration, sustainable pace,
+            and continuous improvement. This people‑first approach consistently improves team health and
+            delivery reliability.
           </p>
 
           <p className="leading-relaxed opacity-90">

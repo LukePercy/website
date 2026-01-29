@@ -35,14 +35,14 @@ export default function Hero() {
 
         {/* Tagline */}
         <p className="text-xl sm:text-2xl text-slate-300 mb-12 max-w-2xl">
-          Project Manager • Web CMS Specialist • Game Producer & Developer
+          Delivery Lead • Web CMS Specialist • Game Producer & Developer
         </p>
 
         {/* Description */}
         <p className="text-lg text-slate-300 mb-12 max-w-2xl leading-relaxed">
-          With over 20 years in tech, I help teams deliver exceptional digital experiences through
-          agile practices, strategic project management, and technical expertise across video games,
-          government, digital and enterprise platforms.
+          With over 20 years in tech, I lead with empathy and clarity to help teams deliver exceptional
+          digital experiences. My approach blends agile practices, stakeholder alignment, and technical
+          expertise across video games, government, and enterprise platforms.
         </p>
 
         {/* CTAs */}

@@ -1,10 +1,35 @@
 import Layout from '../components/Layout';
 
 export default function About() {
+  const title = 'About | Portfolio';
+  const description = 'Learn more about me, my experience, and skills';
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ljpercy.com').replace(/\/$/, '');
+  const pageUrl = `${siteUrl}/about`;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: title,
+    description,
+    url: pageUrl,
+    inLanguage: 'en-NZ',
+    mainEntity: {
+      '@type': 'Person',
+      name: 'Luke Percy',
+      url: siteUrl,
+      jobTitle: 'Agile Project Manager',
+      sameAs: [
+        'https://github.com/lukepercy',
+        'https://linkedin.com/in/lukepercy',
+        'https://www.amazon.com/stores/Luke-Percy/author/B092TDRNYC',
+      ],
+    },
+  };
+
   return (
     <Layout
-      title="About | Portfolio"
-      description="Learn more about me, my experience, and skills"
+      title={title}
+      description={description}
+      schema={schema}
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Hero Section */}
@@ -23,10 +48,10 @@ export default function About() {
             Hello, I'm Luke Percy
           </h2>
           <p className="text-slate-300 mb-4">
-            I'm an experienced Agile Project Manager with over 20 years in the technology sector,
+            I'm an experienced Agile Project Manager and Delivery Lead with over 20 years in the technology sector,
             specialising in game development, enterprise CMS platforms, and government digital services.
-            Throughout my career, I've had the privilege of working on diverse projects that have shaped
-            my approach to delivering value through agile methodologies.
+            I lead with empathy and clarity, creating psychological safety while helping teams deliver value
+            through agile ways of working.
           </p>
           <p className="text-slate-300 mb-4">
             My gaming career includes leadership roles at prominent studios like Sidhe (now PikPok) and
@@ -34,6 +59,10 @@ export default function About() {
             Shatter, and Star Wars: Clone Wars. In the enterprise and government space, I've led multimillion-dollar
             CMS implementations using Umbraco, Drupal, Silverstripe, and Squiz DXP, including the Department of
             Internal Affairs Common Web Platform.
+          </p>
+          <p className="text-slate-300 mb-4">
+            Colleagues describe my leadership style as calm, supportive, and people-first. I prioritise coaching,
+            clear communication, and enabling teams to deliver sustainably.
           </p>
           <p className="text-slate-300 mb-4">
             Beyond technology, I'm also an author. My book, "The Dark That Dwells Beneath Te Aro," is available
@@ -49,7 +78,7 @@ export default function About() {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
-              'BA in Infromation Technology',
+              'BA in Information Technology',
               'Agile/Scrum',
               'Kanban',
               'Umbraco',
