@@ -14,30 +14,8 @@ export default function ChatWidget() {
     const [error, setError] = useState('');
     const messagesEndRef = useRef(null);
     const abortControllerRef = useRef(null);
-    const sanitizerRef = useRef(null);
 
     const trimmedMessages = useMemo(() => messages.slice(-16), [messages]);
-
-    useEffect(() => {
-        if (typeof window === 'undefined') return;
-        let isMounted = true;
-
-        import('dompurify')
-            .then((module) => {
-                if (isMounted) {
-                    sanitizerRef.current = module.default;
-                }
-            })
-            .catch(() => {
-                if (isMounted) {
-                    sanitizerRef.current = null;
-                }
-            });
-
-        return () => {
-            isMounted = false;
-        };
-    }, []);
 
     const escapeHtml = (value) =>
         value
@@ -47,12 +25,45 @@ export default function ChatWidget() {
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
 
+    const markdownRenderer = useMemo(() => {
+        const renderer = new marked.Renderer();
+
+        const toSafeUrl = (href) => {
+            if (!href) return null;
+            try {
+                const url = new URL(href, 'https://ljpercy.com');
+                if (['http:', 'https:', 'mailto:'].includes(url.protocol)) {
+                    return url.href;
+                }
+                return null;
+            } catch {
+                return null;
+            }
+        };
+
+        renderer.text = (text) => escapeHtml(text);
+        renderer.html = (html) => escapeHtml(html);
+        renderer.codespan = (code) => `<code>${escapeHtml(code)}</code>`;
+        renderer.code = (code) => `<pre><code>${escapeHtml(code)}</code></pre>`;
+        renderer.image = () => '';
+        renderer.link = (href, title, text) => {
+            const safeHref = toSafeUrl(href);
+            const safeText = escapeHtml(text || '');
+            if (!safeHref) return safeText;
+            const safeTitle = title ? ` title="${escapeHtml(title)}"` : '';
+            return `<a href="${safeHref}"${safeTitle} target="_blank" rel="noopener noreferrer">${safeText}</a>`;
+        };
+
+        return renderer;
+    }, []);
+
     const renderMarkdown = (content) => {
-        const html = marked.parse(content, { breaks: true, mangle: false, headerIds: false });
-        if (sanitizerRef.current) {
-            return sanitizerRef.current.sanitize(html);
-        }
-        return escapeHtml(content).replace(/\n/g, '<br />');
+        return marked.parse(content, {
+            breaks: true,
+            mangle: false,
+            headerIds: false,
+            renderer: markdownRenderer,
+        });
     };
 
     useEffect(() => {
