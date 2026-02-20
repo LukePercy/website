@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import ChatWidget from './ChatWidget';
 
 export default function Layout({
   children,
@@ -192,6 +193,8 @@ export default function Layout({
         <main id="main-content" tabIndex={-1} className="flex-grow pt-20">
           {children}
         </main>
+
+        <ChatWidget />
 
         {/* Footer */}
         <footer className="bg-slate-900/80 backdrop-blur-sm border-t border-slate-700/50">
