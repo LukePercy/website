@@ -14,11 +14,32 @@ export default function ChatWidget() {
     const [error, setError] = useState('');
     const [needsContinuation, setNeedsContinuation] = useState(false);
     const [language, setLanguage] = useState('en-NZ');
+    const [isListening, setIsListening] = useState(false);
+    const [isMicPending, setIsMicPending] = useState(false);
+    const [speechSupported, setSpeechSupported] = useState(true);
+    const [speechError, setSpeechError] = useState('');
     const messagesEndRef = useRef(null);
+    const messagesRef = useRef(messages);
+    const inputRef = useRef(input);
+    const pendingAutoSendRef = useRef(false);
+    const micTimeoutRef = useRef(null);
     const abortControllerRef = useRef(null);
     const continuationInsertedRef = useRef(false);
+    const speechRef = useRef(null);
+    const launcherRef = useRef(null);
+    const textareaRef = useRef(null);
+    const dialogRef = useRef(null);
+    const lastActiveRef = useRef(null);
 
     const trimmedMessages = useMemo(() => messages.slice(-16), [messages]);
+
+    useEffect(() => {
+        messagesRef.current = messages;
+    }, [messages]);
+
+    useEffect(() => {
+        inputRef.current = input;
+    }, [input]);
 
     const escapeHtml = (value) =>
         value
@@ -76,6 +97,95 @@ export default function ChatWidget() {
         }
     }, [isOpen, messages]);
 
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            setSpeechSupported(false);
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = language === 'mi-NZ' ? 'mi-NZ' : 'en-NZ';
+        recognition.interimResults = true;
+        recognition.continuous = false;
+
+        recognition.onresult = (event) => {
+            let transcript = '';
+            for (const result of event.results) {
+                transcript += result[0].transcript;
+            }
+            setInput(transcript.trim());
+        };
+
+        recognition.onstart = () => {
+            if (micTimeoutRef.current) {
+                clearTimeout(micTimeoutRef.current);
+                micTimeoutRef.current = null;
+            }
+            setIsMicPending(false);
+            setIsListening(true);
+        };
+
+        recognition.onerror = (event) => {
+            setSpeechError(event?.error || 'Speech recognition failed.');
+            pendingAutoSendRef.current = false;
+            setIsMicPending(false);
+            setIsListening(false);
+        };
+
+        recognition.onend = () => {
+            setIsListening(false);
+            setIsMicPending(false);
+            if (!pendingAutoSendRef.current) return;
+            pendingAutoSendRef.current = false;
+            const draft = inputRef.current.trim();
+            if (draft) {
+                sendMessage(draft);
+            }
+        };
+
+        speechRef.current = recognition;
+
+        return () => {
+            if (micTimeoutRef.current) {
+                clearTimeout(micTimeoutRef.current);
+                micTimeoutRef.current = null;
+            }
+            recognition.onresult = null;
+            recognition.onstart = null;
+            recognition.onerror = null;
+            recognition.onend = null;
+            recognition.stop?.();
+        };
+    }, [language]);
+
+    useEffect(() => {
+        if (isOpen) {
+            lastActiveRef.current = document.activeElement;
+            textareaRef.current?.focus();
+        } else if (lastActiveRef.current instanceof HTMLElement) {
+            lastActiveRef.current.focus();
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (!isOpen) return undefined;
+
+        const handlePointerDown = (event) => {
+            if (!dialogRef.current || !launcherRef.current) return;
+            const target = event.target;
+            if (!(target instanceof Node)) return;
+            if (dialogRef.current.contains(target) || launcherRef.current.contains(target)) return;
+            toggleOpen();
+        };
+
+        document.addEventListener('pointerdown', handlePointerDown);
+        return () => {
+            document.removeEventListener('pointerdown', handlePointerDown);
+        };
+    }, [isOpen]);
+
     const cancelStream = () => {
         if (abortControllerRef.current) {
             abortControllerRef.current.abort();
@@ -102,13 +212,45 @@ export default function ChatWidget() {
         setIsLoading(false);
     };
 
+    const handleMicToggle = () => {
+        setSpeechError('');
+        const recognition = speechRef.current;
+        if (!recognition) {
+            setSpeechSupported(false);
+            setSpeechError('Speech recognition is not supported in this browser.');
+            return;
+        }
+        if (isListening) {
+            pendingAutoSendRef.current = false;
+            recognition.stop();
+            setIsListening(false);
+            return;
+        }
+        try {
+            recognition.lang = language === 'mi-NZ' ? 'mi-NZ' : 'en-NZ';
+            pendingAutoSendRef.current = true;
+            setIsMicPending(true);
+            if (micTimeoutRef.current) {
+                clearTimeout(micTimeoutRef.current);
+            }
+            micTimeoutRef.current = setTimeout(() => {
+                setIsMicPending(true);
+            }, 800);
+            recognition.start();
+        } catch (startError) {
+            setSpeechError('Unable to start microphone input.');
+            setIsMicPending(false);
+            setIsListening(false);
+        }
+    };
+
     const sendMessage = async (content) => {
         if (!content || isLoading) return;
 
         cancelStream();
         setNeedsContinuation(false);
         continuationInsertedRef.current = false;
-        const nextMessages = [...messages, { role: 'user', content }];
+        const nextMessages = [...messagesRef.current, { role: 'user', content }];
         setMessages([...nextMessages, { role: 'assistant', content: '' }]);
         setInput('');
         setIsLoading(true);
@@ -222,11 +364,36 @@ export default function ChatWidget() {
         }
     };
 
+    const handleDialogKeyDown = (event) => {
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            toggleOpen();
+            return;
+        }
+
+        if (event.key !== 'Tab' || !dialogRef.current) return;
+        const focusable = dialogRef.current.querySelectorAll(
+            'button, [href], select, textarea, input, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    };
+
     return (
         <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start">
             <button
                 type="button"
                 onClick={toggleOpen}
+                ref={launcherRef}
                 className="group flex items-center gap-3 rounded-full border border-slate-700/60 bg-slate-900/90 px-4 py-3 text-sm font-medium text-slate-100 shadow-xl backdrop-blur transition hover:border-slate-500/80 hover:bg-slate-900"
                 aria-expanded={isOpen}
                 aria-controls="chat-panel"
@@ -240,16 +407,21 @@ export default function ChatWidget() {
 
             <div
                 id="chat-panel"
+                ref={dialogRef}
                 className={`mt-4 w-[min(92vw,480px)] origin-bottom-left rounded-2xl border border-slate-700/60 bg-slate-900/95 shadow-2xl backdrop-blur transition-all duration-200 ${isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
                     }`}
                 role="dialog"
-                aria-label="AI advisory chat"
+                aria-labelledby="chat-title"
+                aria-describedby="chat-description"
                 aria-hidden={!isOpen}
+                onKeyDown={handleDialogKeyDown}
             >
                 <div className="flex items-center justify-between border-b border-slate-800/80 px-5 py-4">
                     <div>
-                        <p className="text-sm font-semibold text-slate-100">AI Advisory Assistant</p>
-                        <p className="text-xs text-slate-400">Calm, structured guidance based on Luke's own principles.</p>
+                        <p id="chat-title" className="text-sm font-semibold text-slate-100">AI Advisory Assistant</p>
+                        <p id="chat-description" className="text-xs text-slate-400">
+                            Calm, structured guidance based on Luke's own principles.
+                        </p>
                     </div>
                     <div className="flex items-center gap-3">
                         <label className="text-xs text-slate-400" htmlFor="chat-language">
@@ -299,7 +471,14 @@ export default function ChatWidget() {
                     </div>
                 </div>
 
-                <div className="max-h-[55vh] space-y-4 overflow-y-auto px-5 py-4 text-sm text-slate-200">
+                <div
+                    className="max-h-[55vh] space-y-4 overflow-y-auto px-5 py-4 text-sm text-slate-200"
+                    role="log"
+                    aria-live="polite"
+                    aria-relevant="additions text"
+                    aria-atomic="false"
+                    aria-busy={isLoading}
+                >
                     {trimmedMessages.map((message, index) => (
                         <div
                             key={`${message.role}-${index}`}
@@ -346,10 +525,21 @@ export default function ChatWidget() {
                             placeholder="Ask a question or describe the situation."
                             rows={2}
                             readOnly={isLoading}
+                            aria-disabled={isLoading}
+                            ref={textareaRef}
                             className={`flex-1 resize-none rounded-xl border border-slate-700/60 bg-slate-900/80 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-amber-500/80 focus:outline-none focus:ring-0 ${isLoading ? 'cursor-not-allowed opacity-70' : ''
                                 }`}
                         />
                         <div className="flex flex-col gap-2">
+                            <button
+                                type="button"
+                                onClick={handleMicToggle}
+                                disabled={!speechSupported}
+                                aria-pressed={isListening}
+                                className="rounded-xl border border-slate-700/60 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:border-amber-500/70 hover:text-white disabled:cursor-not-allowed disabled:border-slate-800 disabled:text-slate-500"
+                            >
+                                {isMicPending ? 'Allow mic…' : isListening ? 'Listening…' : 'Mic'}
+                            </button>
                             <button
                                 type="button"
                                 onClick={handleSend}
@@ -388,6 +578,16 @@ export default function ChatWidget() {
                     <p className="mt-2 text-xs text-slate-500">
                         Responses are advisory. Sensitive details should be shared carefully.
                     </p>
+                    {speechError ? (
+                        <p className="mt-2 text-xs text-rose-300">
+                            {speechError}
+                        </p>
+                    ) : null}
+                    {isMicPending ? (
+                        <p className="mt-2 text-xs text-slate-500">
+                            Waiting for microphone permission.
+                        </p>
+                    ) : null}
                     {language === 'mi-NZ' ? (
                         <p className="mt-2 text-xs text-slate-500">
                             Te Reo Māori translations are best-effort and may miss nuance. Please review if using publicly.
