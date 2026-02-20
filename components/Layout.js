@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -12,6 +12,7 @@ export default function Layout({
   ogType = 'website',
   schema,
 }) {
+  const rafRef = useRef(null);
   const router = useRouter();
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ljpercy.com').replace(/\/$/, '');
   const path = (router.asPath || '/').split('?')[0];
@@ -47,6 +48,69 @@ export default function Layout({
 
   const pageSchemas = Array.isArray(schema) ? schema : schema ? [schema] : [];
   const structuredData = [...baseSchemas, ...pageSchemas];
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const colors = [
+      '#10325c',
+      '#0d3f67',
+      '#11506f',
+      '#1b4a6b',
+      '#0f2f5f',
+    ];
+
+    const applyBackground = () => {
+      const doc = document.documentElement;
+      const maxScroll = doc.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1) : 0;
+      const scaled = progress * (colors.length - 1);
+      const index = Math.floor(scaled);
+      const nextIndex = Math.min(index + 1, colors.length - 1);
+      const blend = scaled - index;
+
+      const mixColor = (from, to, amount) => {
+        const f = from.replace('#', '');
+        const t = to.replace('#', '');
+        const fr = parseInt(f.slice(0, 2), 16);
+        const fg = parseInt(f.slice(2, 4), 16);
+        const fb = parseInt(f.slice(4, 6), 16);
+        const tr = parseInt(t.slice(0, 2), 16);
+        const tg = parseInt(t.slice(2, 4), 16);
+        const tb = parseInt(t.slice(4, 6), 16);
+        const r = Math.round(fr + (tr - fr) * amount);
+        const g = Math.round(fg + (tg - fg) * amount);
+        const b = Math.round(fb + (tb - fb) * amount);
+        return `rgb(${r}, ${g}, ${b})`;
+      };
+
+      doc.style.setProperty('--page-bg', mixColor(colors[index], colors[nextIndex], blend));
+    };
+
+    const handleScroll = () => {
+      if (rafRef.current) {
+        return;
+      }
+      rafRef.current = window.requestAnimationFrame(() => {
+        rafRef.current = null;
+        applyBackground();
+      });
+    };
+
+    applyBackground();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (rafRef.current) {
+        window.cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
 
   return (
     <>
