@@ -398,7 +398,7 @@ export default function ChatWidget() {
                 aria-expanded={isOpen}
                 aria-controls="chat-panel"
             >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-rose-500 text-slate-900 shadow">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-blue-900 to-purple-900 text-slate-200 shadow">
                     AI
                 </span>
                 <span className="hidden sm:inline">Ask Luke's AI assistant</span>
@@ -577,6 +577,9 @@ export default function ChatWidget() {
                     </div>
                     <p className="mt-2 text-xs text-slate-500">
                         Responses are advisory. Sensitive details should be shared carefully.
+                    </p>
+                    <p className="mt-2 text-xs text-slate-500">
+                        ljpercy.com does not store chat transcripts. Messages are sent to an AI provider to generate responses only.
                     </p>
                     {speechError ? (
                         <p className="mt-2 text-xs text-rose-300">
