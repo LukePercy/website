@@ -3,10 +3,36 @@ import Link from 'next/link';
 import { getSortedPostsData } from '../../lib/blog';
 
 export default function Blog({ posts }) {
+  const title = 'Blog | Portfolio';
+  const description = 'Read my latest blog posts about development, technology, and more';
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ljpercy.com').replace(/\/$/, '');
+  const pageUrl = `${siteUrl}/blog`;
+  const itemListElements = posts.map((post, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: post.title,
+    url: `${siteUrl}/blog/${post.slug}`,
+  }));
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: title,
+    description,
+    url: pageUrl,
+    inLanguage: 'en-NZ',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      numberOfItems: posts.length,
+      itemListElement: itemListElements,
+    },
+  };
+
   return (
     <Layout
-      title="Blog | Portfolio"
-      description="Read my latest blog posts about development, technology, and more"
+      title={title}
+      description={description}
+      schema={schema}
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">

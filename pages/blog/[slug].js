@@ -9,10 +9,41 @@ const components = {
 };
 
 export default function BlogPost({ post, mdxSource }) {
+  const title = `${post.title} | Blog`;
+  const description = post.excerpt || 'Blog post';
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ljpercy.com').replace(/\/$/, '');
+  const pageUrl = `${siteUrl}/blog/${post.slug}`;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description,
+    url: pageUrl,
+    inLanguage: 'en-NZ',
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      '@type': 'Person',
+      name: 'Luke Percy',
+      url: siteUrl,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Luke Percy',
+      url: siteUrl,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': pageUrl,
+    },
+  };
+
   return (
     <Layout
-      title={`${post.title} | Blog`}
-      description={post.excerpt || 'Blog post'}
+      title={title}
+      description={description}
+      ogType="article"
+      schema={schema}
     >
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Back link */}

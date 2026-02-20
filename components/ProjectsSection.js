@@ -9,7 +9,8 @@ export default function ProjectsSection() {
     startup: {
       name: 'Metaport',
       url: 'https://getmetaport.com/',
-      description: 'A bootstrapped product with cofounder',
+      description: 'Bootstrapped product co-founded to streamline portfolio delivery.',
+      highlights: 'Product strategy, delivery leadership, and platform build.',
       collaborator: {
         name: 'Russ Michell',
         url: 'https://www.linkedin.com/in/theruss/',
@@ -19,7 +20,37 @@ export default function ProjectsSection() {
       {
         name: 'Sidekick Modular Character Creator (Synty Studios)',
         url: 'https://syntystore.com/collections/sidekick-character-packs',
-        description: 'Producer on Sidekick Modular Character Creator.',
+        description: 'Producer role spanning roadmap, external partners, and releases.',
+      },
+    ],
+    webProjects: [
+      {
+        name: 'Public Trustee of Queensland DXP',
+        url: 'https://www.pt.qld.gov.au/',
+        timeframe: 'Jan 2024',
+        client: 'Public Trustee of Queensland',
+        summary: 'Squiz DXP migration and digital experience platform rebuild.',
+      },
+      {
+        name: 'NZTA Crash Analysis System (CAS)',
+        url: 'https://cas.nzta.govt.nz/',
+        timeframe: 'Jun 2018',
+        client: 'NZ Transport Agency - Waka Kotahi',
+        summary: 'Large-scale data migration and government analytics platform delivery.',
+      },
+      {
+        name: 'Life Events Programme (SmartStart)',
+        url: 'https://smartstart.services.govt.nz/',
+        timeframe: 'Dec 2016',
+        client: 'Department of Internal Affairs',
+        summary: 'Digital transformation delivery, agile advisory, federated content model.',
+      },
+      {
+        name: 'Land Air Water Aotearoa (LAWA)',
+        url: 'https://www.lawa.org.nz/',
+        timeframe: 'Dec 2015',
+        client: 'Effect',
+        summary: 'Nationwide geospatial data platform for local government partners.',
       },
     ],
     gameCredits: {
@@ -38,12 +69,12 @@ export default function ProjectsSection() {
         'Speed Racer: The Video Game (PS2, Wii)',
         'Star Wars: Clone Wars (PSP, Xbox 360)',
       ],
-      note: 'Video games shipped at Sidhe (now PikPok).',
+      note: 'Games shipped at Sidhe (now PikPok), spanning production and QA leadership.',
     },
     linkedinProjects: {
       name: 'LinkedIn projects',
       url: 'https://www.linkedin.com/in/lukepercy/details/projects/',
-      description: 'A fuller summary of my web and delivery portfolio.',
+      description: 'More delivery case studies, platform work, and portfolio notes.',
     },
   };
 
@@ -183,8 +214,9 @@ export default function ProjectsSection() {
             <div className="bg-slate-700/50 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-slate-700/50">
               <div className="p-6">
                 <h4 className="text-xl font-bold text-white mb-2">Metaport</h4>
+                <p className="text-xs text-slate-400 mb-3">Startup venture</p>
                 <p className="text-slate-300 mb-3">
-                  {selectedWork.startup.description}{' '}
+                  {selectedWork.startup.description} {selectedWork.startup.highlights}{' '}
                   <a
                     href={selectedWork.startup.collaborator.url}
                     target="_blank"
@@ -211,6 +243,9 @@ export default function ProjectsSection() {
             <div className="bg-slate-700/50 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-slate-700/50">
               <div className="p-6">
                 <h4 className="text-xl font-bold text-white mb-2">Past Projects</h4>
+                <p className="text-slate-300 mb-4">
+                  Selected production and delivery work across games and digital products.
+                </p>
                 <ul className="space-y-4 text-slate-300">
                   {selectedWork.pastProjects.map((p) => (
                     <li key={p.url}>
@@ -257,6 +292,35 @@ export default function ProjectsSection() {
                     </ul>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-700/50 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-slate-700/50">
+              <div className="p-6">
+                <h4 className="text-xl font-bold text-white mb-2">Large Web Platforms</h4>
+                <p className="text-slate-300 mb-4">
+                  Government and public-sector platforms delivered with multi-agency stakeholders.
+                </p>
+                <ul className="space-y-4 text-slate-300">
+                  {selectedWork.webProjects.map((project) => (
+                    <li key={project.url}>
+                      <div className="font-medium text-white">{project.name}</div>
+                      <div className="text-xs text-slate-400 mb-1">
+                        {project.timeframe} • {project.client}
+                      </div>
+                      <div className="text-slate-300">{project.summary}</div>
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-200 underline decoration-slate-500 hover:text-white hover:decoration-slate-200 transition-colors break-all"
+                        aria-label={`Open ${project.name}`}
+                      >
+                        {project.url}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
