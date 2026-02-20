@@ -13,6 +13,7 @@ export default function ChatWidget() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [needsContinuation, setNeedsContinuation] = useState(false);
+    const [language, setLanguage] = useState('en-NZ');
     const messagesEndRef = useRef(null);
     const abortControllerRef = useRef(null);
     const continuationInsertedRef = useRef(false);
@@ -119,7 +120,7 @@ export default function ChatWidget() {
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: nextMessages }),
+                body: JSON.stringify({ messages: nextMessages, language }),
                 signal: abortController.signal,
             });
 
@@ -239,7 +240,7 @@ export default function ChatWidget() {
 
             <div
                 id="chat-panel"
-                className={`mt-4 w-[min(90vw,420px)] origin-bottom-left rounded-2xl border border-slate-700/60 bg-slate-900/95 shadow-2xl backdrop-blur transition-all duration-200 ${isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+                className={`mt-4 w-[min(92vw,480px)] origin-bottom-left rounded-2xl border border-slate-700/60 bg-slate-900/95 shadow-2xl backdrop-blur transition-all duration-200 ${isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
                     }`}
                 role="dialog"
                 aria-label="AI advisory chat"
@@ -250,26 +251,52 @@ export default function ChatWidget() {
                         <p className="text-sm font-semibold text-slate-100">AI Advisory Assistant</p>
                         <p className="text-xs text-slate-400">Calm, structured guidance based on Luke's own principles.</p>
                     </div>
-                    <button
-                        type="button"
-                        onClick={toggleOpen}
-                        className="rounded-full border border-slate-700/60 p-2 text-slate-300 transition hover:border-slate-500/80 hover:text-white"
-                        aria-label="Close chat"
-                    >
-                        <svg
-                            aria-hidden="true"
-                            viewBox="0 0 24 24"
-                            className="h-4 w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                    <div className="flex items-center gap-3">
+                        <label className="text-xs text-slate-400" htmlFor="chat-language">
+                            Language
+                        </label>
+                        <div className="relative">
+                            <select
+                                id="chat-language"
+                                value={language}
+                                onChange={(event) => setLanguage(event.target.value)}
+                                className="appearance-none rounded-full border border-slate-700/60 bg-slate-900/80 px-3 py-1 pr-8 text-xs text-slate-200 transition hover:border-amber-500/70 hover:bg-slate-900 focus:border-amber-500/80 focus:outline-none focus:ring-1 focus:ring-amber-500/60"
+                            >
+                                <option className="bg-slate-900 text-slate-100" value="en-NZ">English (NZ)</option>
+                                <option className="bg-slate-900 text-slate-100" value="mi-NZ">Te Reo Māori</option>
+                            </select>
+                            <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-slate-400">
+                                <svg
+                                    aria-hidden="true"
+                                    viewBox="0 0 20 20"
+                                    className="h-3.5 w-3.5"
+                                    fill="currentColor"
+                                >
+                                    <path d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08z" />
+                                </svg>
+                            </span>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={toggleOpen}
+                            className="rounded-full border border-slate-700/60 p-2 text-slate-300 transition hover:border-slate-500/80 hover:text-white"
+                            aria-label="Close chat"
                         >
-                            <path d="M18 6L6 18" />
-                            <path d="M6 6l12 12" />
-                        </svg>
-                    </button>
+                            <svg
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                className="h-4 w-4"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M18 6L6 18" />
+                                <path d="M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
                 <div className="max-h-[55vh] space-y-4 overflow-y-auto px-5 py-4 text-sm text-slate-200">
@@ -361,6 +388,11 @@ export default function ChatWidget() {
                     <p className="mt-2 text-xs text-slate-500">
                         Responses are advisory. Sensitive details should be shared carefully.
                     </p>
+                    {language === 'mi-NZ' ? (
+                        <p className="mt-2 text-xs text-slate-500">
+                            Te Reo Māori translations are best-effort and may miss nuance. Please review if using publicly.
+                        </p>
+                    ) : null}
                 </div>
             </div>
         </div>

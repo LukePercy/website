@@ -37,6 +37,11 @@ export default async function handler(req, res) {
     try {
         const systemPrompt = await loadSystemPrompt();
         const clientMessages = normalizeMessages(req.body?.messages);
+        const language = req.body?.language;
+        const languageInstruction =
+            language === 'mi-NZ'
+                ? 'Respond entirely in te reo Maori. Do not include English unless the user explicitly asks.'
+                : 'Respond in New Zealand English (en-NZ). Use New Zealand spelling and phrasing.';
 
         if (clientMessages.length === 0) {
             return res.status(400).json({ error: 'No messages supplied.' });
@@ -55,6 +60,7 @@ export default async function handler(req, res) {
                 stream: true,
                 messages: [
                     { role: 'system', content: systemPrompt },
+                    { role: 'system', content: languageInstruction },
                     ...clientMessages,
                 ],
             }),
