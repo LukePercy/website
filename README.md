@@ -145,6 +145,10 @@ website/
 - `npm start` - Start production server
 - `npm run postbuild` - Generate sitemap (runs automatically after build)
 
+## Security Notes
+
+`npm audit` currently reports high severity issues in `cross-spawn` via `@swc/cli`. This is a dev-only dependency chain and does not affect the production runtime bundle. Resolving it requires a breaking upgrade of `@swc/cli`. We are deferring that change for now and will revisit during the next dependency refresh.
+
 ## Customization
 
 ### Updating Personal Information
