@@ -97,9 +97,14 @@ export default async function handler(req, res) {
 
                 try {
                     const payload = JSON.parse(data);
-                    const delta = payload?.choices?.[0]?.delta?.content;
+                    const choice = payload?.choices?.[0];
+                    const delta = choice?.delta?.content;
+                    const finishReason = choice?.finish_reason;
                     if (delta) {
                         res.write(`data: ${JSON.stringify({ delta })}\n\n`);
+                    }
+                    if (finishReason) {
+                        res.write(`data: ${JSON.stringify({ finish_reason: finishReason })}\n\n`);
                     }
                 } catch (parseError) {
                     res.write(`data: ${JSON.stringify({ error: 'Stream parse error.' })}\n\n`);

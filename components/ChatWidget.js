@@ -12,8 +12,10 @@ export default function ChatWidget() {
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const [needsContinuation, setNeedsContinuation] = useState(false);
     const messagesEndRef = useRef(null);
     const abortControllerRef = useRef(null);
+    const continuationInsertedRef = useRef(false);
 
     const trimmedMessages = useMemo(() => messages.slice(-16), [messages]);
 
@@ -99,11 +101,12 @@ export default function ChatWidget() {
         setIsLoading(false);
     };
 
-    const handleSend = async () => {
-        const content = input.trim();
+    const sendMessage = async (content) => {
         if (!content || isLoading) return;
 
         cancelStream();
+        setNeedsContinuation(false);
+        continuationInsertedRef.current = false;
         const nextMessages = [...messages, { role: 'user', content }];
         setMessages([...nextMessages, { role: 'assistant', content: '' }]);
         setInput('');
@@ -171,6 +174,22 @@ export default function ChatWidget() {
                             return updated;
                         });
                     }
+
+                    if (payload?.finish_reason) {
+                        if (payload.finish_reason === 'length' && !continuationInsertedRef.current) {
+                            continuationInsertedRef.current = true;
+                            setNeedsContinuation(true);
+                            setMessages((prev) => [
+                                ...prev,
+                                {
+                                    role: 'assistant',
+                                    content: 'Looks like that response was a bit long. Would you like me to continue?',
+                                },
+                            ]);
+                        } else if (payload.finish_reason === 'stop') {
+                            setNeedsContinuation(false);
+                        }
+                    }
                 }
             }
         } catch (err) {
@@ -182,6 +201,17 @@ export default function ChatWidget() {
             setIsLoading(false);
             abortControllerRef.current = null;
         }
+    };
+
+    const handleSend = () => {
+        const content = input.trim();
+        if (!content) return;
+        sendMessage(content);
+    };
+
+    const handleContinue = () => {
+        if (isLoading || !needsContinuation) return;
+        sendMessage('Please continue.');
     };
 
     const handleKeyDown = (event) => {
@@ -218,7 +248,7 @@ export default function ChatWidget() {
                 <div className="flex items-center justify-between border-b border-slate-800/80 px-5 py-4">
                     <div>
                         <p className="text-sm font-semibold text-slate-100">AI Advisory Assistant</p>
-                        <p className="text-xs text-slate-400">Calm, structured guidance in Luke's voice.</p>
+                        <p className="text-xs text-slate-400">Calm, structured guidance based on Luke's own principles.</p>
                     </div>
                     <button
                         type="button"
@@ -315,6 +345,15 @@ export default function ChatWidget() {
                                     className="rounded-xl border border-slate-700/60 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:border-slate-500/80 hover:text-white"
                                 >
                                     Stop
+                                </button>
+                            ) : null}
+                            {needsContinuation && !isLoading ? (
+                                <button
+                                    type="button"
+                                    onClick={handleContinue}
+                                    className="rounded-xl border border-slate-700/60 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:border-slate-500/80 hover:text-white"
+                                >
+                                    Continue
                                 </button>
                             ) : null}
                         </div>
