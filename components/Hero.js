@@ -48,13 +48,19 @@ export default function Hero() {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4">
           <a
+            href="/about"
+            className="inline-block px-8 py-3 bg-white hover:bg-slate-100 text-slate-900 rounded-lg font-medium transition-colors text-center shadow-lg"
+          >
+            More about me
+          </a>
+          <a
             href="#projects"
-            className="inline-block px-8 py-3 bg-slate-100 hover:bg-white text-slate-900 rounded-lg font-medium transition-colors text-center shadow-lg"
+            className="inline-block px-8 py-3 bg-transparent border-2 border-slate-400 hover:bg-slate-700/50 text-white rounded-lg font-medium transition-colors text-center"
           >
             View My Work
           </a>
           <a
-            href="mailto:lpercy@ljpercy.com"
+            href="mailto:luke@ljpercy.com"
             className="inline-block px-8 py-3 bg-transparent border-2 border-slate-400 hover:bg-slate-700/50 text-white rounded-lg font-medium transition-colors text-center"
           >
             Get in Touch

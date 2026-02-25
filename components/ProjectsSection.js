@@ -151,63 +151,7 @@ export default function ProjectsSection() {
   return (
     <section id="projects" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-white mb-12">
-          My Code
-        </h2>
-
-        <p className="text-slate-300 mb-10 max-w-3xl">
-          These are my personal repositories and experiments on GitHub and GitLab.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {repos.map((repo) => (
-            <div
-              key={`${repo.source || 'github'}-${repo.id}`}
-              className="bg-slate-700/50 rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden backdrop-blur-sm h-full flex flex-col"
-            >
-              <div className="p-6 h-full flex flex-col">
-                <h3 className="text-xl font-bold text-white mb-2">
-                  {repo.name}
-                </h3>
-                <p className="text-xs text-slate-400 mb-3">
-                  {repo.source === 'gitlab' ? 'GitLab' : 'GitHub'}
-                </p>
-                <p className="text-slate-300 mb-4 line-clamp-3">
-                  {repo.description || 'No description available'}
-                </p>
-
-                <div className="mt-auto">
-                  <div className="flex items-center gap-4 text-sm text-slate-400 mb-4">
-                    {repo.language && (
-                      <span className="flex items-center gap-1">
-                        <span className="w-3 h-3 rounded-full bg-autumn-orange"></span>
-                        {repo.language}
-                      </span>
-                    )}
-                  </div>
-
-                  <a
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`View ${repo.name} on ${repo.source === 'gitlab' ? 'GitLab' : 'GitHub'}`}
-                    className="inline-block px-4 py-2 bg-slate-100 hover:bg-white text-slate-900 rounded-lg text-sm font-medium transition-colors"
-                  >
-                    View on {repo.source === 'gitlab' ? 'GitLab' : 'GitHub'}
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {repos.length === 0 && (
-          <div className="text-center text-slate-300">
-            No projects found
-          </div>
-        )}
-
-        <div className="mt-16 border-t border-slate-700/50 pt-12">
+        <div className="mb-16">
           <h3 className="text-3xl font-bold text-white mb-6">Selected Work</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -341,6 +285,62 @@ export default function ProjectsSection() {
             </div>
           </div>
         </div>
+
+        <h2 className="text-4xl font-bold text-white mb-12">
+          My Code
+        </h2>
+
+        <p className="text-slate-300 mb-10 max-w-3xl">
+          These are my personal repositories and experiments on GitHub and GitLab.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {repos.map((repo) => (
+            <div
+              key={`${repo.source || 'github'}-${repo.id}`}
+              className="bg-slate-700/50 rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden backdrop-blur-sm h-full flex flex-col"
+            >
+              <div className="p-6 h-full flex flex-col">
+                <h3 className="text-xl font-bold text-white mb-2">
+                  {repo.name}
+                </h3>
+                <p className="text-xs text-slate-400 mb-3">
+                  {repo.source === 'gitlab' ? 'GitLab' : 'GitHub'}
+                </p>
+                <p className="text-slate-300 mb-4 line-clamp-3">
+                  {repo.description || 'No description available'}
+                </p>
+
+                <div className="mt-auto">
+                  <div className="flex items-center gap-4 text-sm text-slate-400 mb-4">
+                    {repo.language && (
+                      <span className="flex items-center gap-1">
+                        <span className="w-3 h-3 rounded-full bg-autumn-orange"></span>
+                        {repo.language}
+                      </span>
+                    )}
+                  </div>
+
+                  <a
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View ${repo.name} on ${repo.source === 'gitlab' ? 'GitLab' : 'GitHub'}`}
+                    className="inline-block px-4 py-2 bg-slate-100 hover:bg-white text-slate-900 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    View on {repo.source === 'gitlab' ? 'GitLab' : 'GitHub'}
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {repos.length === 0 && (
+          <div className="text-center text-slate-300">
+            No projects found
+          </div>
+        )}
       </div>
     </section>
   );
