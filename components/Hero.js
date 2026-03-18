@@ -21,8 +21,14 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Subtle heartbeat background */}
+      <div
+        className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: "url('/heartbeat.png')" }}
+        aria-hidden="true"
+      />
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Greeting */}
         <p className="text-sm uppercase tracking-wider text-slate-400 mb-4">
           Kia ora. Hello, I'm.
