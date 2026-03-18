@@ -60,12 +60,18 @@ export default function Blog({ posts }) {
                   </Link>
                 </h2>
 
-                <div className="text-sm text-slate-400 mb-4">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-400 mb-4">
                   {new Date(post.date).toLocaleDateString('en-NZ', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
                   })}
+                  {post.readingTime && (
+                    <>
+                      <span aria-hidden="true">•</span>
+                      <span>{post.readingTime}</span>
+                    </>
+                  )}
                 </div>
 
                 <p className="text-slate-300 mb-4">

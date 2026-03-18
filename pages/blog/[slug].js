@@ -10,7 +10,7 @@ const components = {
 
 export default function BlogPost({ post, mdxSource }) {
   const title = `${post.title} | Blog`;
-  const description = post.excerpt || 'Blog post';
+  const description = post.description || post.excerpt || 'Blog post';
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ljpercy.com').replace(/\/$/, '');
   const pageUrl = `${siteUrl}/blog/${post.slug}`;
   const schema = {
@@ -59,12 +59,18 @@ export default function BlogPost({ post, mdxSource }) {
           <h1 className="text-5xl font-bold mb-4">
             {post.title}
           </h1>
-          <div className="text-slate-400">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-slate-400">
             {new Date(post.date).toLocaleDateString('en-NZ', {
               year: 'numeric',
               month: 'long',
               day: 'numeric'
             })}
+            {post.readingTime && (
+              <>
+                <span aria-hidden="true">•</span>
+                <span>{post.readingTime}</span>
+              </>
+            )}
           </div>
         </header>
 
@@ -106,7 +112,9 @@ export async function getStaticProps({ params }) {
         slug: post.slug,
         title: post.title,
         date: post.date,
+        description: post.description || '',
         excerpt: post.excerpt || '',
+        readingTime: post.readingTime || '',
       },
       mdxSource,
     },
