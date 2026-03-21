@@ -6,6 +6,7 @@ module.exports = {
     priority: 0.7,
     sitemapSize: 5000,
     generateRobotsTxt: true,
+    /** @param {{ changefreq: string, priority: number, autoLastmod?: boolean, alternateRefs?: unknown[] }} config @param {string} path */
     transform: async (config, path) => {
         return {
             loc: path,

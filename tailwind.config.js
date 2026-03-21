@@ -17,6 +17,7 @@ module.exports = {
             colors: {
                 'autumn-orange': '#f5800b',
             },
+            /** @param {(path: string) => string} theme */
             typography: (theme) => ({
                 DEFAULT: {
                     css: {

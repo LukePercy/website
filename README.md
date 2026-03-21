@@ -1,41 +1,40 @@
 # Portfolio & Blog Website
 
-A modern Next.js portfolio and blog website with GitHub API integration and MDX-powered content.
+A Next.js 16 portfolio and blog website with MDX-powered content, GitHub integration, and article-type specific presentation modes.
 
 ## Features
 
 - **Portfolio Homepage** with hero banner and projects showcase
 - **Blog System** powered by MDX with markdown support
 - **GitHub Projects** automatically fetched from GitHub API
-- **Responsive Design** with Tailwind CSS and dark mode support
-- **SEO Optimised** with automatic sitemap generation
+- **Responsive Design** with Tailwind CSS
+- **SEO Optimised** with automatic sitemap generation during build
+- **Article Type Layouts** including a paginated fiction reader for long-form digital stories
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 16.x or higher
+- Node.js 20.9 or higher
 - npm or yarn
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <your-repo-url>
 cd website
 ```
 
-2. Install dependencies:
+1. Install dependencies:
+
 ```bash
 npm install
 ```
 
-3. Create your environment file:
-```bash
-cp .env.local.example .env.local
-```
+1. Configure your environment variables in `.env.local`:
 
-4. Configure your environment variables in `.env.local`:
 ```bash
 # Optional: Google Analytics
 NEXT_PUBLIC_GOOGLE_ANALYTICS=G-XXXXXXXXXX
@@ -43,6 +42,9 @@ NEXT_PUBLIC_GOOGLE_ANALYTICS=G-XXXXXXXXXX
 # Required: GitHub Integration
 GITHUB_USERNAME=your-github-username
 GITHUB_AUTH_TOKEN=ghp_xxxxxxxxxxxx  # Optional, prevents rate limiting
+
+# Optional: Site URL used for canonical links and sitemap generation
+NEXT_PUBLIC_SITE_URL=https://www.ljpercy.com
 ```
 
 ### Development
@@ -62,18 +64,20 @@ npm run build
 npm start
 ```
 
-The build process automatically generates a sitemap at `/sitemap.xml`.
+The build process automatically generates sitemap files in `public/`, but those generated artifacts do not need to be committed.
 
 ## Content Management
 
 ### Adding Blog Posts
 
 1. Create a new `.mdx` file in `content/blog/`:
+
 ```mdx
 ---
 title: 'Your Post Title'
 date: '2024-01-15'
-excerpt: 'A brief description of your post'
+description: 'A brief description of your post'
+articleType: 'article'
 ---
 
 # Your Content Here
@@ -81,10 +85,17 @@ excerpt: 'A brief description of your post'
 Write your blog post content using Markdown or MDX.
 ```
 
-2. Rebuild the site to generate static pages:
+1. Rebuild the site to generate static pages:
+
 ```bash
 npm run build
 ```
+
+### Article Types
+
+- Use `articleType: 'article'` for the default blog presentation.
+- Use `articleType: 'fiction'` to render the post in the paginated digital reader.
+- Fiction posts split into reader pages on standalone `---` separators inside the body content.
 
 ### Customising Content
 
@@ -96,6 +107,7 @@ npm run build
 ### Projects
 
 Projects are automatically fetched from your GitHub account using the `GITHUB_USERNAME` environment variable. The site displays your 6 most recent repositories with:
+
 - Repository name and description
 - Programming language
 - Star and fork counts
@@ -105,7 +117,7 @@ To customise which repos are shown, edit `pages/api/github/repos.js`.
 
 ## Project Structure
 
-```
+```text
 website/
 ├── components/          # React components
 │   ├── Layout.js       # Main layout with nav and footer
@@ -132,8 +144,8 @@ website/
 
 ## Technologies
 
-- **Framework**: Next.js 14
-- **Styling**: Tailwind CSS with dark mode
+- **Framework**: Next.js 16
+- **Styling**: Tailwind CSS
 - **Content**: MDX (Markdown + JSX)
 - **API**: GitHub REST API
 - **Deployment Ready**: Vercel, Netlify, or any Node.js host
@@ -157,10 +169,10 @@ website/
 ### Styling
 
 The site uses Tailwind CSS. Customise the theme in `tailwind.config.js`:
+
 - Colors (including the `autumn-orange` accent color)
 - Typography
 - Breakpoints
-- Dark mode settings
 
 ## Deployment
 
@@ -174,6 +186,7 @@ The site uses Tailwind CSS. Customise the theme in `tailwind.config.js`:
 ### Other Platforms
 
 The site can be deployed to any platform that supports Next.js:
+
 - Netlify
 - AWS Amplify
 - DigitalOcean App Platform
@@ -182,7 +195,7 @@ The site can be deployed to any platform that supports Next.js:
 ## Environment Variables
 
 | Variable | Required | Description |
-|----------|----------|-------------|
+| -------- | -------- | ----------- |
 | `NEXT_PUBLIC_GOOGLE_ANALYTICS` | No | Google Analytics tracking ID |
 | `GITHUB_USERNAME` | Yes | Your GitHub username for projects |
 | `GITHUB_AUTH_TOKEN` | No | GitHub personal access token (prevents rate limiting) |
