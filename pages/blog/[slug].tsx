@@ -15,6 +15,7 @@ export default function BlogPost({ post, mdxSource, paginatedMdxSource }: BlogPo
   const router = useRouter();
   const title = `${post.title} | Blog`;
   const description = post.description || post.excerpt || 'Blog post';
+  const authorName = post.author || PERSON_NAME;
   const isFiction = post.articleType === 'fiction';
   const siteUrl = getSiteUrl();
   const locale = router.locale || router.defaultLocale || 'en';
@@ -30,7 +31,7 @@ export default function BlogPost({ post, mdxSource, paginatedMdxSource }: BlogPo
     dateModified: post.date,
     author: {
       '@type': 'Person',
-      name: PERSON_NAME,
+      name: authorName,
       url: siteUrl,
     },
     publisher: {
@@ -123,6 +124,7 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps, BlogPathParams['p
       post: {
         slug: post.slug,
         title: post.title,
+        author: post.author || null,
         date: post.date,
         description: post.description || '',
         excerpt: post.excerpt || '',
