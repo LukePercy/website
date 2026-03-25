@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversation Summary — RepoWatch Blog Fix</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d1117;
+    color: #e6edf3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ─── Page shell ─────────────────────────────────────────── */
+  .page-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0d1117;
+    border-bottom: 1px solid #21262d;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 24px;
+  }
+  .header-icon {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, #1f6feb, #388bfd);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .header-title { font-size: 15px; font-weight: 700; color: #f0f6fc; }
+  .header-subtitle { font-size: 11px; color: #7d8590; }
+  .header-date {
+    margin-left: auto;
+    font-size: 11px;
+    color: #7d8590;
+    background: #161b22;
+    border: 1px solid #21262d;
+    padding: 3px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .col-labels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+  }
+  .col-label {
+    padding: 6px 24px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #7d8590;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .col-label:first-child { border-right: 1px solid #21262d; }
+  .col-label .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  /* ─── Two-column layout ───────────────────────────────────── */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    min-height: calc(100vh - 90px);
+  }
+
+  /* ─── LEFT: Chat panel ────────────────────────────────────── */
+  .chat-panel {
+    border-right: 1px solid #21262d;
+    padding: 28px 20px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .chat-exchange { display: flex; flex-direction: column; gap: 8px; }
+
+  .exchange-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: #30363d;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-left: 2px;
+    margin-bottom: 2px;
+  }
+
+  .bubble-row { display: flex; gap: 8px; }
+  .bubble-row.user { justify-content: flex-end; }
+  .bubble-row.assistant { justify-content: flex-start; }
+
+  .avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .avatar-user { background: #21262d; color: #c9d1d9; }
+  .avatar-ai   { background: linear-gradient(135deg, #1f6feb, #388bfd); color: #fff; }
+
+  .bubble {
+    max-width: 82%;
+    padding: 9px 12px;
+    border-radius: 14px;
+    font-size: 12.5px;
+    line-height: 1.55;
+  }
+  .bubble-row.user .bubble {
+    background: #1f3148;
+    border: 1px solid #1f6feb55;
+    color: #c9d1d9;
+    border-bottom-right-radius: 4px;
+  }
+  .bubble-row.assistant .bubble {
+    background: #161b22;
+    border: 1px solid #21262d;
+    color: #c9d1d9;
+    border-bottom-left-radius: 4px;
+  }
+  .bubble strong { color: #f0f6fc; }
+  .bubble em { color: #7d8590; font-style: italic; }
+  .bubble .mono {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+    background: #0d1117;
+    border: 1px solid #21262d;
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: #79c0ff;
+  }
+
+  .thinking-accordion {
+    margin-left: 34px;
+    margin-top: 2px;
+  }
+  .accordion-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    color: #7d8590;
+    user-select: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #21262d;
+    background: #0d1117;
+    width: fit-content;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .accordion-toggle:hover { color: #c9d1d9; border-color: #30363d; }
+  .accordion-toggle .chevron {
+    font-size: 9px;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .accordion-toggle.open .chevron { transform: rotate(90deg); }
+  .accordion-body {
+    display: none;
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 8px 10px;
+    margin-top: -1px;
+  }
+  .accordion-body.visible { display: block; }
+  .accordion-body ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .accordion-body li {
+    font-size: 11px;
+    color: #7d8590;
+    padding-left: 12px;
+    position: relative;
+  }
+  .accordion-body li::before {
+    content: "·";
+    position: absolute;
+    left: 2px;
+    color: #388bfd;
+  }
+
+  .chat-terminal {
+    margin-left: 34px;
+    margin-top: 4px;
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 10.5px;
+    color: #7d8590;
+    line-height: 1.6;
+  }
+  .chat-terminal .t-ok     { color: #3fb950; }
+  .chat-terminal .t-warn   { color: #d29922; }
+  .chat-terminal .t-info   { color: #58a6ff; }
+  .chat-terminal .t-purple { color: #bc8cff; }
+
+  .exchange-sep {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 2px;
+  }
+  .sep-line { flex: 1; height: 1px; background: #21262d; }
+  .sep-dot  { width: 4px; height: 4px; border-radius: 50%; background: #30363d; flex-shrink: 0; }
+
+  /* ─── RIGHT: Analysis panel ───────────────────────────────── */
+  .analysis-panel {
+    padding: 28px 20px 60px;
+  }
+
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 19px;
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    background: linear-gradient(to bottom, #1f6feb44, #388bfd44, #1f6feb22);
+    border-radius: 2px;
+  }
+
+  .card {
+    position: relative;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #30363d; }
+
+  .node {
+    position: absolute;
+    left: -37px;
+    top: 16px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 2px solid #0d1117;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    z-index: 1;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid #21262d;
+  }
+  .card-number { font-size: 10px; font-weight: 600; color: #7d8590; flex-shrink: 0; padding-top: 1px; }
+  .card-title  { font-size: 14px; font-weight: 600; color: #f0f6fc; flex: 1; }
+  .badge {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 12px;
+    flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .badge-user   { background: #21262d; color: #7d8590; }
+  .badge-code   { background: #1a2e1a; color: #3fb950; border: 1px solid #238636; }
+  .badge-answer { background: #1a2433; color: #58a6ff; border: 1px solid #1f6feb; }
+  .badge-deploy { background: #2d1a2e; color: #bc8cff; border: 1px solid #8957e5; }
+
+  .card-prompt {
+    font-size: 12px; color: #7d8590;
+    background: #0d1117; padding: 8px 16px;
+    border-bottom: 1px solid #21262d; font-style: italic;
+  }
+  .card-prompt span { color: #58a6ff; font-weight: 500; }
+
+  .card-body { padding: 14px 16px; }
+
+  .thinking-label {
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: #7d8590; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .thinking-label::after { content: ""; flex: 1; height: 1px; background: #21262d; }
+
+  .points { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .points li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: #c9d1d9; }
+  .point-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .dot-blue   { background: #388bfd; }
+  .dot-green  { background: #3fb950; }
+  .dot-yellow { background: #d29922; }
+  .dot-purple { background: #bc8cff; }
+  .dot-red    { background: #f85149; }
+
+  .outcomes {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px solid #21262d;
+  }
+  .chip {
+    font-size: 11px; font-weight: 500;
+    padding: 3px 9px; border-radius: 20px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .chip-green  { background: #1a2e1a; color: #3fb950; }
+  .chip-blue   { background: #1a2433; color: #58a6ff; }
+  .chip-yellow { background: #2e2515; color: #d29922; }
+  .chip-purple { background: #2d1a2e; color: #bc8cff; }
+
+  .impl-header {
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: #bc8cff; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .impl-header::after { content: ""; flex: 1; height: 1px; background: #2d1a2e; }
+
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step { display: flex; gap: 12px; position: relative; }
+  .step:not(:last-child) .step-line {
+    position: absolute; left: 11px; top: 24px; bottom: -6px;
+    width: 1px; background: #21262d;
+  }
+  .step-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #21262d; color: #7d8590;
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px; position: relative; z-index: 1;
+  }
+  .step-num.ok   { background: #1a2e1a; color: #3fb950; }
+  .step-num.fix  { background: #2e2515; color: #d29922; }
+  .step-num.run  { background: #1a2433; color: #58a6ff; }
+  .step-num.ship { background: #2d1a2e; color: #bc8cff; }
+
+  .step-content { flex: 1; padding-bottom: 14px; }
+  .step-title  { font-size: 13px; font-weight: 600; color: #f0f6fc; }
+  .step-detail { font-size: 12px; color: #7d8590; margin-top: 2px; }
+
+  .code-pill {
+    display: inline-block;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+    background: #0d1117; border: 1px solid #21262d;
+    padding: 1px 6px; border-radius: 4px;
+    color: #79c0ff; margin: 0 1px;
+  }
+
+  .terminal-box {
+    background: #0d1117; border: 1px solid #21262d;
+    border-radius: 6px; padding: 8px 10px; margin-top: 6px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px; color: #7d8590; line-height: 1.7;
+  }
+  .terminal-box .ok-line     { color: #3fb950; }
+  .terminal-box .warn-line   { color: #d29922; }
+  .terminal-box .info-line   { color: #58a6ff; }
+  .terminal-box .purple-line { color: #bc8cff; }
+
+  .node-1 { background: #1f6feb; }
+  .node-2 { background: #0d7377; }
+  .node-3 { background: #8957e5; }
+  .node-4 { background: #d29922; }
+  .node-5 { background: #f85149; }
+  .node-6 { background: #3fb950; }
+
+  .page-footer {
+    text-align: center; font-size: 11px; color: #30363d;
+    padding: 24px; border-top: 1px solid #21262d;
+    grid-column: 1 / -1;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="header-icon">📋</div>
+  <div>
+    <div class="header-title">RepoWatch · Session Summary</div>
+    <div class="header-subtitle">Blog scheduling fix, deploy pipeline, and lessons learned</div>
+  </div>
+  <div class="header-date">March 25, 2026</div>
+</div>
+
+<div class="col-labels">
+  <div class="col-label">
+    <span class="dot" style="background:#388bfd"></span>
+    Chat view &nbsp;·&nbsp; what you see
+  </div>
+  <div class="col-label">
+    <span class="dot" style="background:#bc8cff"></span>
+    Analysis &nbsp;·&nbsp; what was understood
+  </div>
+</div>
+
+<div class="columns">
+
+  <!-- LEFT — CHAT BUBBLES -->
+  <div class="chat-panel">
+
+    <div class="chat-exchange">
+      <div class="exchange-num">① Blog visibility</div>
+      <div class="bubble-row user">
+        <div class="bubble">Im trying to understand why our first blog is not yet visible on https://repowatch.io/blog<br><br>We had set blogs to publish on <strong>publishAt()</strong> and implemented logic to display at a later date.</div>
+        <div class="avatar avatar-user">U</div>
+      </div>
+      <div class="thinking-accordion">
+        <div class="accordion-toggle" onclick="toggle(this)">
+          <span class="chevron">▶</span>
+          Thinking &nbsp;·&nbsp; exploring blog.ts, ISR flags, date parsing
+        </div>
+        <div class="accordion-body">
+          <ul>
+            <li>Read src/lib/blog.ts — found isPublishedAtOrBeforeNow() filtering on Date.now()</li>
+            <li>Checked src/app/blog/page.tsx — no revalidate export — fully static</li>
+            <li>Checked all MDX frontmatter dates — all &gt;= 2026-03-25</li>
+            <li>Last build timestamp 21:24 UTC March 24 — before UTC midnight Mar 25</li>
+            <li>Date-only ISO strings parse as UTC midnight — timezone edge case identified</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bubble-row assistant">
+        <div class="avatar avatar-ai">AI</div>
+        <div class="bubble"><strong>Root cause:</strong> Both blog pages are fully static — <span class="mono">Date.now()</span> is evaluated at <em>build time</em>, not per-request. The last build ran at 21:24 UTC on March 24, before UTC midnight March 25, so the post's <span class="mono">publishedAt: "2026-03-25"</span> was still in the future and got permanently excluded.<br><br><strong>Fix:</strong> Add <span class="mono">export const revalidate = 3600</span> to both blog pages. ISR re-runs the date filter hourly.</div>
+      </div>
+    </div>
+
+    <div class="exchange-sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+
+    <div class="chat-exchange">
+      <div class="exchange-num">② LinkedIn post</div>
+      <div class="bubble-row user">
+        <div class="bubble">OK, I'll prepare a LinkedIn post to post once it's published after you finish deploy</div>
+        <div class="avatar avatar-user">U</div>
+      </div>
+      <div class="thinking-accordion">
+        <div class="accordion-toggle" onclick="toggle(this)">
+          <span class="chevron">▶</span>
+          Thinking &nbsp;·&nbsp; read MDX, structure post, LinkedIn best practices
+        </div>
+        <div class="accordion-body">
+          <ul>
+            <li>Read full why-i-built-repowatch.mdx to extract article scenarios</li>
+            <li>Identified 3 audience segments: hiring managers, eng leads, team leads inheriting systems</li>
+            <li>Applied URL-in-first-comment strategy — avoids LinkedIn external-link penalty</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bubble-row assistant">
+        <div class="avatar avatar-ai">AI</div>
+        <div class="bubble"><strong>LinkedIn draft ready.</strong> Structured around the three article scenarios (take-home assessment · open-source adoption · inheriting a codebase). URL goes in the <em>comments</em>, not the post body.</div>
+      </div>
+    </div>
+
+    <div class="exchange-sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+
+    <div class="chat-exchange">
+      <div class="exchange-num">③ Fix / commit / deploy</div>
+      <div class="bubble-row user">
+        <div class="bubble">ok proceed with fix/commit/deploy</div>
+        <div class="avatar avatar-user">U</div>
+      </div>
+      <div class="thinking-accordion">
+        <div class="accordion-toggle" onclick="toggle(this)">
+          <span class="chevron">▶</span>
+          Thinking &nbsp;·&nbsp; checking deployment instructions, running gcloud
+        </div>
+        <div class="accordion-body">
+          <ul>
+            <li>Staged 2 files with revalidate = 3600 — committed as 265e898</li>
+            <li>Ran gcloud builds submit — YAML bad-indent discovered in cloudbuild-web.yaml</li>
+            <li>Fixed indent — re-submitted — Linux CI test failure (hardcoded path not absolute on Linux)</li>
+            <li>Fixed test to use os.tmpdir() — re-submitted — 30/30 pass</li>
+          </ul>
+        </div>
+      </div>
+      <div class="chat-terminal">
+        <div class="t-ok">[main 265e898] fix(blog): add ISR revalidation</div>
+        <div class="t-warn">ERROR: parsing cloudbuild-web.yaml — bad indent</div>
+        <div class="t-ok">[main 2ccec22] fix(ci): correct cloudbuild-web.yaml indentation</div>
+        <div class="t-warn">not ok 7 — resolveLocalArtifactPath (Windows path on Linux)</div>
+        <div class="t-ok">[main b378203] fix(test): use os.tmpdir() for cross-platform path</div>
+        <div class="t-ok"># pass 30 / fail 0 — BUILD SUCCESS</div>
+        <div class="t-purple">revision repowatch-web-00021-b6z serving 100% traffic</div>
+      </div>
+      <div class="bubble-row assistant">
+        <div class="avatar avatar-ai">AI</div>
+        <div class="bubble">Deployed. Fixed two pre-existing issues discovered mid-pipeline: YAML indentation bug in <span class="mono">cloudbuild-web.yaml</span> and a Windows-only test path that broke Linux CI. All 30 tests passing, revision 00021-b6z live.</div>
+      </div>
+    </div>
+
+    <div class="exchange-sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+
+    <div class="chat-exchange">
+      <div class="exchange-num">④ Blog URL check</div>
+      <div class="bubble-row user">
+        <div class="bubble">https://repowatch.io/blog</div>
+        <div class="avatar avatar-user">U</div>
+      </div>
+      <div class="thinking-accordion">
+        <div class="accordion-toggle" onclick="toggle(this)">
+          <span class="chevron">▶</span>
+          Thinking &nbsp;·&nbsp; fetching live URL, checking ISR state
+        </div>
+        <div class="accordion-body">
+          <ul>
+            <li>Fetched https://repowatch.io/blog — returned "No posts yet"</li>
+            <li>revalidate = 3600 in place — ISR triggered on first visit but not propagated yet</li>
+            <li>⚠ Triggered unnecessary second gcloud builds submit instead of waiting</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bubble-row assistant">
+        <div class="avatar avatar-ai">AI</div>
+        <div class="bubble">Still showing <em>"No posts yet"</em> — ISR revalidation was triggered by your page visit but hasn't propagated yet.<br><br><em style="color:#d29922">Submitting a second rebuild to force it…</em></div>
+      </div>
+    </div>
+
+    <div class="exchange-sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+
+    <div class="chat-exchange">
+      <div class="exchange-num">⑤ Cost feedback</div>
+      <div class="bubble-row user">
+        <div class="bubble">Some feedback, we didn't need to do another build — I could have just waited 1 hour for the cache to update.<br><br>...it also cost us deployment tokens and traffic</div>
+        <div class="avatar avatar-user">U</div>
+      </div>
+      <div class="bubble-row assistant">
+        <div class="avatar avatar-ai">AI</div>
+        <div class="bubble">You're right. With <span class="mono">revalidate = 3600</span> in place, the first deployment was already sufficient. The second build wasted Cloud Build minutes, Artifact Registry push traffic, and a Cloud Run revision unnecessarily.<br><br><strong>Rule going forward:</strong> if ISR is in place and content hasn't surfaced yet, <em>wait</em>. Only rebuild when tests fail or code must change.</div>
+      </div>
+    </div>
+
+    <div class="exchange-sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+
+    <div class="chat-exchange">
+      <div class="exchange-num">⑥ Rule to memory</div>
+      <div class="bubble-row user">
+        <div class="bubble">Where is it noted, your memory is not super intelligence level yet my friend 😛</div>
+        <div class="avatar avatar-user">U</div>
+      </div>
+      <div class="thinking-accordion">
+        <div class="accordion-toggle" onclick="toggle(this)">
+          <span class="chevron">▶</span>
+          Thinking &nbsp;·&nbsp; checking /memories/, creating repo-scoped file
+        </div>
+        <div class="accordion-body">
+          <ul>
+            <li>Viewed /memories/ directory — no deployment guidelines file existed</li>
+            <li>Created /memories/repo/deployment-guidelines.md with ISR wait rule</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bubble-row assistant">
+        <div class="avatar avatar-ai">AI</div>
+        <div class="bubble">Fair catch — "noted" means nothing without writing it down. Created <span class="mono">/memories/repo/deployment-guidelines.md</span> with the ISR rule. Now in repository-scoped memory, persists across future conversations.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT — ANALYSIS TIMELINE -->
+  <div class="analysis-panel">
+    <div class="timeline">
+
+      <div class="card">
+        <div class="node node-1">①</div>
+        <div class="card-header">
+          <div class="card-number">#1</div>
+          <div class="card-title">Blog Visibility Diagnosis</div>
+          <span class="badge badge-answer">Analysis</span>
+        </div>
+        <div class="card-prompt"><span>User →</span> "Why is our first blog not visible on /blog? We have publishAt logic for future dates."</div>
+        <div class="card-body">
+          <div class="thinking-label">Key findings</div>
+          <ul class="points">
+            <li><span class="point-dot dot-red"></span>Blog pages had <strong>no <code class="code-pill">revalidate</code> export</strong> — fully static. <code class="code-pill">Date.now()</code> resolved at build, not per-request.</li>
+            <li><span class="point-dot dot-yellow"></span>Last build ran at <strong>21:24 UTC March 24</strong> — before UTC midnight March 25 — so <code class="code-pill">publishedAt: "2026-03-25"</code> was still future and post was excluded permanently.</li>
+            <li><span class="point-dot dot-blue"></span>Date-only strings parse as <strong>UTC midnight</strong>, which bites NZ-timezone users whose local midnight is UTC+12/13 earlier.</li>
+            <li><span class="point-dot dot-green"></span>Fix: add <code class="code-pill">export const revalidate = 3600</code> to both blog routes — ISR re-runs the date filter hourly.</li>
+          </ul>
+          <div class="outcomes">
+            <span class="chip chip-green">✓ Root cause identified</span>
+            <span class="chip chip-blue">2 files edited</span>
+            <span class="chip chip-yellow">ISR = 1 hr window</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="node node-2">②</div>
+        <div class="card-header">
+          <div class="card-number">#2</div>
+          <div class="card-title">LinkedIn Post Draft</div>
+          <span class="badge badge-answer">Content</span>
+        </div>
+        <div class="card-prompt"><span>User →</span> "I'll prepare a LinkedIn post to publish once it's live after deploy."</div>
+        <div class="card-body">
+          <div class="thinking-label">Approach</div>
+          <ul class="points">
+            <li><span class="point-dot dot-blue"></span>Read the full MDX content of <code class="code-pill">why-i-built-repowatch.mdx</code> to ground the post in the published article.</li>
+            <li><span class="point-dot dot-green"></span>Structured around three scenarios: <em>take-home assessment, open-source adoption, inheriting a codebase</em> — each targets a distinct LinkedIn segment.</li>
+            <li><span class="point-dot dot-yellow"></span>Applied LinkedIn best practice: <strong>URL in first comment</strong>, not post body, to avoid external-link engagement penalty.</li>
+            <li><span class="point-dot dot-purple"></span>Hashtags: <code class="code-pill">#CodeReview</code> <code class="code-pill">#DueDiligence</code> <code class="code-pill">#StaticAnalysis</code></li>
+          </ul>
+          <div class="outcomes">
+            <span class="chip chip-blue">Draft ready</span>
+            <span class="chip chip-green">URL in comments strategy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-color: #2d1a2e;">
+        <div class="node node-3">③</div>
+        <div class="card-header" style="background: #12101a;">
+          <div class="card-number">#3</div>
+          <div class="card-title">Fix · Commit · Deploy</div>
+          <span class="badge badge-deploy">Implementation</span>
+        </div>
+        <div class="card-prompt"><span>User →</span> "OK proceed with fix/commit/deploy."</div>
+        <div class="card-body">
+          <div class="impl-header">Implementation steps</div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-line"></div>
+              <div class="step-num ok">✓</div>
+              <div class="step-content">
+                <div class="step-title">Committed ISR fix</div>
+                <div class="step-detail">Staged <code class="code-pill">blog/page.tsx</code> + <code class="code-pill">blog/[slug]/page.tsx</code></div>
+                <div class="terminal-box"><div class="ok-line">[main 265e898] fix(blog): add ISR revalidation</div></div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-line"></div>
+              <div class="step-num fix">!</div>
+              <div class="step-content">
+                <div class="step-title">Discovered broken YAML in <code class="code-pill">cloudbuild-web.yaml</code></div>
+                <div class="step-detail">First step had 12-space indent — Cloud Build parser rejected it</div>
+                <div class="terminal-box">
+                  <div class="warn-line">ERROR: parsing cloudbuild-web.yaml: bad indent</div>
+                  <div class="ok-line">[main 2ccec22] fix(ci): correct indentation</div>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-line"></div>
+              <div class="step-num fix">!</div>
+              <div class="step-content">
+                <div class="step-title">1 test failing in Cloud Build</div>
+                <div class="step-detail"><code class="code-pill">scan-artifacts.test.ts</code> used a hardcoded path that was not absolute on Linux — <code class="code-pill">resolve()</code> prepended the CI workspace root</div>
+                <div class="terminal-box">
+                  <div class="warn-line">not ok 7 — resolveLocalArtifactPath</div>
+                  <div>&nbsp;&nbsp;actual: '/workspace/&lt;hardcoded-path&gt;/…'</div>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-line"></div>
+              <div class="step-num ok">✓</div>
+              <div class="step-content">
+                <div class="step-title">Fixed with <code class="code-pill">os.tmpdir()</code></div>
+                <div class="terminal-box"><div class="ok-line">[main b378203] fix(test): use os.tmpdir()</div></div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-line"></div>
+              <div class="step-num run">▶</div>
+              <div class="step-content">
+                <div class="step-title">30/30 tests pass · Docker image pushed</div>
+                <div class="terminal-box">
+                  <div class="ok-line"># pass 30 / fail 0</div>
+                  <div class="info-line">Build ID: 8c69cf7b · STATUS: SUCCESS</div>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num ship">🚀</div>
+              <div class="step-content">
+                <div class="step-title">Cloud Run revision live</div>
+                <div class="terminal-box"><div class="purple-line">repowatch-web-00021-b6z serving 100% traffic</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="outcomes">
+            <span class="chip chip-purple">4 commits</span>
+            <span class="chip chip-green">30/30 tests</span>
+            <span class="chip chip-blue">revision 00021-b6z</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="node node-4">④</div>
+        <div class="card-header">
+          <div class="card-number">#4</div>
+          <div class="card-title">Blog URL Check</div>
+          <span class="badge badge-user">Check</span>
+        </div>
+        <div class="card-prompt"><span>User →</span> "https://repowatch.io/blog"</div>
+        <div class="card-body">
+          <div class="thinking-label">What happened</div>
+          <ul class="points">
+            <li><span class="point-dot dot-yellow"></span>Fetched live URL — still showed <em>"No posts yet."</em></li>
+            <li><span class="point-dot dot-blue"></span>ISR in place — first visit triggered revalidation, not yet propagated.</li>
+            <li><span class="point-dot dot-red"></span><strong>Mistake:</strong> triggered a second <code class="code-pill">gcloud builds submit</code> unnecessarily.</li>
+          </ul>
+          <div class="outcomes"><span class="chip chip-yellow">⚠ Unnecessary rebuild triggered</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="node node-5">⑤</div>
+        <div class="card-header">
+          <div class="card-number">#5</div>
+          <div class="card-title">Cost &amp; Process Feedback</div>
+          <span class="badge badge-user">Feedback</span>
+        </div>
+        <div class="card-prompt"><span>User →</span> "We didn't need another build — I could have waited 1 hour. It also cost deployment tokens and traffic."</div>
+        <div class="card-body">
+          <div class="thinking-label">Lessons learned</div>
+          <ul class="points">
+            <li><span class="point-dot dot-green"></span>First deployment was already sufficient with <code class="code-pill">revalidate = 3600</code>.</li>
+            <li><span class="point-dot dot-red"></span>Second build wasted Cloud Build minutes, Artifact Registry traffic, and a Cloud Run revision rollout.</li>
+            <li><span class="point-dot dot-blue"></span>Rule: if ISR is in place and content just hasn't surfaced, <em>wait</em>. Rebuild only when tests fail or code must change.</li>
+          </ul>
+          <div class="outcomes">
+            <span class="chip chip-yellow">⚠ Avoidable cost</span>
+            <span class="chip chip-green">Rule defined</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="node node-6">⑥</div>
+        <div class="card-header">
+          <div class="card-number">#6</div>
+          <div class="card-title">Rule Written to Memory</div>
+          <span class="badge badge-code">Action</span>
+        </div>
+        <div class="card-prompt"><span>User →</span> "Where is it noted? Your memory is not super intelligence level yet my friend 😛"</div>
+        <div class="card-body">
+          <div class="thinking-label">What was done</div>
+          <ul class="points">
+            <li><span class="point-dot dot-yellow"></span>"Noted" means nothing without actually persisting it — no file had been created.</li>
+            <li><span class="point-dot dot-green"></span>Created <code class="code-pill">/memories/repo/deployment-guidelines.md</code> — repository-scoped memory, persists across conversations.</li>
+            <li><span class="point-dot dot-blue"></span>Rule: <em>"If ISR is in place, wait ≤ 1 hr. Only rebuild when code changes are required or tests fail."</em></li>
+          </ul>
+          <div class="outcomes">
+            <span class="chip chip-green">✓ deployment-guidelines.md created</span>
+            <span class="chip chip-blue">Persists across sessions</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">RepoWatch · luke.ai session · March 25, 2026</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle("open");
+    const body = el.nextElementSibling;
+    body.classList.toggle("visible");
+  }
+</script>
+</body>
+</html>
+

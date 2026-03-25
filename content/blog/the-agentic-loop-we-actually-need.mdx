@@ -1,0 +1,193 @@
+---
+title: "The Agentic Loop We Actually Need"
+author: "Luke Percy"
+date: "2026-03-25"
+excerpt: "AI-assisted software delivery is accelerating, but we need systems that do more than generate code. We need loops that detect, teach, and retain lessons from failure."
+description: "A short proposal for self-regulating agent workflows: detect errors, educate through correction, and reinforce learning over time with visible accountability."
+---
+
+There is a big wave right now of what people call "AI-trepreneurship": founders and teams using not just ChatGPT, but whole agent workflows to design, build, test, and ship software fast.
+
+That is mostly a good thing. More people can build. More ideas can be tested. More products can reach users.
+
+But speed without learning creates a new problem: we can automate output without improving judgment.
+
+This is also a direct continuation of an earlier post I wrote, [The Rise of AI in Everyday Tools](/blog/the-rise-of-ai-in-everyday-tools). That piece was about invisible influence: AI making things smoother while quietly shaping tone, decisions, and what "good" looks like.
+
+Same pattern here, just at a different layer. In writing, the risk is losing voice and humility. In software delivery, the risk is losing caution and shipping plausible-but-fragile outcomes. This post is about the practical loop needed to counter that.
+
+## Two ideas that belong together
+
+I think two ideas should be paired by default:
+
+1. **A lightweight codebase checker** like [repowatch.io](https://repowatch.io/), to quickly surface risk and quality signals.
+2. **A self-regulating agent loop**, where the AI workflow learns from mistakes instead of just moving on.
+
+The first gives visibility. The second gives memory and discipline.
+
+## The self-regulating loop
+
+The loop is simple. When a trigger event shows up (failed deploy, wrong assumption, repeated action, avoidable cost), the agent runs a reflection cycle:
+
+1. **Recognize the error**
+   The agent identifies what went wrong and why it happened.
+
+2. **Educate the error**
+   The agent records the correction as an explicit rule, not just a one-off patch.
+
+3. **Reinforce on recurrence**
+   If the same pattern appears again, the agent references the prior learning and confirms whether it was applied successfully.
+
+That creates a feedback loop that teaches both the system and the person running it.
+
+## The interface model
+
+The visual model I am using has two planes:
+
+- **Left side:** user-facing interactions (what people actually see in chat).
+- **Right side:** internal reasoning outcomes and background actions surfaced as accountable events.
+
+The right side does not have to be a literal UI forever. It can be logs, timeline cards, checkpoints, or policy summaries. The point is transparency: we should be able to see not only that something changed, but what was learned.
+
+## A practical scenario
+
+In one real scenario around repowatch.io blog publishing, the workflow diagnosed a real issue, shipped a fix, then later triggered an unnecessary rebuild even though ISR was already in place.
+
+For context, ISR here means **Incremental Static Regeneration** in Next.js: pages are statically generated, then refreshed on a revalidation window (for example hourly) instead of needing a full rebuild for every content timing change.
+
+That second rebuild had a real cost (even marginally) associated with it.
+
+There is also a prompting lesson for me in this. I could have prompted more explicitly on UTC behavior, timezone handling, and publish-date assumptions up front. I treated the feature as trivial, and when output started moving quickly, I did not pause soon enough to ask: "What timezone is this evaluated in?", "Are date-only values parsed as UTC?", and "Do we need local-time intent or UTC intent?". That pause matters.
+
+What should have happened after reflection was:
+
+- acknowledge the unnecessary action,
+- write the rule to memory,
+- and apply that rule on the next similar event.
+
+That is the bar I think agentic systems should meet.
+
+## What "better" looks like
+
+The next generation of agentic tooling should be judged on more than generation quality.
+
+It should also be judged on:
+
+- error recognition quality,
+- correction quality,
+- memory persistence,
+- and evidence that learning was reused.
+
+If an agent cannot show what it learned from failure, it is not really improving. It is just retrying.
+
+## How to set this up in practice
+
+There are two practical patterns here. They are not mutually exclusive, and most mature setups use both.
+
+### Pattern 1: Per-agent retrospective trigger
+
+Give each agent a standing instruction that kicks in when a user flags an issue with the last output. Something like:
+
+> "When the user indicates the previous response was wrong, incomplete, or caused a downstream problem, scan the last 10 exchanges and identify: (1) the earliest point where the error was introduced, (2) what assumption or missing context caused it, (3) the corrective rule to apply going forward. Write that rule to memory before continuing."
+
+What matters in that instruction:
+
+- **Bounded lookback**: scanning everything is expensive and noisy. Ten turns is usually enough to find where the mistake began without blowing up context.
+- **Root cause over patch**: identify the failed assumption, not just the symptom. "I used the wrong variable" is a patch. "I assumed the path was absolute without verifying" is the root cause.
+- **Write to memory before continuing**: persist the rule before the next action, not as an end-of-chat summary. If the session stops early, the learning still exists.
+
+In VS Code with GitHub Copilot, that usually means adding a retrospective protocol to `.github/copilot-instructions.md` or a per-agent `.instructions.md` file.
+
+### Pattern 2: Evaluation agent monitoring the entry point
+
+For higher-stakes or longer-running workflows, add a second agent whose only job is observation. It does not act. It watches.
+
+The evaluation agent sees the same conversation as the primary agent and runs a parallel check on a cadence: every N turns, every tool call, or whenever a flag is raised. Its output is a structured quality signal, not a user-facing reply.
+
+```
+Evaluation agent prompt (simplified):
+
+You are observing a conversation between a user and a primary agent.
+After every 5 assistant turns, produce a brief structured report:
+
+- Any repeated actions that suggest the agent is looping
+- Any contradictions between this turn and earlier turns
+- Any rules in memory that should have applied but did not
+- Confidence that the current trajectory is correct (high / medium / low)
+
+If confidence is low, emit a [REVIEW NEEDED] flag to the orchestrator.
+```
+
+The orchestrator can then pause the primary agent, surface the flag, or trigger the Pattern 1 retrospective flow.
+
+This separation matters. The primary agent is optimized to act. The evaluation agent is optimized to notice. Asking one agent to do both usually means it does neither well.
+
+### Which pattern to use
+
+<div className="not-prose my-6 overflow-hidden rounded-xl border border-slate-700/70">
+    <table className="w-full text-sm">
+        <thead>
+            <tr className="border-b border-slate-700/70 bg-slate-800/60">
+                <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+                    Situation
+                </th>
+                <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+                    Recommended pattern
+                </th>
+            </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-700/50">
+            <tr className="bg-slate-900/40 hover:bg-slate-800/40 transition-colors">
+                <td className="px-5 py-3.5 text-slate-200">
+                    Single agent, conversational workflow
+                </td>
+                <td className="px-5 py-3.5 font-medium text-white">
+                    Per-agent retrospective trigger
+                </td>
+            </tr>
+            <tr className="bg-slate-900/20 hover:bg-slate-800/40 transition-colors">
+                <td className="px-5 py-3.5 text-slate-200">
+                    Multi-step pipeline with tool calls
+                </td>
+                <td className="px-5 py-3.5 font-medium text-white">
+                    Evaluation agent on the orchestrator
+                </td>
+            </tr>
+            <tr className="bg-slate-900/40 hover:bg-slate-800/40 transition-colors">
+                <td className="px-5 py-3.5 text-slate-200">
+                    High-cost actions (deploys, API calls)
+                </td>
+                <td className="px-5 py-3.5 font-medium text-white">
+                    Evaluation agent with a pre-flight gate
+                </td>
+            </tr>
+            <tr className="bg-slate-900/20 hover:bg-slate-800/40 transition-colors">
+                <td className="px-5 py-3.5 text-slate-200">
+                    Low-trust inherited codebase
+                </td>
+                <td className="px-5 py-3.5 font-medium text-white">
+                    Both, with memory written to a shared store
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+If you want a clean starting point, begin with Pattern 1. Add the retrospective instruction today, run it for a week, then decide if you need Pattern 2 as well.
+
+## Closing thought
+
+I am optimistic about this wave of AI-enabled building.
+
+But the workflows that win will not just be fast. They will be the ones that can self-correct, teach, and get more reliable over time.
+
+That is the agentic loop we actually need.
+
+## A visual example
+
+The full practical session is available below as an extracted session with side-by-side chat and analysis output of my personal agentic workflow built using open source models and custom interface.
+
+<ConversationSummaryEmbed
+    title="A visual example: self-regulating loop in practice"
+    description="A complete diagnosis and deploy timeline showing the mistake, correction, and memory rule capture cycle."
+/>

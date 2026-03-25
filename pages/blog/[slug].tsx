@@ -2,6 +2,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import FictionReader from '../../components/FictionReader';
+import ConversationSummaryEmbed from '../../components/ConversationSummaryEmbed';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote';
 import { getAllPostSlugs, getPostContentPages, getPostData } from '../../lib/blog';
@@ -9,7 +10,9 @@ import { getAbsoluteUrl, getSiteUrl, PERSON_NAME } from '../../lib/site';
 import Link from 'next/link';
 import type { BlogPathParams, BlogPostPageProps } from '../../types/site';
 
-const components: any = {};
+const components = {
+  ConversationSummaryEmbed,
+};
 
 export default function BlogPost({ post, mdxSource, paginatedMdxSource }: BlogPostPageProps) {
   const router = useRouter();

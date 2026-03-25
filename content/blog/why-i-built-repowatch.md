@@ -62,3 +62,12 @@ So yes, **repowatch.io** is a product. It is also a marker. A small reminder to 
 If that resonates, or if you are dealing with **inherited codebases**, **rushed builds**, or the odd **vibe-coded app** that somehow became important, **repowatch.io** is live here:
 
 [https://repowatch.io/](https://repowatch.io/)
+
+## Build notes and session timeline
+
+If you want the practical implementation details, I captured the full diagnosis and deployment session below, including the publish timing issue, ISR fix, and what we changed in CI.
+
+<ConversationSummaryEmbed
+	title="How the first RepoWatch blog release was debugged"
+	description="A side-by-side conversation and engineering timeline covering root cause, deploy fixes, and process lessons."
+/>
