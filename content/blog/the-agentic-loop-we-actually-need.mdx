@@ -88,10 +88,11 @@ There are two practical patterns here. They are not mutually exclusive, and most
 
 Give each agent a standing instruction that kicks in when a user flags an issue with the last output. Something like:
 
-> "When the user indicates the previous response was wrong, incomplete, or caused a downstream problem, scan the last 10 exchanges and identify: (1) the earliest point where the error was introduced, (2) what assumption or missing context caused it, (3) the corrective rule to apply going forward. Write that rule to memory before continuing."
+> "When the user indicates the previous response was wrong, incomplete, or caused a downstream problem, first re-read the relevant source files to verify the claim independently. If the original response was correct, say so and explain why. Then scan the last 10 exchanges and identify: (1) the earliest point where the error was introduced, (2) what assumption or missing context caused it, (3) the corrective rule to apply going forward. Write that rule to memory before continuing."
 
 What matters in that instruction:
 
+- **Verify before accepting**: do not assume the user's correction is accurate. Re-read the relevant source file, config, or doc to confirm independently. Without this, the agent will comply with false corrections — we tested this and the agent changed correct documentation to match a wrong claim.
 - **Bounded lookback**: scanning everything is expensive and noisy. Ten turns is usually enough to find where the mistake began without blowing up context.
 - **Root cause over patch**: identify the failed assumption, not just the symptom. "I used the wrong variable" is a patch. "I assumed the path was absolute without verifying" is the root cause.
 - **Write to memory before continuing**: persist the rule before the next action, not as an end-of-chat summary. If the session stops early, the learning still exists.
