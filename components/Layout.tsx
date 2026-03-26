@@ -254,6 +254,30 @@ export default function Layout({
                   <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
                 </svg>
               </a>
+              <a
+                href="https://thegooddeliveryclub.slack.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-white transition-colors"
+                aria-label="The Good Delivery Club Slack workspace"
+              >
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <rect x="10.2" y="2" width="3.6" height="7.4" rx="1.8" fill="#36C5F0" />
+                  <rect x="10.2" y="14.6" width="3.6" height="7.4" rx="1.8" fill="#2EB67D" />
+                  <rect x="2" y="10.2" width="7.4" height="3.6" rx="1.8" fill="#E01E5A" />
+                  <rect x="14.6" y="10.2" width="7.4" height="3.6" rx="1.8" fill="#ECB22E" />
+                  <rect x="4.8" y="4.8" width="3.6" height="8.2" rx="1.8" fill="#E01E5A" />
+                  <rect x="15.6" y="11" width="3.6" height="8.2" rx="1.8" fill="#ECB22E" />
+                  <rect x="11" y="15.6" width="8.2" height="3.6" rx="1.8" fill="#2EB67D" />
+                  <rect x="4.8" y="4.8" width="8.2" height="3.6" rx="1.8" fill="#36C5F0" />
+                </svg>
+              </a>
             </div>
 
             <div className="text-center text-sm text-slate-400">
