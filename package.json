@@ -10,7 +10,8 @@
         "build": "next build",
         "start": "next start",
         "postbuild": "next-sitemap",
-        "test": "vitest run",
+        "typecheck": "tsc --noEmit",
+        "test": "npm run typecheck && vitest run",
         "test:watch": "vitest",
         "test:coverage": "vitest run --coverage"
     },
