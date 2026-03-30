@@ -1,0 +1,154 @@
+---
+title: "The great wait: when delivery outpaces demand"
+author: "Luke Percy"
+date: "2026-03-31"
+excerpt: "Agentic workflows have made delivery fast. The problem is your client has not. They still have meetings to run, approvals to get, and ideas that surface slowly. That gap is costing something."
+description: "When agentic workflows make you 10x faster, your client becomes the bottleneck. A look at idle vendor syndrome: what happens to professional services companies when delivery outpaces demand."
+readingTime: 10 min read
+---
+
+We are spending a lot of time on the supply side of the agentic workflow equation: how to generate faster, build faster, write faster, deliver faster. The productivity numbers are real. A task that took a week can now take a day. A deliverable that needed three rounds of internal review might get out the door in a single session.
+
+I can point to my own experience. In nine days, one developer with a strong background in product engineering took [repowatch.io](https://repowatch.io) from idea to a fully QA'd and tested live product: authentication, a static analysis pipeline, a scoring engine, Stripe billing, a background worker, and a CI/CD pipeline deployed to GCP. That was just the code. The same nine days also produced the marketing site, analytics instrumentation, accessibility audit and remediation, social presence, and the launch content. A capable small team might have matched the core build in four weeks, but the surrounding work would have run in parallel on a separate track, likely longer, and almost certainly not finished at the same time. Everything shipped together. The experience to know what to build and in what order still mattered enormously. What changed was the time it took to actually build it. [I wrote about that week in detail on the Repo Watch blog.](https://repowatch.io/blog/repowatch-week-one-what-we-built)
+
+The predictable pushback is "my team could have built that." Maybe. But agentic workflows do not just make individual tasks faster — they remove the forcing function that makes teams triage. The marketing site waits. The analytics get deferred. The accessibility pass misses the first release. The security audit gets scheduled for "after launch." When you can do all of it in the same window, the question stops being what to cut and starts being what to do next.
+
+That changes the constraint. The traditional calculus of spending months validating a concept before committing to build assumed building was the expensive part. When a full product can ship in nine days, execution is no longer where the cost lives. **Aligning the idea is.** Getting the vendor, the client, and the end users reading the same problem the same way — that is the work that does not compress, and it does not get faster just because delivery did. That is precisely the constraint this whole piece is about.
+
+You are speeding up. Your client has not changed.
+
+## The new bottleneck
+
+When you 10x your output, you do not 10x the demand. You just shift where the friction lives.
+
+Before agentic workflows, the bottleneck in a professional services engagement was often on the vendor side: the analyst was tied up, the design sprint was booked out, the dev team was mid-sprint on something else. Clients waited on you.
+
+That is inverting. Vendors are now capable of outpacing what their clients can meaningfully consume, review, and respond to.
+
+To be clear, this is not entirely new. Experienced teams working with larger organisations have always hit this from time to time: a capable vendor running ahead of a slow-moving client, waiting on sign-off, waiting on the right people to get in a room. That is a familiar frustration. But it was the exception, and it was bounded. The vendor would catch up on other work, re-scope, or simply slow down to match the client's pace. The gap was manageable because it was occasional and relatively narrow.
+
+What agentic workflows change is the scale and the **permanence** of the gap. It is not occasional anymore. It is **structural**. A vendor who has genuinely adopted agentic workflows is not sometimes faster than their client; they are categorically faster, on almost every engagement, all the time. The gap does not narrow when the team tries harder. It widens as agentic workflows mature. A categorically different problem.
+
+The client still has a day job. They still have internal reviews, sign-off chains, stakeholder alignment, and competing priorities. They can only absorb so much, so fast. The ideas feeding your engagement can only surface at the pace of their own thinking and organisational bandwidth.
+
+So the work sits. Delivered but not reviewed. Proposals sent but not actioned. Feedback requested but slow to arrive.
+
+I am calling this: **idle vendor time**.
+
+## What idle vendor time actually costs
+
+It is tempting to think that idle time is just the natural rhythm of client work. That has always been true to some extent. But the idle period used to be symmetric. Both sides were relatively slow and deliberate, and by today's standards they were slow in ways nobody fully appreciated at the time. A senior developer producing a week's worth of considered output was table stakes. That was the ceiling. The symmetry that resulted was not a design choice; it was a constraint that everyone quietly accepted and then built process around.
+
+Agile delivery is the clearest example. The timebox, whether one week, two weeks, or any other cadence the team agrees on, is not arbitrary. It exists because it gives both sides a rhythm: a fixed point in time when the client and vendor can adjourn, review what was built, and make decisions together. Planning, review, refinement, retrospective: the ceremonies are structured around that beat. The sprint length is not primarily about how long the work takes. It is about how long it takes for both sides to process, align, and be ready to decide what comes next.
+
+That context matters, because in most vendor-client engagements, regardless of what the methodology says, the client is not embedded with the team every day. The ideal is a product owner who is present, engaged, and empowered to make fast calls. The reality, especially in mid-to-large organisations, is that the client has their own business to run. They are in meetings. They are managing stakeholders who are not across the details of the engagement. They are navigating approval chains that move at the speed of the organisation, not the speed of the vendor. The **timebox** is not just a delivery tool; it is the mechanism that creates a predictable window when the client can realistically show up.
+
+There is a layer further removed again that rarely gets mentioned: the actual end users. In most engagements the vendor has little to no direct access to them. Feedback from real users is filtered through the client, translated into requirements, prioritised in a backlog, and eventually surfaced in a ceremony. That process had its own latency even before agentic workflows entered the picture. Now the vendor can ship faster than the client can gather user feedback, faster than users can form opinions about what was last released, and faster than anyone can determine whether the previous output actually solved the problem it was meant to solve. Speed without that **feedback loop** is not acceleration. It is just movement.
+
+That worked because vendor delivery speed and client absorption speed were in rough equilibrium. A sprint's worth of work took roughly a sprint to review and digest. The timebox held everything together.
+
+Agentic workflows break that equilibrium. A developer working with agentic workflows can now produce two or three sprints' worth of output inside a single timebox. The code or analysis or content is ready — but the review cycle is still anchored to the next ceremony. Refinement can only happen when the product owner has had time to think. The retrospective still needs people in the room who have processed what happened. The ceremonies and the client's organisational cadence have not changed. Only one side of the equation has shifted.
+
+**Cash flow and capacity.** A professional services company charges for output or time. If you can deliver in two days what used to take two weeks, you have opened up ten days of capacity. But if the client is not feeding you new work at the same rate, that capacity sits unused. You can only invoice what is agreed and delivered. You cannot bill for being faster than your client expected.
+
+**Momentum loss.** The value of fast delivery decays if it is not consumed quickly. A strategy deck delivered on Monday that is not reviewed until Thursday has already lost some of its zip. Context shifts. The team's energy moves on. You do the work twice: once when you deliver it, once when you re-brief the client back into it.
+
+**Relationship strain.** When you are faster than expected, clients can sometimes read that as a signal you underestimated the scope, or that the quality must be lower. Speed has a perception problem when it outpaces expectations. "That was quick" is not always a compliment.
+
+## Ideas are the bottleneck
+
+We have been talking about review cycles, approval chains, and organisational cadence as the bottleneck. They are real constraints. But there is a harder one underneath all of them.
+
+Even if a client had unlimited bandwidth to review and approve, they are still constrained by the pace at which new problems become visible to them. Problems do not queue up neatly. They emerge from experience, from friction, from what breaks, from what changes in the market. You cannot accelerate that process by delivering faster on the last problem. The **idea supply** is the ceiling, and no amount of agentic workflow maturity changes the rate at which a client organisation generates meaningful problems worth solving.
+
+This means the real bottleneck was never the vendor's capacity to deliver. It was always the client's capacity to think, and the end user's capacity to validate. Both operate on **human timescales** that do not compress. Agentic workflows have just made that visible in a way it never was before.
+
+This is the part that professional services companies need to sit with. You are no longer competing on execution speed. Execution speed is table stakes, and it is about to get cheaper for everyone. What you are competing on is idea quality: helping the client see the next problem before they have even articulated it, and framing it in a way that makes the value of pursuing it obvious.
+
+Your value proposition shifts from "we can move fast" to "we can help you figure out what to move fast on."
+
+That shift requires deeper client knowledge, more embedded relationships, and a willingness to slow down the conversation even while you speed up the work. And it connects directly back to pricing: if ideas are the actual scarce resource, then the vendor who surfaces the right idea at the right time is not delivering a service; they are creating an opportunity.
+
+## How vendors survive the idle
+
+My sense is that the models most exposed here are the ones built around volume throughput: charge for time, deliver units of work, repeat. Agentic workflows compress those units, but not the demand. I think the economics get harder unless the engagement model shifts, though exactly how that plays out will vary a lot depending on the client base and the market.
+
+One thing worth paying attention to: some agencies are already restructuring client relationships around retained access and having the "you are buying availability, not a project plan" conversation. Whether that becomes a dominant model or just one option among many, I genuinely do not know. But it seems like a more honest framing of how client demand actually works, and worth factoring into how you position.
+
+But there is a staffing tension underneath the model question that is harder to solve, and it hits differently depending on size.
+
+A large company has the bench to absorb idle time across a portfolio: when one client is slow, another picks up the slack. The aggregate demand smooths out. But that same size creates its own problem: the overhead of carrying a large workforce through the idle periods is still real, and the pressure to keep people utilised pushes companies toward filling time with lower-value work rather than being honest about the wait. The structural answer for large companies has always been headcount management, hiring and firing to match demand cycles. Agentic workflows make that calculus worse, not better, because the burst capacity any one person can deliver is now much higher. You need fewer people at peak, which means even more idle capacity in the troughs.
+
+A small agency has the opposite problem. Lean teams cannot absorb demand spikes that arrive faster than the team can scale. If two clients surface ideas in the same week and both want to move, something waits. The retained availability model sounds ideal, but it only works if the vendor has enough clients retaining them to keep revenue stable, and enough capacity at any given moment to actually jump when called. Getting that ratio right is a genuine business problem, not just a pricing exercise.
+
+My instinct, held loosely, is that **team size probably needs to shrink relative to output** for most professional services businesses. A smaller, highly capable team using agentic workflows can match the output of a much larger team while generating less idle overhead. Fewer people, higher utilisation, less waste in the troughs. Whether that plays out gradually or quickly I am not sure, but the direction feels right to me.
+
+But shrinking the team creates a different risk: a small group of people, no matter how capable, carries a limited pool of ideas. And as we have established, ideas are now the actual constraint. If the bottleneck is the rate at which meaningful problems get identified, a team that thinks similarly (same background, same patterns, same instincts) is going to surface the same kinds of ideas repeatedly.
+
+One direction that makes sense to me, though it is not the only one, is to **structure around diverse experience cells** rather than growing the headcount back.
+
+Rather than a single blended team covering all client work, a company organises into small, specialist groups, each anchored in a different domain, industry, or problem type. A cell focused on regulated industries. A cell built around product-market dynamics. A cell with deep operational transformation experience. Each brings a different lens, a different vocabulary for problems, and a different set of pattern matches from past engagements.
+
+These cells do not need to be large. Two or three people with deep, complementary experience in their domain and access to agentic workflows can produce the output of a team twice their size. The value they provide is not execution capacity; it is **idea surface area**. A client retained across multiple cells gets access to different ways of seeing their business, not just different people doing the same work faster.
+
+The difference is visible the moment a client problem crosses domain boundaries. A two-person cell whose entire background is in regulated financial services will walk into a process review and immediately ask about audit trails, change control, and downstream compliance exposure, questions a generalist sprint team would not think to raise until they were three weeks into the engagement and something broke. That is not a skills gap on the generalist team's part. It is a pattern-matching gap: the regulated cell has seen the failure modes before. That prior knowledge is what justifies the model. You are not paying for more hours. You are paying for a different set of instincts applied to your problem.
+
+This also changes the role of the business itself. The business becomes less of a delivery operation and more of a **network of specialist perspectives**, brought together when a client's problem requires it and standing down when it does not. The idle time is distributed across cells, not concentrated in a single underutilised team. And when a cell is quiet, that time can go into building domain knowledge, market observation, and the kind of slow thinking that eventually surfaces the next valuable idea.
+
+It is a different org structure. Whether it is the right one depends on the business, but it is the shape that seems to fit the constraint most naturally.
+
+A few other patterns worth thinking about:
+
+**Retained availability over project-based engagement.** Perhaps the most honest model for this new dynamic is not selling deliverables at all, but **_selling presence_**. A client who knows they need a capable vendor team available to move fast when an idea surfaces, but who cannot predict exactly when that will be, is really buying **availability**, not output. Six months of retained access to a small team that can execute at speed when the client is ready to direct them. No sprint commitments, no fixed scope, just the guarantee that when the client has the idea and the bandwidth, the vendor is already there and already **context-loaded**. That is a different contract structure, but it maps far more honestly to how client demand actually works than a project plan ever did. The vendor gets predictable revenue and meaningful work in bursts. The client gets **capability on demand** without the procurement overhead of spinning up a new engagement every time.
+
+**Outcome-based pricing over time-based pricing.** If you are billing for results rather than hours, your efficiency gains become margin, not a pricing problem. The client cares about the outcome, not how long it took you. Structural retainers with defined outcome milestones align incentives better than day rates. The honest trade-off is that the vendor absorbs more uncertainty: scope that shifts, outcomes that are harder to define upfront, clients who struggle to articulate what success looks like until they see it. That risk is real. But the calculus has changed: when output is cheap to produce, iteration is cheap too. A vendor can afford to take a swing, learn fast, and adjust in a way that was not economically viable when every hour was a cost. The risk of outcome-based work is lower than it looks when the cost of producing the next version is a fraction of what it used to be.
+
+Which raises a harder question: how do you price an idea? Outcomes are measurable. Ideas are not, at least not before you pursue them. The vendor increasingly sits in a position where the most valuable thing they can offer is identifying the right problem to solve next, not executing on a problem already defined. None of that fits cleanly into a statement of work. Vendors who want to thrive in this environment may need to start thinking about the cost of an idea differently: not just what it costs to build, but what it costs the client to not build it. That framing shifts the conversation from **delivery pricing** to **opportunity pricing**, putting the vendor in a much stronger position than quoting hours.
+
+Beyond the structural shifts above, there are a few things most vendors are already doing in some form, all of them more consequential now than they used to be:
+
+Being present between deliverables rather than absent waiting for the next brief. Turning freed-up capacity into reusable assets: frameworks, templates, playbooks that compound across clients. And having honest conversations with clients who simply cannot consume faster than a certain rate, surfacing that directly rather than treating a slow review cycle as someone else's problem. None of these are new ideas. What has changed is that they are no longer nice-to-haves; they are the minimum table stakes for managing the idle well.
+
+## What this means if you are the client
+
+The flip side is more structurally demanding than it first appears.
+
+If you are buying from a vendor who has adopted agentic workflows, you are about to start receiving things faster. That is good. But the benefit only materialises if you have the internal capacity to act on it, and most client organisations are not built for that yet.
+
+The first challenge is unpredictability. Vendor output no longer arrives in smooth, scheduled increments. A capable team working with agentic workflows can produce in bursts: a week of focused engagement might yield what used to take a month. You cannot plan your review calendar around that the way you could plan around a fortnightly sprint. You will not always know when the deliverable is coming. What you can control is your organisation's ability to respond when it does.
+
+That matters because the window to act is shorter than it used to be. A strategy deck, a working prototype, a complete analysis: all of these decay in value if they sit unread. Context shifts. The vendor's team moves on mentally. Re-engaging costs both sides time and re-briefing overhead. The faster a vendor can deliver, the faster that decay kicks in if you are slow to respond. You will need to move faster than you did before, not because the vendor is demanding it, but because the cost of not moving is higher than it used to be.
+
+The second challenge is internal decision-making infrastructure. Most organisations depend on layers of sign-off that were calibrated to a world where the vendor was also moving slowly. When a capable vendor can return a revised brief or a working prototype in two days, a steering committee that meets fortnightly is not a governance structure; it is a bottleneck. Clients who want to capture the speed benefit need to ask honestly: who in our organisation can receive this, understand it, and make a directional call quickly? That person needs to exist, to be empowered, and to be available.
+
+End users sit even further from the vendor, and in most engagements the client is the conduit. If you cannot gather and relay user feedback quickly, the vendor cannot correct course quickly. The gap between what was shipped and what users actually need widens with every slow review cycle. Faster vendor delivery makes the quality of your feedback loop more consequential, not less.
+
+The third challenge is preparation. The old model allowed for a slow ramp: requirements gathered over weeks, delivery over months, reviews fitted around whatever schedule was convenient. That will not work when your vendor can move in days. Before you engage, you need a clear problem to solve, a named person empowered to make decisions about it, and an honest sense of how quickly your organisation can review and respond. Showing up underprepared to a vendor operating at agentic workflow speed means the early weeks of the engagement are spent waiting — not on the vendor, on you.
+
+Vendors have historically had to sell you on bandwidth ("we have the capacity to take this on"). The new pitch is almost inverted: do you have the capacity to keep up with what we can deliver?
+
+The organisations that answer it well (clear problem framing, empowered reviewers, fast paths to end user feedback) will get disproportionate value from the vendors they work with. The ones that do not will pay for capability that decays before they can use it.
+
+## The shift nobody asked for
+
+Agentic workflows are accelerating the output side of professional services faster than anyone planned for. The demand side has not kept pace, and there is no obvious mechanism that will make it do so.
+
+The productivity gains are genuine. But gains on one side of a two-sided process do not automatically benefit both sides; they redistribute the constraint. The bottleneck does not disappear. It moves.
+
+For decades the bottleneck lived on the vendor side. Clients planned around it. Methodologies were built around it. The sprint, the statement of work, the discovery phase, the retainer structure: all of it was calibrated to a world where the limiting factor was how fast a skilled team could produce output. That world is ending.
+
+The constraint has moved to the client side. It now lives in the pace of problem identification, the speed of internal decision-making, the quality of feedback loops to end users, and the readiness of client organisations to act on what they receive. Those things do not naturally accelerate just because the vendor has. They require deliberate investment: in intake processes, in empowered decision-makers, in tighter access to the people who actually use whatever is being built.
+
+The great wait is the new idle: not the client waiting for the vendor, but the vendor waiting for the client to catch up, with the client needing to catch up faster than ever before.
+
+For vendors, the shift demands a different identity. Delivery organisations that built their value proposition on being fast are about to find that fast is not a differentiator anymore. The opportunity lies upstream: in helping clients see the next problem before they have named it, and in being ready to move the moment the client is. That requires trust and familiarity that does not come from transactional engagements. It comes from being present during the slow periods, not just the active ones.
+
+For clients, the shift is equally structural. The organisations that were comfortable relying on vendors to set the pace are now exposed. The variables that used to be the vendor's problem (how long will this take, when can we realistically deliver, how much can we get through) are now the client's problem: how quickly can we surface the right idea, how fast can we review and decide, how tight is our path back to the people who actually use this?
+
+Vendors that move early will use the idle time well: investing in problem-identification depth, building reusable assets, having honest pacing conversations, and shifting from volume throughput to outcome value. The ones that do not will find themselves fast, capable, and waiting — not on the work, but for someone to tell them what to work on next.
+
+Speed is not the differentiator anymore. Knowing what to be fast about is. And increasingly, so is helping the client be ready when it matters.
+
+---
+
+_AI was used as a writing and editing aid on this piece. The framing, opinions, and conclusions are my own._

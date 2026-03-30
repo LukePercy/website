@@ -54,10 +54,16 @@ export interface HomePageProps {
   repos: RepositorySummary[];
 }
 
+export interface TocEntry {
+  text: string;
+  slug: string;
+}
+
 export interface BlogPostPageProps {
   post: BlogPostSummary;
   mdxSource: MDXRemoteSerializeResult | null;
   paginatedMdxSource: MDXRemoteSerializeResult[];
+  toc: TocEntry[];
 }
 
 export interface FictionReaderProps {
