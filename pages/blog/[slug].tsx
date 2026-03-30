@@ -147,7 +147,7 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps, BlogPathParams['p
     : [];
   const mdxSource = isFiction ? null : await serialize(post.content);
 
-  const toc: TocEntry[] = [...post.content.matchAll(/^##\s+(.+)$/gm)].map((m) => {
+  const toc: TocEntry[] = Array.from(post.content.matchAll(/^##\s+(.+)$/gm)).map((m) => {
     const text = m[1].trim();
     return {
       text,
