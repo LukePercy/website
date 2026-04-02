@@ -17,7 +17,7 @@ const stats: Stat[] = [
     label: 'Revenue generated',
   },
   {
-    number: '100+',
+    number: '140+',
     label: 'Web and Digital Projects',
   },
 ];
