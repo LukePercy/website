@@ -34,7 +34,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-xl sm:text-2xl text-slate-300 mb-12 max-w-2xl">
-          Delivery Lead • Web CMS Specialist • Game Producer & Developer
+          Digital Advisory • Delivery Lead • Web CMS Specialist • Game Producer & Developer
         </p>
 
         <p className="text-lg text-slate-300 mb-12 max-w-2xl leading-relaxed">
