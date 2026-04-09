@@ -14,10 +14,10 @@ function toUnifiedRepo(project: GitLabProject): RepositorySummary {
     source: 'gitlab',
     id: project.id,
     name: project.name,
-    description: project.description,
+    description: project.description ?? null,
     html_url: project.web_url,
-    stargazers_count: project.star_count,
-    forks_count: project.forks_count,
+    stargazers_count: project.star_count ?? 0,
+    forks_count: project.forks_count ?? 0,
     language: null,
   };
 }

@@ -22,7 +22,16 @@ const getLatestRepos = async (data: GitHubReposConfig): Promise<RepositorySummar
 
     const repos = (await response.json()) as RepositorySummary[];
     return Array.isArray(repos)
-      ? repos.slice(0, 6).map((repo) => ({ ...repo, source: 'github' }))
+      ? repos.slice(0, 6).map((repo) => ({
+          source: 'github' as const,
+          id: repo.id,
+          name: repo.name,
+          description: repo.description ?? null,
+          html_url: repo.html_url,
+          language: repo.language ?? null,
+          stargazers_count: repo.stargazers_count ?? 0,
+          forks_count: repo.forks_count ?? 0,
+        }))
       : [];
   } catch (err) {
     console.log(err);
