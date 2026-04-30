@@ -65,7 +65,30 @@ module.exports = {
                             color: theme('colors.slate.500'),
                         },
                         'ol > li::marker': {
-                            color: theme('colors.slate.500'),
+                            color: theme('colors.slate.300'),
+                        },
+                        table: {
+                            width: '100%',
+                        },
+                        thead: {
+                            borderBottomColor: theme('colors.slate.600'),
+                        },
+                        'thead th': {
+                            color: theme('colors.white'),
+                            fontWeight: '600',
+                            paddingTop: '0.75rem',
+                            paddingBottom: '0.75rem',
+                        },
+                        'tbody tr': {
+                            borderBottomColor: theme('colors.slate.700'),
+                        },
+                        'tbody tr:last-child': {
+                            borderBottomWidth: '0',
+                        },
+                        'tbody td': {
+                            color: theme('colors.slate.300'),
+                            paddingTop: '0.625rem',
+                            paddingBottom: '0.625rem',
                         },
                     },
                 },

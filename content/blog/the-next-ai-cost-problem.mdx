@@ -1,0 +1,208 @@
+---
+title: "The next cost problem in AI coding is not the subscription"
+date: "2026-05-01"
+description: "GitHub Copilot is moving to usage-based billing. The real challenge is not the cost — it is learning which AI usage actually delivers value."
+excerpt: "GitHub Copilot is moving to usage-based billing. The real challenge is not the cost — it is learning which AI usage actually delivers value."
+---
+
+GitHub Copilot moving toward usage-based billing feels like one of those small pricing changes that signals something larger.
+
+For the last couple of years, the AI coding conversation has mostly been about speed — faster autocomplete, faster code generation, faster debugging, faster delivery. That has all been real, and I have seen the benefits directly. But the question coming next is going to be less exciting and probably more important: which AI usage is actually worth paying for?
+
+GitHub has announced that monthly Copilot plans will move to GitHub AI Credits from 1 June 2026, with usage calculated from token consumption — input, output, and cached tokens. Code completions and next edit suggestions remain included, but chat, agents, reviews, and longer multi-step workflows are moving into a more visible cost model, and that changes the shape of the conversation considerably. Annual plan holders stay on the existing premium request model until their plan expires, at which point they transition to Copilot Free with the option to move to a monthly paid plan.
+
+Nobody is really arguing about whether Copilot is useful at this point. The harder question is whether teams are using it deliberately.
+
+That said, there are other reasons some teams are re-evaluating their GitHub dependency that sit alongside the billing change. GitHub has had a run of reliability problems over the past year that have been hard to ignore. There is a growing perception — fair or not — that AI product investment has been prioritised while core platform stability has lagged. The recent pausing of self-serve Copilot Business plan purchases, and tightened limits across individual plans, added friction at exactly the moment the platform was asking teams to commit more deeply to a usage-based cost model. And for some organisations, Microsoft's ownership and the direction that implies has quietly moved from background concern to active conversation. None of that makes Copilot a bad choice — the tool itself is genuinely strong — but it is worth naming, because it is part of the context teams are navigating when they make these decisions.
+
+## The subsidy phase is ending
+
+This feels very similar to the cloud pattern. At first, the value proposition was simple: move faster, provision faster, avoid infrastructure drag, let teams get on with the work. Then the bill started to matter — not because cloud stopped being valuable, but because usage became embedded enough that waste started to compound.
+
+AI coding tools are heading the same way. The unit cost of a model may fall over time, but the total bill can still rise because teams find more things to run through it. A quick question becomes a chat thread, which becomes an agent session, which scans the repository, tries a few things, fails a build, retries, explains itself, opens a pull request, and then triggers review. That might be worth it — or it might be a very expensive way to do something a developer could have handled with a good autocomplete, a targeted search, or a clearer repository convention. The cost problem is not AI usage. It is unmanaged AI usage.
+
+## Not all Copilot usage is equal
+
+One of the practical points in GitHub's current model is that code completions and next edit suggestions remain included, while heavier workflows consume credits — and that distinction matters more than it might first appear. A developer accepting an inline suggestion is not the same economic activity as asking an agent to reason across an entire codebase. They both feel like "using Copilot", but operationally they are very different, and treating them as equivalent is where teams start bleeding credits without noticing.
+
+This is where I think teams need a more mature internal posture.
+
+Use inline completion for the small stuff:
+
+- boilerplate
+- simple transformations
+- obvious framework patterns
+- small test scaffolds
+- repetitive glue code
+
+Use chat when there is a specific question:
+
+- where is this handled?
+- what files are involved?
+- what does this error mean?
+- what tests should change?
+
+Use agents when the task is bounded and genuinely benefits from multi-step execution:
+
+- implement this specific change
+- update these files
+- run these validations
+- summarise the risks
+
+The expensive pattern is the vague one:
+
+- “Fix the app.”
+- “Improve this module.”
+- “Refactor the dashboard.”
+- “Make this better.”
+
+Those prompts are not just technically weak — they are financially weak, because they invite exploration, rework, retries, and oversized output.
+
+## The repository is now part of the prompt
+
+One of the more useful things GitHub supports is repository custom instructions — files that give Copilot context on how the project works, how to build it, how to test it, and what "done" looks like. GitHub supports repository-wide instructions in `.github/copilot-instructions.md` and path-specific instructions in `.github/instructions/*.instructions.md`.
+
+This is not just a productivity feature — it is a cost-control feature. Every time an AI assistant has to rediscover your repository, you are paying for avoidable exploration: searching for commands, conventions, test patterns, file structure, CI setup. It is useful the first time. After that, it is just overhead you are paying for on every session.
+
+A good `copilot-instructions.md` should answer the boring questions upfront:
+
+```markdown
+# Repository instructions for GitHub Copilot
+
+## Project summary
+
+This repository is a [brief description]. It is built with [framework/language/runtime].
+
+## Architecture
+
+- `src/` contains application code.
+- `src/components/` contains reusable UI components.
+- `src/server/` contains backend logic.
+- `tests/` contains unit and integration tests.
+- `.github/workflows/` contains CI checks.
+
+## Development commands
+
+- Install dependencies: `npm ci`
+- Run dev server: `npm run dev`
+- Type check: `npm run typecheck`
+- Lint: `npm run lint`
+- Unit tests: `npm test`
+- Full validation before PR: `npm run lint && npm test && npm run build`
+
+## Working rules
+
+- Prefer small, targeted changes.
+- Do not scan the whole repository unless necessary.
+- Use existing patterns before proposing new abstractions.
+- Do not rewrite files unnecessarily.
+- Ask for clarification if the change affects architecture, security, billing, or data migration.
+
+## Validation expectations
+
+Before suggesting a final answer or PR, check:
+
+- relevant unit tests
+- linting
+- type checking
+- build impact
+- migration or configuration changes
+```
+
+That line, "Do not scan the whole repository unless necessary," is doing more work than it first appears — it tells the assistant not to treat every task like a cold start. GitHub's own generated-instructions prompt is pointed in the same direction: reduce failed builds, reduce unnecessary searching, reduce command failures, and help the agent complete work more quickly. That is exactly the kind of discipline teams will need as usage costs become more visible.
+
+## Brevity matters, but not as a gimmick
+
+I came across a small project called Caveman, which takes a deliberately blunt approach: reduce output tokens by making AI responses extremely terse. The project claims an average 65% token reduction across its examples, while noting that it only affects output tokens, not reasoning tokens — and I can see the point. A lot of AI output is too long. It restates the question, explains obvious context, wraps simple answers in motivational padding, and produces polished paragraphs where a few precise bullets would do. That verbosity has a real cost now.
+
+That said, I would be careful about rolling out "caveman mode" literally inside a professional team. The risk is that you save tokens but lose auditability — developers still need to understand the reasoning, especially around security, architecture, data, and production risk. The better version is disciplined technical brevity rather than just terse output for its own sake. A response style instruction like this achieves something similar without sacrificing professionalism:
+
+```markdown
+## Response style
+
+- Be concise.
+- Prefer bullets over prose.
+- Do not restate the question.
+- Do not include conversational filler.
+- For code changes, return:
+    1. Files changed
+    2. Summary of change
+    3. Validation run
+    4. Risks or assumptions
+- Keep explanations short unless more detail is requested.
+```
+
+Less waste, less filler, less token-heavy wandering — but still legible and auditable.
+
+## The real hidden cost is not the AI bill
+
+This is the part I think teams should take seriously. The direct AI bill is only the visible cost — the bigger cost is what happens after the AI produces something. Did it create code that is harder to maintain? Did it introduce a dependency nobody needed? Did it generate tests that assert implementation details rather than behaviour? Did it create an abstraction because the prompt said "make this cleaner", or produce three files of code when a ten-line change would have done? Cheap code generation can become expensive maintenance very quickly.
+
+This is where AI coding needs the same discipline we should already apply to software delivery:
+
+- small changes
+- clear acceptance criteria
+- known validation commands
+- test coverage
+- minimal dependency growth
+- explicit trade-offs
+- human judgement on architecture and security
+
+The goal is not to get the assistant to write more code — it is to get it to create less unnecessary work.
+
+## Suggested team policy
+
+> GitHub Copilot should be used in a way that improves delivery throughput without creating unmanaged AI usage cost or downstream maintenance risk. Developers should prefer inline completions and lightweight models for routine work, use chat for bounded questions, and reserve agents and frontier models for complex tasks where the value justifies the cost. Each repository should maintain Copilot instructions covering architecture, commands, validation, and coding conventions so AI assistance does not repeatedly rediscover the same context.
+
+### A strong operating model
+
+| Use case                            | Preferred mode                 | Cost posture    |
+| ----------------------------------- | ------------------------------ | --------------- |
+| Boilerplate, simple code completion | Inline Copilot                 | Lowest          |
+| Small refactor                      | Inline + light chat            | Low             |
+| "Where is X?" repo question         | Chat with scoped files         | Medium          |
+| Multi-file change                   | Agent with acceptance criteria | Higher          |
+| Architecture/security decision      | Stronger model, human-led      | Justified       |
+| PR review                           | Selective Copilot review       | Watch carefully |
+| Large vague task                    | Avoid                          | High risk       |
+
+## What I would do now
+
+If I was looking at this across a team or portfolio, I would start with five simple moves.
+
+1. **Add repository instructions to every active codebase.** Not as documentation theatre, but as a practical operating guide for AI agents.
+
+2. **Create path-specific instructions for expensive or risky areas:** API, database, authentication, payments, infrastructure, and security-sensitive code.
+
+3. **Set a model-use rule.** Lightweight model first for routine work. Stronger model only when the task justifies it.
+
+4. **Make agent prompts bounded.** One task, clear scope, clear files where possible, clear validation expectations.
+
+5. **Track usage by team, repo, workflow, and outcome.** Not to police developers, but to understand where AI is creating value and where it is just creating activity.
+
+6. **If you are not already looking at local open-source models, now is a good time to start.** Tools like [Ollama](https://ollama.com/) (for running models locally) paired with [Open WebUI](https://openwebui.com/) (a ChatGPT-style interface on top of it) make this surprisingly accessible. For teams on tighter budgets, [LM Studio](https://lmstudio.ai/) is another low-friction option. Local models will not replace cloud-hosted ones for complex agent work, but for routine chat, code explanation, and quick questions, they remove cost entirely and keep sensitive code off external services.
+
+7. **If you want to go further, look at self-hosted agent harnesses like [OpenClaw](https://openclaw.ai/) — but go in with clear expectations.** OpenClaw is an open-source personal agent platform that runs on your own machine and lets you interact with it through WhatsApp, Telegram, Discord, or iMessage. It has persistent memory, scheduled background tasks, browser control, full filesystem and shell access, and the ability to write and install its own skills. Paired with Ollama it can run entirely on local models with no data leaving your machine, which is genuinely interesting for personal productivity and learning agentic workflows. For coding specifically, [Cline](https://github.com/cline/cline) is a lighter alternative — a VS Code extension with similar agentic capabilities scoped to your development environment. The risk profile for either is meaningfully different from chat or inline completion, and it compounds with scope. An always-on agent with filesystem, shell, and messaging access can execute destructive commands, make sweeping changes across unrelated files, act on misinterpreted instructions across communication channels, and compound mistakes across multiple autonomous steps before you notice. OWASP's [Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) flags prompt injection, insecure output handling, and excessive agency as primary concerns for exactly this kind of setup. At minimum: review every proposed action before approval, disable auto-approve and auto-run modes, restrict what directories and commands the agent can touch, and treat any agent with shell access the same way you would treat a new hire with broad system permissions on their first day.
+
+Because without some governance, every developer optimises locally — using the tool in whatever way feels fastest in the moment, which is understandable individually but becomes a cost pattern at team scale. Some of that usage will accelerate delivery, some will create noise, and some will create future maintenance liability. You need to know which is which, and that does not happen without intentional tracking.
+
+## The better question
+
+The answer is not to use Copilot less — that is too blunt a response to a question about deliberate use. The better question is where Copilot produces value that survives contact with the codebase.
+
+Inline suggestions that save a developer from repetitive boilerplate are valuable. A focused chat that helps someone understand a legacy module is valuable. An agent that completes a tightly-scoped change, runs the right checks, and produces a clean pull request can be very valuable. But long exploratory sessions, vague refactors, repeated repository rediscovery, over-written explanations, and unvalidated code generation are not productivity gains just because they feel fast — they are a new form of waste.
+
+The teams that get the most out of AI coding tools will not be the ones that prompt the most. They will be the ones that build enough shared context, repository discipline, and engineering judgement around the tools that each prompt has less work to do. That is the real cost efficiency: not fewer tokens for their own sake, but less waste in the system.
+
+## Resources
+
+- [GitHub Copilot is moving to usage-based billing](https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/) — GitHub Blog
+- [Changes to GitHub Copilot Individual plans](https://github.blog/news-insights/company-news/changes-to-github-copilot-individual-plans/) — paused sign-ups, tightened limits, model availability changes
+- [An update on GitHub availability](https://github.blog/news-insights/company-news/an-update-on-github-availability/) — GitHub CTO on the April incidents and reliability roadmap
+- [Bringing more transparency to GitHub's status page](https://github.blog/news-insights/company-news/bringing-more-transparency-to-githubs-status-page/) — improved incident visibility
+- [About GitHub Copilot usage-based billing](https://docs.github.com/en/copilot/managing-copilot/managing-copilot-as-an-individual-subscriber/managing-your-copilot-plan/about-github-copilot-usage-based-billing) — GitHub Docs
+- [Customising GitHub Copilot in your organisation](https://docs.github.com/en/copilot/customizing-copilot/customizing-github-copilot-in-your-organization) — GitHub Docs
+- [Caveman](https://github.com/unternet-co/caveman) — token reduction via terse AI responses
+- [OpenClaw](https://openclaw.ai/) — open-source self-hosted personal agent platform
+- [Cline](https://github.com/cline/cline) — open-source agentic coding extension for VS Code
+- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) — security risks specific to LLM and agentic systems

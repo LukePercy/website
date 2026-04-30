@@ -5,6 +5,7 @@ import FictionReader from '../../components/FictionReader';
 import ConversationSummaryEmbed from '../../components/ConversationSummaryEmbed';
 import TableOfContents from '../../components/TableOfContents';
 import { serialize } from 'next-mdx-remote/serialize';
+import remarkGfm from 'remark-gfm';
 import { MDXRemote } from 'next-mdx-remote';
 import { getAllPostSlugs, getPostContentPages, getPostData } from '../../lib/blog';
 import { getAbsoluteUrl, getSiteUrl, PERSON_NAME } from '../../lib/site';
@@ -142,12 +143,14 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps, BlogPathParams['p
 
   const post = await getPostData(params.slug);
   const isFiction = post.articleType === 'fiction';
+  const serializeOptions = { mdxOptions: { remarkPlugins: [remarkGfm] } };
   const paginatedMdxSource = isFiction
-    ? await Promise.all(getPostContentPages(post.content).map((page) => serialize(page)))
+    ? await Promise.all(getPostContentPages(post.content).map((page) => serialize(page, serializeOptions)))
     : [];
-  const mdxSource = isFiction ? null : await serialize(post.content);
+  const mdxSource = isFiction ? null : await serialize(post.content, serializeOptions);
 
-  const toc: TocEntry[] = Array.from(post.content.matchAll(/^##\s+(.+)$/gm)).map((m) => {
+  const contentWithoutCodeBlocks = post.content.replace(/^```[\s\S]*?^```/gm, '');
+  const toc: TocEntry[] = Array.from(contentWithoutCodeBlocks.matchAll(/^##\s+(.+)$/gm)).map((m) => {
     const text = m[1].trim();
     return {
       text,
