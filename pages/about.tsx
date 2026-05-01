@@ -127,9 +127,9 @@ export default function About() {
                 Sidhe (PikPok) & Synty Studios • 2000s - 2010s
               </p>
               <p className="text-slate-300">
-                Managed production of 15+ game titles across console, PC, and mobile platforms including
-                Jonah Lomu Rugby Challenge, Shatter, and Star Wars: Clone Wars. Coordinated multi-platform
-                releases and publisher relationships.
+                Managed production of 15+ game titles across console, PC, and mobile platforms. Served as
+                a Producer on Jonah Lomu Rugby Challenge and QA Lead on titles including Shatter, Speed Racer: The Videogame, and
+                Star Wars: Clone Wars. Coordinated multi-platform releases and publisher relationships.
               </p>
             </div>
 
