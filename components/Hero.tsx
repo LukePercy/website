@@ -1,6 +1,7 @@
 import type { MouseEvent } from 'react';
 
-import { CONTACT_EMAIL, PERSON_NAME } from '../lib/site';
+import { PERSON_NAME } from '../lib/site';
+import ContactButton from './ContactButton';
 
 export default function Hero() {
   const scrollToAbout = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -56,12 +57,9 @@ export default function Hero() {
           >
             View My Work
           </a>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="inline-block px-8 py-3 bg-transparent border-2 border-slate-400 hover:bg-slate-700/50 text-white rounded-lg font-medium transition-colors text-center"
-          >
+          <ContactButton className="inline-block px-8 py-3 bg-transparent border-2 border-slate-400 hover:bg-slate-700/50 text-white rounded-lg font-medium transition-colors text-center">
             Get in Touch
-          </a>
+          </ContactButton>
         </div>
       </div>
 

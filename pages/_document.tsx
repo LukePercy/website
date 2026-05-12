@@ -6,7 +6,7 @@ export default class MyDocument extends Document {
     const measurementId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS?.trim();
 
     return (
-      <Html lang="en-NZ">
+      <Html lang="en-NZ" data-scroll-behavior="smooth">
         <Head>
           {measurementId ? (
             <>

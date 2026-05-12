@@ -3,7 +3,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { CONTACT_EMAIL, PERSON_NAME, PERSON_SAME_AS, getSiteUrl } from '../lib/site';
+import { PERSON_NAME, PERSON_SAME_AS, getSiteUrl } from '../lib/site';
+import ContactButton from './ContactButton';
 import type { LayoutProps } from '../types/site';
 
 function mixColor(from: string, to: string, amount: number): string {
@@ -201,12 +202,9 @@ export default function Layout({
               <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
                 Let's connect. Tell me about your project or just say hello.
               </p>
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="inline-block px-8 py-3 bg-slate-100 text-slate-900 hover:bg-white rounded-lg font-medium transition-colors shadow-lg"
-              >
+              <ContactButton className="inline-block px-8 py-3 bg-slate-100 text-slate-900 hover:bg-white rounded-lg font-medium transition-colors shadow-lg">
                 Contact Me
-              </a>
+              </ContactButton>
             </div>
 
             <div className="flex justify-center space-x-6 mb-8">

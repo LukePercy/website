@@ -1,5 +1,6 @@
 import Layout from '../components/Layout';
-import { CONTACT_EMAIL, getAbsoluteUrl, getSiteUrl, PERSON_NAME, PERSON_SAME_AS } from '../lib/site';
+import ContactButton from '../components/ContactButton';
+import { getAbsoluteUrl, getSiteUrl, PERSON_NAME, PERSON_SAME_AS } from '../lib/site';
 
 const skills = [
   'BA in Information Technology',
@@ -162,12 +163,9 @@ export default function About() {
           <p className="text-slate-200 mb-6">
             Interested in collaborating or have a project in mind?
           </p>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="inline-block px-8 py-3 bg-slate-100 hover:bg-white text-slate-900 rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
-          >
+          <ContactButton className="inline-block px-8 py-3 bg-slate-100 hover:bg-white text-slate-900 rounded-lg font-medium transition-colors shadow-md hover:shadow-lg">
             Get in Touch
-          </a>
+          </ContactButton>
         </div>
       </div>
     </Layout>
