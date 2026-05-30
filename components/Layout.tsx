@@ -55,9 +55,19 @@ export default function Layout({
       name: siteName,
       url: siteUrl,
       sameAs: PERSON_SAME_AS,
-      jobTitle: 'Agile Project Manager',
+      jobTitle: 'Delivery Lead, Programme Manager, and Digital Leader',
       description:
-        'Technologist, developer, and project manager with experience across game development, CMS platforms, and government digital services.',
+        'Senior delivery lead and technologist with experience across management, C-suite advisory, digital transformation, CMS platforms, and game development.',
+      knowsAbout: [
+        'Delivery leadership',
+        'Programme management',
+        'Project management',
+        'Digital transformation',
+        'Executive stakeholder management',
+        'C-suite advisory',
+        'Web CMS strategy',
+        'Game production',
+      ],
     },
   ];
 

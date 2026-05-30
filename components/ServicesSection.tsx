@@ -6,33 +6,33 @@ interface Service {
 
 const services: Service[] = [
   {
-    title: 'Agile Project Management',
-    description: 'Outcome-led delivery with continuous discovery, grounded in sustainable Agile values and fast feedback.',
+    title: 'Delivery Leadership & Governance',
+    description: 'Leading delivery with clear governance, practical reporting, and measurable outcomes for teams and senior stakeholders.',
     points: [
-      'Outcome focus and measurable goals',
-      'Transparency, collaboration, and psychological safety',
-      'Continuous improvement and sustainable pace',
-      'Stakeholder alignment and feedback loops',
+      'Project health reporting, estimation, and velocity tracking',
+      'OKRs, KPIs, and outcome-led planning',
+      'Executive reporting and stakeholder alignment',
+      'Risk, dependency, and decision management',
     ],
   },
   {
-    title: 'DXP Implementation & Strategy',
-    description: 'Delivering CMS and DXP platforms with an iterative approach, aligned to user needs and business outcomes.',
+    title: 'CMS, DXP & Portfolio Planning',
+    description: 'Delivering CMS and DXP platforms with governance, roadmap clarity, and portfolio visibility across competing priorities.',
     points: [
       'Umbraco, Drupal, Silverstripe, Squiz DXP',
-      'User-centred delivery and content governance',
-      'Incremental migrations and integration planning',
+      'Content governance and operating model clarity',
+      'Portfolio visibility, capacity planning, and prioritisation',
       'Roadmaps that balance value, risk, and constraints',
     ],
   },
   {
-    title: 'Game Development Leadership',
-    description: 'Leading video game development teams with clear outcomes, fast feedback, and strong cross-discipline alignment.',
+    title: 'Product & Game Delivery Leadership',
+    description: 'Leading product and game delivery with strong cross-functional coordination, risk visibility, and release confidence.',
     points: [
-      'Iterative production planning and delivery',
-      'Cross-functional collaboration across disciplines',
-      'Risk management and release readiness',
-      'Stakeholder communication and expectation management',
+      'Cross-discipline planning and delivery cadence',
+      'RACI models, RAID management, and clear escalation paths',
+      'Stakeholder communication and executive-ready reporting',
+      'Alignment between creative, technical, and commercial goals',
     ],
   },
 ];

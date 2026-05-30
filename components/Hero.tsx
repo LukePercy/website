@@ -35,13 +35,12 @@ export default function Hero() {
         </h1>
 
         <p className="text-xl sm:text-2xl text-slate-300 mb-12 max-w-2xl">
-          Digital Advisory • Delivery Lead • Web CMS Specialist • Game Producer & Developer
+          Digital Advisory • Delivery Leadership • Portfolio Visibility • Web CMS Strategy • Game Production
         </p>
 
         <p className="text-lg text-slate-300 mb-12 max-w-2xl leading-relaxed">
-          With over 20 years in tech, I lead with empathy and clarity to help teams deliver exceptional
-          digital experiences. My approach blends agile practices, stakeholder alignment, and technical
-          expertise across video games, government, and enterprise platforms.
+          With over 20 years in tech, I help teams, management, and executive stakeholders deliver digital outcomes
+          with clearer governance, stronger portfolio visibility, and reporting that turns delivery signals into action.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">

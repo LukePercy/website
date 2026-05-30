@@ -14,8 +14,8 @@ import { getAbsoluteUrl, getSiteUrl, PERSON_NAME, PERSON_SAME_AS } from '../lib/
 import type { HomePageProps } from '../types/site';
 
 export default function Home({ repos }: HomePageProps) {
-  const title = 'L Percy - Technologist, Developer, and Project Manager';
-  const description = 'Welcome to my portfolio showcasing projects and blog posts';
+  const title = 'L Percy - Delivery Lead, Programme Manager, and Digital Leader';
+  const description = 'Senior delivery lead and technologist helping management and C-suite leaders deliver digital transformation, web CMS platforms, product strategy, and game development.';
   const siteUrl = getSiteUrl();
   const pageUrl = getAbsoluteUrl('/');
   const schema = {
@@ -30,7 +30,18 @@ export default function Home({ repos }: HomePageProps) {
       name: PERSON_NAME,
       url: siteUrl,
       sameAs: PERSON_SAME_AS,
-      jobTitle: 'Agile Project Manager',
+      jobTitle: 'Delivery Lead, Digital Advisory Leader, and Technology Leadership',
+      description,
+      knowsAbout: [
+        'Delivery leadership',
+        'Programme management',
+        'Project management',
+        'Digital transformation',
+        'Executive stakeholder management',
+        'Web CMS strategy',
+        'Game production',
+        'Product delivery',
+      ],
     },
   };
 

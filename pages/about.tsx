@@ -6,6 +6,11 @@ const skills = [
   'BA in Information Technology',
   'Agile/Scrum',
   'Kanban',
+  'OKRs and KPIs',
+  'Project Health Reporting',
+  'Risk Registers',
+  'RACI and Governance',
+  'Portfolio Planning',
   'Umbraco',
   'Drupal',
   'Silverstripe',
@@ -22,7 +27,7 @@ const skills = [
 
 export default function About() {
   const title = 'About | Portfolio';
-  const description = 'Learn more about me, my experience, and skills';
+  const description = 'Learn more about my delivery leadership, programme management, governance practice, and experience across digital transformation, CMS platforms, and game development.';
   const siteUrl = getSiteUrl();
   const pageUrl = getAbsoluteUrl('/about');
   const schema = {
@@ -36,8 +41,18 @@ export default function About() {
       '@type': 'Person',
       name: PERSON_NAME,
       url: siteUrl,
-      jobTitle: 'Agile Project Manager',
+      jobTitle: 'Delivery Lead, Programme Manager, and Digital Leader',
       sameAs: PERSON_SAME_AS,
+      knowsAbout: [
+        'Project health measures',
+        'OKRs',
+        'KPIs',
+        'RACI models',
+        'Risk registers',
+        'Portfolio allocation data capture',
+        'Delivery governance',
+        'Digital transformation',
+      ],
     },
   };
 
@@ -52,20 +67,17 @@ export default function About() {
           <h1 className="text-5xl font-bold mb-6">
             About Me
           </h1>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Agile Project Manager, Author, Technology Leader
-          </p>
-        </div>
+          </div>
 
         <div className="prose prose-lg prose-invert max-w-none mb-16">
           <h2 className="text-3xl font-bold mb-4">
             Hello, I'm Luke Percy
           </h2>
           <p className="text-slate-300 mb-4">
-            I'm an experienced Agile Project Manager and Delivery Lead with over 20 years in the technology sector,
+            I'm an experienced Delivery Lead with over 20 years in the technology sector,
             specialising in game development, enterprise CMS platforms, and government digital services.
             I lead with empathy and clarity, creating psychological safety while helping teams deliver value
-            through agile ways of working.
+            through agile ways of working, practical governance, and clear reporting for leadership.
           </p>
           <p className="text-slate-300 mb-4">
             My gaming career includes leadership roles at prominent studios like Sidhe (now PikPok) and
@@ -75,8 +87,11 @@ export default function About() {
             Internal Affairs Common Web Platform.
           </p>
           <p className="text-slate-300 mb-4">
-            Colleagues describe my leadership style as supportive, and people-first. I prioritise coaching,
-            clear communication, and enabling teams to deliver sustainably.
+            Colleagues describe my leadership style as supportive and people-first. I prioritise coaching,
+            clear communication, and enabling teams to deliver sustainably. In practice, that means using
+            delivery measures such as estimation, velocity, OKRs, KPIs, RACI models, risk registers, and
+            portfolio allocation data to turn delivery signals into decisions that teams, senior management,
+            and executive stakeholders can act on.
           </p>
           <p className="text-slate-300 mb-4">
             Beyond technology, I'm also an author. My book, "The Dark That Dwells Beneath Te Aro," is available
@@ -103,6 +118,57 @@ export default function About() {
 
         <div className="mb-16">
           <h2 className="text-3xl font-bold mb-8">
+            Delivery Practice in Action
+          </h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6">
+              <h3 className="text-xl font-bold text-white mb-3">
+                Project health measures
+              </h3>
+              <p className="text-slate-300">
+                I use project health measures to make delivery status visible early: scope confidence, schedule confidence,
+                dependency pressure, team capacity, budget position, and decision latency. That gives leaders a realistic
+                picture of delivery health before issues become escalations.
+              </p>
+            </div>
+
+            <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6">
+              <h3 className="text-xl font-bold text-white mb-3">
+                OKRs and KPIs
+              </h3>
+              <p className="text-slate-300">
+                I connect delivery plans to OKRs and KPIs so teams are not just shipping outputs, but moving measurable
+                outcomes. I use those measures to help management track progress, challenge assumptions, and reset priorities
+                when value is drifting.
+              </p>
+            </div>
+
+            <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6">
+              <h3 className="text-xl font-bold text-white mb-3">
+                RACI and governance clarity
+              </h3>
+              <p className="text-slate-300">
+                I use RACI models to clarify who is responsible, accountable, consulted, and informed across delivery,
+                architecture, content, and executive decision-making. That reduces ambiguity, speeds up approvals, and
+                helps cross-functional teams move with confidence.
+              </p>
+            </div>
+
+            <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6">
+              <h3 className="text-xl font-bold text-white mb-3">
+                Risk registers and portfolio data
+              </h3>
+              <p className="text-slate-300">
+                I maintain risk registers and portfolio allocation data capture to surface delivery risk, investment mix,
+                and capacity constraints. That supports better prioritisation, stronger governance conversations, and a more
+                credible view of what the organisation can deliver next.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold mb-8">
             Career Highlights
           </h2>
           <div className="space-y-8">
@@ -116,7 +182,8 @@ export default function About() {
               <p className="text-slate-300">
                 Led agile transformation and project delivery across gaming, government, and enterprise sectors.
                 Delivered 100+ projects including the NZTA Security Development Lifecycle Tool and Department of
-                Internal Affairs Common Web Platform.
+                Internal Affairs Common Web Platform. Built practical governance rhythms using OKRs, KPIs, delivery
+                health reporting, RAID and risk registers, and portfolio visibility to support informed leadership decisions.
               </p>
             </div>
 
