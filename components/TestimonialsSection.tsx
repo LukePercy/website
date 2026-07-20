@@ -44,33 +44,37 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function TestimonialsSection() {
-  return (
-    <section className="py-20 bg-slate-800/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-white mb-12">
-          What People Say
-        </h2>
+  const [featured, ...supporting] = testimonials;
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <div key={`${testimonial.author}-${testimonial.role}`} className="bg-slate-700/50 p-6 rounded-lg backdrop-blur-sm">
-              <blockquote className="text-slate-200 mb-4 italic">
-                "{testimonial.quote}"
+  return (
+    <section aria-labelledby="testimonials-heading" className="border-t border-slate-200/10 py-20 sm:py-24">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-autumn-orange">Recommendations</p>
+          <h2 id="testimonials-heading" className="text-3xl font-bold text-white sm:text-4xl">What colleagues say</h2>
+        </div>
+
+        <figure className="mx-auto mt-12 max-w-3xl text-center">
+          <blockquote className="text-2xl font-medium leading-relaxed text-white sm:text-3xl">
+            “{featured.quote}”
+          </blockquote>
+          <figcaption className="mt-6 text-sm text-slate-400">
+            <span className="font-semibold text-slate-100">{featured.author}</span>
+            <span className="mx-2" aria-hidden="true">•</span>
+            {featured.role}
+          </figcaption>
+        </figure>
+
+        <div className="mt-14 grid gap-8 border-t border-slate-200/15 pt-10 md:grid-cols-2">
+          {supporting.slice(0, 2).map((testimonial) => (
+            <figure key={`${testimonial.author}-${testimonial.role}`}>
+              <blockquote className="text-lg leading-relaxed text-slate-200">
+                “{testimonial.quote}”
               </blockquote>
-              <div className="text-sm">
-                <div className="font-semibold text-white">
-                  {testimonial.author}
-                </div>
-                <div className="text-slate-400">
-                  {testimonial.role}
-                </div>
-                {testimonial.context && (
-                  <div className="text-slate-400 mt-1">
-                    {testimonial.context}
-                  </div>
-                )}
-              </div>
-            </div>
+              <figcaption className="mt-4 text-sm text-slate-400">
+                <span className="font-semibold text-white">{testimonial.author}</span>, {testimonial.role}
+              </figcaption>
+            </figure>
           ))}
         </div>
       </div>

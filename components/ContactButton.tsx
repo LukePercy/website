@@ -31,17 +31,14 @@ export default function ContactButton({ className, children }: ContactButtonProp
       href={`mailto:${CONTACT_EMAIL}`}
       className={className}
       onClick={handleClick}
-      aria-label={
-        copied
-          ? `Email address ${CONTACT_EMAIL} copied to clipboard`
-          : undefined
-      }
     >
-      {copied ? (
-        <span className="whitespace-nowrap">{CONTACT_EMAIL} — Copied!</span>
-      ) : (
-        children
-      )}
+      <span aria-live="polite" aria-atomic="true">
+        {copied ? (
+          <span className="whitespace-nowrap">{CONTACT_EMAIL} — Copied!</span>
+        ) : (
+          children
+        )}
+      </span>
     </a>
   );
 }

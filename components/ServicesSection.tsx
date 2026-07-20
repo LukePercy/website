@@ -26,8 +26,8 @@ const services: Service[] = [
     ],
   },
   {
-    title: 'Product & Game Delivery Leadership',
-    description: 'Leading product and game delivery with strong cross-functional coordination, risk visibility, and release confidence.',
+    title: 'Product & Interactive Entertainment Delivery',
+    description: 'Leading product and interactive entertainment delivery with strong cross-functional coordination, risk visibility, and release confidence.',
     points: [
       'Cross-discipline planning and delivery cadence',
       'RACI models, RAID management, and clear escalation paths',
@@ -39,30 +39,35 @@ const services: Service[] = [
 
 export default function ServicesSection() {
   return (
-    <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-white mb-4">
-          How I Work
-        </h2>
+    <section id="approach" aria-labelledby="approach-heading" className="scroll-mt-24 border-y border-slate-200/10 py-20 sm:py-24">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-autumn-orange">Approach</p>
+          <h2 id="approach-heading" className="text-3xl font-bold text-white sm:text-4xl">
+            Clarity from strategy through delivery
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed text-slate-300">
+I connect people, evidence, and decisions so teams can move meaningful work forward, even when the path is uncertain.          </p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+        <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
           {services.map((service) => (
-            <div key={service.title} className="space-y-4">
-              <h3 className="text-xl font-bold text-white">
+            <article key={service.title} className="border-t border-slate-200/20 pt-6">
+              <h3 className="text-xl font-bold leading-snug text-white">
                 {service.title}
               </h3>
-              <p className="text-slate-300">
+              <p className="mt-4 leading-relaxed text-slate-300">
                 {service.description}
               </p>
-              <ul className="space-y-2">
+              <ul className="mt-5 space-y-2">
                 {service.points.map((point) => (
                   <li key={point} className="flex items-start text-slate-300">
-                    <span aria-hidden="true" className="text-autumn-orange mr-2">•</span>
-                    <span className="text-sm">{point}</span>
+                    <span aria-hidden="true" className="mr-2 text-autumn-orange">•</span>
+                    <span className="text-sm leading-relaxed">{point}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </article>
           ))}
         </div>
       </div>

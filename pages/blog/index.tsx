@@ -126,7 +126,7 @@ export default function Blog({ posts, articleTypes }: BlogIndexProps) {
                   </Link>
                 </h2>
 
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-400 mb-4">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-300 mb-4">
                   {new Date(post.date).toLocaleDateString('en-NZ', {
                     year: 'numeric',
                     month: 'long',

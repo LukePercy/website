@@ -201,12 +201,6 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .hero-scroll-indicator {
-        animation: none !important;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
     .fiction-page-enter {
         animation: none;
     }
@@ -227,32 +221,6 @@ html {
     }
 }
 
-/* Marquee (respect reduced motion) */
-.marquee {
-    overflow: hidden;
-}
-
-.marquee-track {
-    display: flex;
-    width: max-content;
-    gap: 1rem;
-    will-change: transform;
-    animation: marquee 30s linear infinite;
-}
-
-.marquee-item {
-    flex: 0 0 auto;
-}
-
-@keyframes marquee {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
 @keyframes fiction-page-enter {
     0% {
         opacity: 0;
@@ -262,17 +230,6 @@ html {
     100% {
         opacity: 1;
         transform: translateX(0);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .marquee {
-        overflow-x: auto;
-    }
-
-    .marquee-track {
-        animation: none;
-        transform: none;
     }
 }
 

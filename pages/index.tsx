@@ -2,20 +2,22 @@ import type { GetStaticProps } from 'next';
 
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
-import AboutSection from '../components/AboutSection';
 import StatsSection from '../components/StatsSection';
-import CompaniesMarqueeSection from '../components/CompaniesMarqueeSection';
 import ServicesSection from '../components/ServicesSection';
 import ProjectsSection from '../components/ProjectsSection';
 import TestimonialsSection from '../components/TestimonialsSection';
-import getLatestGithubRepos from '../lib/githubapi/getLatestRepos';
-import getLatestGitLabRepos from '../lib/gitlabapi/getLatestRepos';
+import LatestWritingSection from '../components/LatestWritingSection';
+import { getSortedPostsData } from '../lib/blog';
 import { getAbsoluteUrl, getSiteUrl, PERSON_NAME, PERSON_SAME_AS } from '../lib/site';
-import type { HomePageProps } from '../types/site';
+import type { BlogPostSummary } from '../types/site';
 
-export default function Home({ repos }: HomePageProps) {
+interface HomePageProps {
+  latestPosts: BlogPostSummary[];
+}
+
+export default function Home({ latestPosts }: HomePageProps) {
   const title = 'L Percy - Delivery Lead, Programme Manager, and Digital Leader';
-  const description = 'Senior delivery lead and technologist helping management and C-suite leaders deliver digital transformation, web CMS platforms, product strategy, and game development.';
+  const description = 'Senior delivery lead and technologist helping management and C-suite leaders deliver digital transformation, web CMS platforms, product strategy, and interactive entertainment.';
   const siteUrl = getSiteUrl();
   const pageUrl = getAbsoluteUrl('/');
   const schema = {
@@ -39,7 +41,7 @@ export default function Home({ repos }: HomePageProps) {
         'Digital transformation',
         'Executive stakeholder management',
         'Web CMS strategy',
-        'Game production',
+        'Interactive entertainment',
         'Product delivery',
       ],
     },
@@ -52,28 +54,19 @@ export default function Home({ repos }: HomePageProps) {
       schema={schema}
     >
       <Hero />
-      <AboutSection />
-      <StatsSection />
-      <CompaniesMarqueeSection />
       <ServicesSection />
-      <ProjectsSection repos={repos} />
+      <StatsSection />
+      <ProjectsSection />
       <TestimonialsSection />
+      <LatestWritingSection posts={latestPosts} />
     </Layout>
   );
 }
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  const [githubRepos, gitlabRepos] = await Promise.all([
-    getLatestGithubRepos({
-      githubUsername: process.env.GITHUB_USERNAME || 'yourusername',
-    }),
-    getLatestGitLabRepos(),
-  ]);
-
   return {
     props: {
-      repos: [...githubRepos, ...gitlabRepos],
+      latestPosts: getSortedPostsData().slice(0, 3),
     },
-    revalidate: 3600,
   };
 };

@@ -26,7 +26,7 @@ function mixColor(from: string, to: string, amount: number): string {
 export default function Layout({
   children,
   title = 'Luke Percy - Agile Project Manager',
-  description = 'Experienced Agile Project Manager specialising in game development, CMS platforms, and government digital services',
+  description = 'Experienced Agile Project Manager specialising in interactive entertainment, CMS platforms, and government digital services',
   canonical,
   ogImage,
   ogType = 'website',
@@ -57,7 +57,7 @@ export default function Layout({
       sameAs: PERSON_SAME_AS,
       jobTitle: 'Delivery Lead, Programme Manager, and Digital Leader',
       description:
-        'Senior delivery lead and technologist with experience across management, C-suite advisory, digital transformation, CMS platforms, and game development.',
+        'Senior delivery lead and technologist with experience across management, C-suite advisory, digital transformation, CMS platforms, and interactive entertainment.',
       knowsAbout: [
         'Delivery leadership',
         'Programme management',
@@ -66,7 +66,7 @@ export default function Layout({
         'Executive stakeholder management',
         'C-suite advisory',
         'Web CMS strategy',
-        'Game production',
+        'Interactive entertainment',
       ],
     },
   ];
@@ -160,39 +160,48 @@ export default function Layout({
           className="fixed top-0 w-full bg-slate-900/80 backdrop-blur-sm border-b border-slate-700/50 z-50"
           aria-label="Primary"
         >
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-20">
               <Link
                 href="/"
                 aria-current={router.pathname === '/' ? 'page' : undefined}
-                className={`text-xl font-bold transition-colors ${router.pathname === '/'
-                  ? 'text-white underline decoration-slate-500 underline-offset-4'
-                  : 'text-slate-200 hover:text-white'
-                  }`}
+                className="rounded-sm text-lg font-bold text-white transition-colors hover:text-slate-200 focus-visible:ring-2 focus-visible:ring-autumn-orange"
               >
-                Home
+                Luke Percy
               </Link>
 
-              <div className="flex items-center gap-8">
+              <div className="flex items-center gap-3 text-sm sm:gap-6 sm:text-base">
                 <Link
-                  href="/blog"
-                  aria-current={router.pathname.startsWith('/blog') ? 'page' : undefined}
-                  className={`text-base font-medium px-4 py-2 rounded-full transition-all ${router.pathname.startsWith('/blog')
-                    ? 'bg-slate-800/60 text-white border border-slate-700/50'
-                    : 'text-slate-200 hover:text-white hover:bg-slate-800/60 border border-transparent'
-                    }`}
+                  href="/#projects"
+                  className="hidden rounded-sm font-medium text-slate-200 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-autumn-orange xsm:inline"
                 >
-                  Blog
+                  Work
+                </Link>
+                <Link
+                  href="/#approach"
+                  className="hidden rounded-sm font-medium text-slate-200 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-autumn-orange sm:inline"
+                >
+                  Approach
                 </Link>
                 <Link
                   href="/about"
                   aria-current={router.pathname === '/about' ? 'page' : undefined}
-                  className={`text-base font-medium px-4 py-2 rounded-full transition-all ${router.pathname === '/about'
-                    ? 'bg-slate-800/60 text-white border border-slate-700/50'
-                    : 'text-slate-200 hover:text-white hover:bg-slate-800/60 border border-transparent'
+                  className={`hidden rounded-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-autumn-orange md:inline ${router.pathname === '/about'
+                    ? 'text-white underline decoration-autumn-orange underline-offset-4'
+                    : 'text-slate-200 hover:text-white'
                     }`}
                 >
                   About
+                </Link>
+                <Link
+                  href="/blog"
+                  aria-current={router.pathname.startsWith('/blog') ? 'page' : undefined}
+                  className={`rounded-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-autumn-orange ${router.pathname.startsWith('/blog')
+                    ? 'text-white underline decoration-autumn-orange underline-offset-4'
+                    : 'text-slate-200 hover:text-white'
+                    }`}
+                >
+                  Blog
                 </Link>
               </div>
             </div>
@@ -203,17 +212,18 @@ export default function Layout({
           {children}
         </main>
 
-        <footer className="bg-slate-900/80 backdrop-blur-sm border-t border-slate-700/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold text-white mb-4">
-                Would you like to contact me directly?
-              </h3>
-              <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-                Let's connect. Tell me about your project or just say hello.
+        <footer className="border-t border-slate-700/50 bg-slate-900/80 backdrop-blur-sm">
+          <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto mb-14 max-w-2xl text-center">
+              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-autumn-orange">Get in touch</p>
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">
+                Have a complex delivery challenge?
+              </h2>
+              <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-slate-300">
+                Tell me what you are working through, and we can start with a practical conversation.
               </p>
-              <ContactButton className="inline-block px-8 py-3 bg-slate-100 text-slate-900 hover:bg-white rounded-lg font-medium transition-colors shadow-lg">
-                Contact Me
+              <ContactButton className="mt-8 inline-block rounded-md bg-slate-100 px-7 py-3 font-medium text-slate-900 shadow-lg transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-autumn-orange focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900">
+                Contact me
               </ContactButton>
             </div>
 
@@ -260,30 +270,6 @@ export default function Layout({
                 >
                   <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
                   <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                </svg>
-              </a>
-              <a
-                href="https://thegooddeliveryclub.slack.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors"
-                aria-label="The Good Delivery Club Slack workspace"
-              >
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  className="w-6 h-6"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <rect x="10.2" y="2" width="3.6" height="7.4" rx="1.8" fill="#36C5F0" />
-                  <rect x="10.2" y="14.6" width="3.6" height="7.4" rx="1.8" fill="#2EB67D" />
-                  <rect x="2" y="10.2" width="7.4" height="3.6" rx="1.8" fill="#E01E5A" />
-                  <rect x="14.6" y="10.2" width="7.4" height="3.6" rx="1.8" fill="#ECB22E" />
-                  <rect x="4.8" y="4.8" width="3.6" height="8.2" rx="1.8" fill="#E01E5A" />
-                  <rect x="15.6" y="11" width="3.6" height="8.2" rx="1.8" fill="#ECB22E" />
-                  <rect x="11" y="15.6" width="8.2" height="3.6" rx="1.8" fill="#2EB67D" />
-                  <rect x="4.8" y="4.8" width="8.2" height="3.6" rx="1.8" fill="#36C5F0" />
                 </svg>
               </a>
             </div>
