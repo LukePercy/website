@@ -155,6 +155,7 @@ export default function ProjectsSection() {
                 <p className="text-xs text-slate-400 mb-3">Startup venture</p>
                 <p className="text-slate-300 mb-3">
                   {selectedWork.startup.description} {selectedWork.startup.highlights}{' '}
+                  In collaboration with{' '}
                   <a
                     href={selectedWork.startup.collaborator.url}
                     target="_blank"

@@ -12,14 +12,14 @@ const services: Service[] = [
       'Project health reporting, estimation, and velocity tracking',
       'OKRs, KPIs, and outcome-led planning',
       'Executive reporting and stakeholder alignment',
-      'Risk, dependency, and decision management',
+      'RACI models, RAID management, and clear escalation paths',
     ],
   },
   {
     title: 'CMS, DXP & Portfolio Planning',
     description: 'Delivering CMS and DXP platforms with governance, roadmap clarity, and portfolio visibility across competing priorities.',
     points: [
-      'Umbraco, Drupal, Silverstripe, Squiz DXP',
+      'Platform delivery across Umbraco, Drupal, Silverstripe, and Squiz DXP',
       'Content governance and operating model clarity',
       'Portfolio visibility, capacity planning, and prioritisation',
       'Roadmaps that balance value, risk, and constraints',
@@ -30,9 +30,9 @@ const services: Service[] = [
     description: 'Leading product and interactive entertainment delivery with strong cross-functional coordination, risk visibility, and release confidence.',
     points: [
       'Cross-discipline planning and delivery cadence',
-      'RACI models, RAID management, and clear escalation paths',
-      'Stakeholder communication and executive-ready reporting',
-      'Alignment between creative, technical, and commercial goals',
+      'Product discovery, prioritisation, and iterative delivery',
+      'Release planning, milestone readiness, and production risk',
+      'Video game delivery across pre-production, production, platform submissions, release, and live operations',      'Alignment between creative, technical, and commercial goals',
     ],
   },
 ];

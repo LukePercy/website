@@ -15,6 +15,13 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
+      'Luke is proactive, well organised, and an excellent communicator. Over time he grew from a strong team player into a leader — dedicated, passionate, and highly motivated.',
+    author: 'David Robles 🇦🇺🇪🇸',
+    role: 'APAC Marketing & Communications Director at Bethesda Softworks',
+    context: "14 April 2010 — Luke's client",
+  },
+  {
+    quote:
       'Luke brings great energy and enthusiasm, and is a genuinely productive part of any team.',
     author: 'Andy Macoy',
     role: 'Localisation Manager at PikPok',
@@ -26,13 +33,6 @@ const testimonials: Testimonial[] = [
     author: 'Andy Satterthwaite',
     role: 'Chief Design Officer at PikPok',
     context: '6 December 2011 — managed Luke directly',
-  },
-  {
-    quote:
-      'Luke is proactive, well organised, and an excellent communicator. Over time he grew from a strong team player into a leader — dedicated, passionate, and highly motivated.',
-    author: 'David Robles 🇦🇺🇪🇸',
-    role: 'APAC Marketing & Communications Director at Bethesda Softworks',
-    context: "13 April 2010 — Luke's client",
   },
   {
     quote:
@@ -65,8 +65,8 @@ export default function TestimonialsSection() {
           </figcaption>
         </figure>
 
-        <div className="mt-14 grid gap-8 border-t border-slate-200/15 pt-10 md:grid-cols-2">
-          {supporting.slice(0, 2).map((testimonial) => (
+        <div className="mt-14 grid gap-8 border-t border-slate-200/15 pt-10 md:grid-cols-3">
+          {supporting.slice(0, 3).map((testimonial) => (
             <figure key={`${testimonial.author}-${testimonial.role}`}>
               <blockquote className="text-lg leading-relaxed text-slate-200">
                 “{testimonial.quote}”

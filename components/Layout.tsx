@@ -172,16 +172,16 @@ export default function Layout({
 
               <div className="flex items-center gap-3 text-sm sm:gap-6 sm:text-base">
                 <Link
-                  href="/#projects"
-                  className="hidden rounded-sm font-medium text-slate-200 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-autumn-orange xsm:inline"
-                >
-                  Work
-                </Link>
-                <Link
                   href="/#approach"
                   className="hidden rounded-sm font-medium text-slate-200 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-autumn-orange sm:inline"
                 >
                   Approach
+                </Link>
+                <Link
+                  href="/#projects"
+                  className="hidden rounded-sm font-medium text-slate-200 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-autumn-orange xsm:inline"
+                >
+                  Work
                 </Link>
                 <Link
                   href="/about"

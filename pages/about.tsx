@@ -18,9 +18,11 @@ const expertise = [
 
 const qualifications = [
   'BA in Information Technology',
-  'Diploma in Project Management (Level 4), covering PRINCE2, PMBOK, and PMP-aligned practices',
+  'Stotts Project Management (NCEA Level 4), covering PRINCE2, PMBOK, and PMP',
+  'APMG-International PRINCE2 Practitioner',
   'Certified ScrumMaster (CSM), Scrum Alliance',
   'Professional Scrum Master (PSM), Scrum.org',
+  'ICP-ACC, ICAgile',
 ];
 
 export default function About() {
