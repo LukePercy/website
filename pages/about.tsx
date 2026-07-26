@@ -18,7 +18,7 @@ const expertise = [
 
 const qualifications = [
   'BA in Information Technology',
-  'Stotts Project Management (NCEA Level 4), covering PRINCE2, PMBOK, and PMP',
+  'Certificate in Project Management, covering PRINCE2, PMBOK, and PMP',
   'APMG-International PRINCE2 Practitioner',
   'Certified ScrumMaster (CSM), Scrum Alliance',
   'Professional Scrum Master (PSM), Scrum.org',
